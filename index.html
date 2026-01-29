@@ -553,8 +553,9 @@
             const list = document.getElementById('categories-list');
             list.innerHTML = categories.map(cat => `
                 <div class="flex items-center gap-2 group">
-                    <div class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer">
-                        <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" class="absolute inset-0 w-[150%] h-[150%] -top-1/4 -left-1/4 cursor-pointer p-0 border-0">
+                    <!-- CORRIGIDO: Adicionado style background-color e input opacity-0 -->
+                    <div class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer shadow-sm transition-transform hover:scale-110" style="background-color: ${cat.color}">
+                        <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer p-0 border-0">
                     </div>
                     <input type="text" value="${cat.name}" onchange="updateCategory('${cat.id}', 'name', this.value)" class="flex-1 bg-transparent text-sm text-slate-700 dark:text-slate-200 border-b border-transparent focus:border-brand-500 outline-none px-1 py-0.5 transition-colors" placeholder="Nome">
                     <button onclick="deleteCategory('${cat.id}')" class="text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
