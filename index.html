@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- iOS Web App Meta Tags -->
+    <!-- PWA & Mobile Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FlowTask">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Ícones Gerados via Data URI -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
+    
+    <!-- Manifesto Dinâmico para Instalação Android/PC -->
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwi\
+    c2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3Vu\
+    ZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9z\
+    dmcreG1sOy4uLihnZXJadoIGF1dG9tYXRpY2FtZW50ZSBwZWxvIGxpbmsgYmFpeG8pLi4uIiwic2l6ZXMiOiIxOTJ4MTkyI\
+    iwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
 
-    <title>FlowTask Pro | Customizável</title>
+    <title>FlowTask Pro | Super App</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,16 +32,13 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Configurações Tailwind com Variáveis CSS para Customização -->
+    <!-- Configurações Tailwind -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { 
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'] 
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                     colors: {
                         brand: {
                             50: 'rgb(var(--color-brand-50) / <alpha-value>)',
@@ -62,24 +70,18 @@
     </script>
 
     <style>
-        /* --- VARIÁVEIS GLOBAIS --- */
         :root {
-            /* Cores Padrão (Indigo) */
             --color-brand-50: 238 242 255;
             --color-brand-100: 224 231 255;
             --color-brand-500: 99 102 241;
             --color-brand-600: 79 70 229;
             --color-brand-700: 67 56 202;
-            
             --bg-gradient-from: #6366f1;
             --bg-gradient-to: #a855f7;
-
-            /* Configurações UI */
             --ui-radius: 0.75rem; 
             --ui-font-scale: 1;
         }
 
-        /* --- ESTILOS GERAIS --- */
         body { 
             transition: background-color 0.3s ease; 
             -webkit-tap-highlight-color: transparent; 
@@ -87,53 +89,25 @@
             overscroll-behavior-y: none;
         }
 
-        /* Classes Utilitárias Dinâmicas */
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .dark .glass { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
 
-        .dark .glass {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.2s ease-out;
-            will-change: transform, opacity;
-            border-radius: var(--ui-radius);
-        }
-        
-        .dark .glass-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.2s ease-out; will-change: transform, opacity; border-radius: var(--ui-radius); }
+        .dark .glass-card { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); }
         .glass-card:active { transform: scale(0.98); }
-        @media (min-width: 768px) {
-            .glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); z-index: 10; }
-            .glass-card:active { transform: scale(1); }
-        }
+        @media (min-width: 768px) { .glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); z-index: 10; } .glass-card:active { transform: scale(1); } }
 
         .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
-        /* iOS Reset para Input Date */
         .appearance-none { -webkit-appearance: none; appearance: none; }
         .dark input[type="date"] { color-scheme: dark; }
 
-        /* --- ESTADOS DA TAREFA --- */
         .task-overdue { border-left: 4px solid #f43f5e !important; background: linear-gradient(to right, rgba(244, 63, 94, 0.05), transparent); }
         .task-active { border: 2px solid transparent !important; box-shadow: none !important; background: transparent !important; }
 
         button, input, select { pointer-events: auto; }
 
-        /* --- TIMER --- */
         .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
         .digit { display: inline-block; animation: fallIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
@@ -144,22 +118,18 @@
 
         .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7, #ec4899); background-size: 200% 100%; animation: shimmer 3s infinite linear; }
 
-        /* SIDEBAR SETTINGS */
         #settings-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         #settings-sidebar.closed { transform: translateX(100%); }
 
-        /* Custom Color Picker */
         .color-picker-wrapper { position: relative; overflow: hidden; display: flex; align-items: center; gap: 8px; padding: 4px; border: 1px solid #e2e8f0; border-radius: 9999px; cursor: pointer; transition: all 0.2s; }
         .dark .color-picker-wrapper { border-color: #334155; }
         .color-picker-wrapper:hover { border-color: rgb(var(--color-brand-500)); box-shadow: 0 0 0 2px rgba(var(--color-brand-500), 0.2); }
         .color-preview { width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
         input[type="color"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-        /* Toggle Switch */
         .toggle-checkbox:checked { right: 0; border-color: rgb(var(--color-brand-500)); }
         .toggle-checkbox:checked + .toggle-label { background-color: rgb(var(--color-brand-500)); }
         
-        /* BLOBS */
         .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
         .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
 
@@ -173,6 +143,11 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
 
+    <!-- OFFLINE INDICATOR -->
+    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
+        Você está offline. A IA não funcionará, mas suas tarefas estão salvas.
+    </div>
+
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
         <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
@@ -180,18 +155,30 @@
 
     <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6">
         
-        <header class="flex justify-between items-center mb-4 md:mb-6 shrink-0 pt-2">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-xl shadow-lg shadow-brand-500/30">
+        <header class="flex justify-between items-center mb-4 md:mb-6 shrink-0 pt-2 gap-4">
+            <!-- LOGO & DATE -->
+            <div class="flex items-center gap-3 overflow-hidden">
+                <div class="p-2 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-xl shadow-lg shadow-brand-500/30 shrink-0">
                     <i data-lucide="layers" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
                 </div>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight">FlowTask <span class="text-brand-500">Pro</span></h1>
-                    <p id="date-display" class="text-xs text-slate-500 dark:text-slate-400 font-medium capitalize"></p>
+                <div class="min-w-0">
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight truncate">FlowTask <span class="text-brand-500">Pro</span></h1>
+                    <p id="date-display" class="text-xs text-slate-500 dark:text-slate-400 font-medium capitalize truncate"></p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 md:gap-3">
+            <!-- SEARCH BAR (NOVO) -->
+            <div class="flex-1 max-w-xs hidden sm:block relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Buscar ( / )..." class="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+            </div>
+
+            <div class="flex items-center gap-2 md:gap-3 shrink-0">
+                <!-- Mobile Search Toggle -->
+                <button onclick="document.getElementById('mobile-search').classList.toggle('hidden')" class="sm:hidden p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 active:scale-95">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                </button>
+
                 <button onclick="toggleSettings()" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Personalizar">
                     <i data-lucide="settings" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
                 </button>
@@ -205,6 +192,11 @@
                 </button>
             </div>
         </header>
+
+        <!-- Mobile Search Field -->
+        <div id="mobile-search" class="hidden mb-4 sm:hidden">
+            <input type="text" id="mobile-search-input" onkeyup="renderBoard()" placeholder="Buscar tarefas..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+        </div>
 
         <div class="glass rounded-dynamic p-4 mb-4 md:mb-6 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
             <div class="flex flex-col w-full">
@@ -249,8 +241,9 @@
                     <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
                 </div>
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
-                    <div class="p-4 pb-2">
+                    <div class="p-4 pb-2 flex justify-between items-center">
                         <h2 class="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div> Concluído</h2>
+                        <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors" title="Arquivar Concluídos"><i data-lucide="archive" class="w-3 h-3"></i> Limpar</button>
                     </div>
                     <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
                 </div>
@@ -264,7 +257,32 @@
             <div class="flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Ajustes</h2></div>
             <button onclick="toggleSettings()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><i data-lucide="x"></i></button>
         </div>
+        
         <div class="space-y-8 flex-1">
+            <!-- PWA INSTALL BUTTON (Hidden by default) -->
+            <div id="pwa-install-area" class="hidden">
+                <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
+                    <i data-lucide="download" class="w-4 h-4"></i> Instalar App
+                </button>
+                <hr class="border-slate-200 dark:border-slate-800 mt-6">
+            </div>
+
+            <!-- DATA MANAGEMENT -->
+            <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Dados</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="exportData()" class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                        <i data-lucide="upload" class="w-3 h-3"></i> Backup
+                    </button>
+                    <label class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer">
+                        <i data-lucide="download" class="w-3 h-3"></i> Restaurar
+                        <input type="file" class="hidden" onchange="importData(this)">
+                    </label>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
                 <div class="space-y-4">
@@ -363,12 +381,19 @@
                     </div>
                 </div>
             </section>
+            
+            <div class="pt-4 pb-2">
+                <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Ciclos de Foco Hoje</span>
+                    <span id="pomo-count" class="text-2xl font-bold text-brand-600 dark:text-brand-400">0</span>
+                </div>
+            </div>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.2 • Feito com ❤️</div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.3 • Feito com ❤️</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
-    <!-- MODALS E CANVAS MANTIDOS COMO ANTES (COM CORREÇÕES DE INPUT DATE E CHECKLIST) -->
+    <!-- MODALS E CANVAS -->
     <div id="task-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
@@ -451,7 +476,9 @@
     <canvas id="confetti" class="fixed inset-0 pointer-events-none z-[70]"></canvas>
 
     <script>
-        let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true;
+        let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
+        let pwaPrompt;
+
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
             if(!soundEnabled) return;
@@ -460,16 +487,56 @@
             g.gain.setValueAtTime(0.1, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
+
+        // PWA Install Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            pwaPrompt = e;
+            document.getElementById('pwa-install-area').classList.remove('hidden');
+        });
+
+        async function installPWA() {
+            if (pwaPrompt) {
+                pwaPrompt.prompt();
+                const { outcome } = await pwaPrompt.userChoice;
+                if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden');
+                pwaPrompt = null;
+            }
+        }
+
+        // Notifications
+        if ('Notification' in window) {
+            Notification.requestPermission();
+        }
+
+        // Offline/Online Detection
+        window.addEventListener('offline', () => document.getElementById('offline-indicator').classList.remove('hidden'));
+        window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'n' || e.key === 'N') openModal();
+            if (e.key === 'Escape') { closeModal(); closeDeleteModal(); toggleSettings(); }
+            if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             loadTasks(); setupTheme(); updateDate(); lucide.createIcons();
-            const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
+            // Load Pomodoro Count
+            const pc = localStorage.getItem('pomo_count');
+            if(pc) { pomoCount = parseInt(pc); document.getElementById('pomo-count').innerText = pomoCount; }
+            
+            const h = document.getElementById('hidden-timer-input'); 
+            h.addEventListener('input', handleTimerInput); 
+            h.addEventListener('blur', finishTimerEdit);
         });
+
         function generateId() { return Math.random().toString(36).substr(2, 9); }
         function loadTasks() { 
             const t = localStorage.getItem('flowtask_tasks'); 
             if(t) {
                 tasks = JSON.parse(t);
-                // Migração de dados legados
                 tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; });
             }
             renderBoard(); 
@@ -479,6 +546,41 @@
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
         function updateDate() { document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); }
         
+        // Backup & Restore
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "flowtask_backup.json");
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        function importData(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        tasks = imported;
+                        saveTasks();
+                        alert("Backup restaurado com sucesso!");
+                    } else { alert("Arquivo inválido."); }
+                } catch (err) { alert("Erro ao ler arquivo."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function clearDoneTasks() {
+            if(confirm("Deseja arquivar todas as tarefas concluídas?")) {
+                tasks = tasks.filter(t => t.status !== 'done');
+                saveTasks();
+            }
+        }
+
         function toggleSettings() {
             document.getElementById('settings-sidebar').classList.toggle('closed');
             document.getElementById('settings-overlay').classList.toggle('hidden');
@@ -496,15 +598,21 @@
 
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
         async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
-        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
+        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
         function renderBoard() {
+            const filter = (document.getElementById('search-input').value || document.getElementById('mobile-search-input').value).toLowerCase();
+            
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             const today = new Date().toISOString().split('T')[0];
             let counts = { todo: 0, doing: 0, done: 0 };
             const w = { high: 3, medium: 2, low: 1 };
-            const sorted = [...tasks].sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
+            
+            const sorted = [...tasks]
+                .filter(t => t.title.toLowerCase().includes(filter))
+                .sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
+            
             sorted.forEach(t => {
                 counts[t.status]++;
                 const od = t.dueDate && t.dueDate < today && t.status !== 'done';
@@ -572,14 +680,7 @@
         }
 
         function toggleSubtaskList(e, id) { e.stopPropagation(); expandedTasks.has(id) ? expandedTasks.delete(id) : expandedTasks.add(id); renderBoard(); }
-        
-        function toggleSubtaskCheck(id, idx) { 
-            const t = tasks.find(x => x.id === id); 
-            if(t && t.subtasks) { 
-                t.subtasks[idx].completed = !t.subtasks[idx].completed; 
-                saveTasks(); 
-            } 
-        }
+        function toggleSubtaskCheck(id, idx) { const t = tasks.find(x => x.id === id); if(t && t.subtasks) { t.subtasks[idx].completed = !t.subtasks[idx].completed; saveTasks(); } }
         
         function requestDelete(e, id) { if(e) e.stopPropagation(); taskToDeleteId = id; document.getElementById('delete-modal').classList.remove('hidden'); }
         function closeDeleteModal() { document.getElementById('delete-modal').classList.add('hidden'); taskToDeleteId = null; }
@@ -591,6 +692,7 @@
             if(t) { 
                 t.status = 'done'; 
                 if(t.subtasks) t.subtasks.forEach(s => s.completed = true);
+                if(navigator.vibrate) navigator.vibrate(50); // Feedback Tátil
                 saveTasks(); 
                 fireConfetti(); 
             } 
@@ -629,6 +731,7 @@
                 t.status = status; 
                 if(status === 'done') {
                     if(t.subtasks) t.subtasks.forEach(s => s.completed = true);
+                    if(navigator.vibrate) navigator.vibrate(50);
                     fireConfetti(); 
                 }
                 saveTasks(); 
@@ -643,7 +746,7 @@
         function finishTimerEdit() { if(!isEditingTimer) return; const m = parseInt((timerDigits[0]||'0') + (timerDigits[1]||'0')); const s = parseInt((timerDigits[2]||'0') + (timerDigits[3]||'0')); const t = m*60 + s; if(t > 0) { initialTime = t; timeLeft = t; } else { initialTime = 25*60; timeLeft = initialTime; } isEditingTimer = false; updateTimerDisplay(); document.getElementById('timer-status').innerText = "Personalizado"; }
         function updateTimerEditUI() { const d = timerDigits; let html = ''; for(let i=0; i<4; i++) { if(i===2) html += '<span class="mx-1 text-white/50 pb-2">:</span>'; html += `<span class="timer-slot ${d.length===i ? 'active' : ''} ${!d[i] ? 'empty' : ''}">${d[i]||'0'}</span>`; } document.getElementById('timer-display').innerHTML = html; }
         function toggleTimer() { isTimerRunning ? stopTimer() : startTimer(); }
-        function startTimer() { isTimerRunning = true; document.getElementById('timer-status').innerText = "Foco total!"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); timerInterval = setInterval(() => { if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } else { stopTimer(); playBeep(); fireConfetti(); document.getElementById('timer-status').innerText = "Ciclo Concluído!"; document.getElementById('timer-display').classList.add('animate-pulse'); } }, 1000); }
+        function startTimer() { isTimerRunning = true; document.getElementById('timer-status').innerText = "Foco total!"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); timerInterval = setInterval(() => { if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } else { stopTimer(); playBeep(); fireConfetti(); if(navigator.vibrate) navigator.vibrate([100, 50, 100]); if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); pomoCount++; localStorage.setItem('pomo_count', pomoCount); document.getElementById('pomo-count').innerText = pomoCount; document.getElementById('timer-status').innerText = "Ciclo Concluído!"; document.getElementById('timer-display').classList.add('animate-pulse'); } }, 1000); }
         function stopTimer() { isTimerRunning = false; clearInterval(timerInterval); document.getElementById('timer-status').innerText = "Pausado"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); document.getElementById('timer-display').classList.remove('animate-pulse'); }
         function resetTimer() { stopTimer(); timeLeft = initialTime; updateTimerDisplay(); }
         function updateTimerDisplay() { if(isEditingTimer) return; const m = Math.floor(timeLeft/60).toString().padStart(2,'0'); const s = (timeLeft%60).toString().padStart(2,'0'); const str = m + ":" + s; let html = ''; for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`; document.getElementById('timer-display').innerHTML = html; const circle = document.getElementById('timer-circle'); const dash = circle.r.baseVal.value * 2 * Math.PI; const offset = dash - (timeLeft/initialTime) * dash; circle.style.strokeDashoffset = offset; }
