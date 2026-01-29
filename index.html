@@ -14,7 +14,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <!-- Manifesto Dinâmico para Instalação Android/PC -->
+    <!-- Manifesto Dinâmico -->
     <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwi\
     c2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3Vu\
     ZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9z\
@@ -167,14 +167,13 @@
                 </div>
             </div>
 
-            <!-- SEARCH BAR (NOVO) -->
+            <!-- SEARCH BAR -->
             <div class="flex-1 max-w-xs hidden sm:block relative">
                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
                 <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Buscar ( / )..." class="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all">
             </div>
 
             <div class="flex items-center gap-2 md:gap-3 shrink-0">
-                <!-- Mobile Search Toggle -->
                 <button onclick="document.getElementById('mobile-search').classList.toggle('hidden')" class="sm:hidden p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 active:scale-95">
                     <i data-lucide="search" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
                 </button>
@@ -259,6 +258,19 @@
         </div>
         
         <div class="space-y-8 flex-1">
+            <!-- CATEGORIAS (NOVA SEÇÃO) -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
+                    <button onclick="addCategory()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">+ Nova</button>
+                </div>
+                <div id="categories-list" class="space-y-3">
+                    <!-- Gerado via JS -->
+                </div>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
             <!-- PWA INSTALL BUTTON (Hidden by default) -->
             <div id="pwa-install-area" class="hidden">
                 <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
@@ -389,7 +401,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.3 • Feito com ❤️</div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.4 • Feito com ❤️</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
@@ -407,7 +419,7 @@
                         </div>
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
                             <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prazo Final</label><input type="date" id="task-due-date" class="w-full form-input-fixed appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white transition-all cursor-pointer text-sm font-medium" style="min-height: 42px;"></div>
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"><option value="Trabalho">Trabalho</option><option value="Pessoal">Pessoal</option><option value="Estudo">Estudo</option><option value="Saúde">Saúde</option></select></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"><!-- Dynamic --></select></div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
@@ -478,6 +490,14 @@
     <script>
         let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
+        
+        // Categoria State
+        let categories = [
+            { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
+            { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
+            { id: 'cat_3', name: 'Estudo', color: '#f59e0b' },
+            { id: 'cat_4', name: 'Saúde', color: '#10b981' }
+        ];
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
@@ -488,32 +508,15 @@
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
 
-        // PWA Install Prompt
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            pwaPrompt = e;
-            document.getElementById('pwa-install-area').classList.remove('hidden');
+            e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden');
         });
-
         async function installPWA() {
-            if (pwaPrompt) {
-                pwaPrompt.prompt();
-                const { outcome } = await pwaPrompt.userChoice;
-                if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden');
-                pwaPrompt = null;
-            }
+            if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; }
         }
-
-        // Notifications
-        if ('Notification' in window) {
-            Notification.requestPermission();
-        }
-
-        // Offline/Online Detection
+        if ('Notification' in window) Notification.requestPermission();
         window.addEventListener('offline', () => document.getElementById('offline-indicator').classList.remove('hidden'));
         window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
-
-        // Keyboard Shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             if (e.key === 'n' || e.key === 'N') openModal();
@@ -522,79 +525,91 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadTasks(); setupTheme(); updateDate(); lucide.createIcons();
-            // Load Pomodoro Count
+            loadTasks(); loadCategories(); setupTheme(); updateDate(); lucide.createIcons();
             const pc = localStorage.getItem('pomo_count');
             if(pc) { pomoCount = parseInt(pc); document.getElementById('pomo-count').innerText = pomoCount; }
-            
-            const h = document.getElementById('hidden-timer-input'); 
-            h.addEventListener('input', handleTimerInput); 
-            h.addEventListener('blur', finishTimerEdit);
+            const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
-        function loadTasks() { 
-            const t = localStorage.getItem('flowtask_tasks'); 
-            if(t) {
-                tasks = JSON.parse(t);
-                tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; });
-            }
-            renderBoard(); 
-        }
+        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) { tasks = JSON.parse(t); tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; }); } renderBoard(); }
         function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
         function setupTheme() { if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); }
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
         function updateDate() { document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); }
         
-        // Backup & Restore
-        function exportData() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "flowtask_backup.json");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
+        // --- CATEGORY LOGIC ---
+        function loadCategories() {
+            const saved = localStorage.getItem('flowtask_categories');
+            if(saved) categories = JSON.parse(saved);
+            renderCategoriesSettings();
         }
-
-        function importData(input) {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (Array.isArray(imported)) {
-                        tasks = imported;
-                        saveTasks();
-                        alert("Backup restaurado com sucesso!");
-                    } else { alert("Arquivo inválido."); }
-                } catch (err) { alert("Erro ao ler arquivo."); }
-            };
-            reader.readAsText(file);
+        function saveCategories() {
+            localStorage.setItem('flowtask_categories', JSON.stringify(categories));
+            renderCategoriesSettings();
+            renderBoard(); // Update colors on board
         }
-
-        function clearDoneTasks() {
-            if(confirm("Deseja arquivar todas as tarefas concluídas?")) {
-                tasks = tasks.filter(t => t.status !== 'done');
-                saveTasks();
+        function renderCategoriesSettings() {
+            const list = document.getElementById('categories-list');
+            list.innerHTML = categories.map(cat => `
+                <div class="flex items-center gap-2 group">
+                    <div class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" class="absolute inset-0 w-[150%] h-[150%] -top-1/4 -left-1/4 cursor-pointer p-0 border-0">
+                    </div>
+                    <input type="text" value="${cat.name}" onchange="updateCategory('${cat.id}', 'name', this.value)" class="flex-1 bg-transparent text-sm text-slate-700 dark:text-slate-200 border-b border-transparent focus:border-brand-500 outline-none px-1 py-0.5 transition-colors" placeholder="Nome">
+                    <button onclick="deleteCategory('${cat.id}')" class="text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+        function addCategory() {
+            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            categories.push({ id: generateId(), name: 'Nova Categoria', color: randomColor });
+            saveCategories();
+        }
+        function updateCategory(id, field, value) {
+            const cat = categories.find(c => c.id === id);
+            if(cat) {
+                if(field === 'name') {
+                    // Update tasks with old name to new name
+                    const oldName = cat.name;
+                    cat.name = value;
+                    tasks.forEach(t => { if(t.category === oldName) t.category = value; });
+                    saveTasks();
+                } else {
+                    cat[field] = value;
+                }
+                saveCategories();
             }
         }
-
-        function toggleSettings() {
-            document.getElementById('settings-sidebar').classList.toggle('closed');
-            document.getElementById('settings-overlay').classList.toggle('hidden');
+        function deleteCategory(id) {
+            if(categories.length <= 1) { alert("Você precisa de pelo menos uma categoria."); return; }
+            if(confirm("Excluir esta categoria?")) {
+                categories = categories.filter(c => c.id !== id);
+                saveCategories();
+            }
         }
+        
+        function renderTaskModalCategories() {
+            const select = document.getElementById('task-category');
+            if(!select) return;
+            select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+        }
+
+        // Backup & Restore
+        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
+        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
+        function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
+
+        function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
         function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; document.getElementById('brand-preview').style.backgroundColor = hex; const p = document.getElementById('custom-brand-picker'); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById('brand-hex-input'); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); } }
         function setBlobColor(n, hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const v = n===1?'--bg-gradient-from':'--bg-gradient-to'; document.documentElement.style.setProperty(v, hex); document.getElementById(`blob${n}-preview`).style.backgroundColor = hex; const p = document.getElementById(`blob${n}-picker`); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById(`blob${n}-hex-input`); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); }
         function setRadius(s) { document.documentElement.style.setProperty('--ui-radius', s); }
         function setFontScale(s) { document.documentElement.style.setProperty('--ui-font-scale', s); }
         function toggleSound(c) { soundEnabled = c; }
-        function toggleMotion(c) { 
-            if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } 
-            else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } 
-        }
+        function toggleMotion(c) { if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } }
 
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
         async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
@@ -602,16 +617,12 @@
 
         function renderBoard() {
             const filter = (document.getElementById('search-input').value || document.getElementById('mobile-search-input').value).toLowerCase();
-            
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             const today = new Date().toISOString().split('T')[0];
             let counts = { todo: 0, doing: 0, done: 0 };
             const w = { high: 3, medium: 2, low: 1 };
-            
-            const sorted = [...tasks]
-                .filter(t => t.title.toLowerCase().includes(filter))
-                .sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
+            const sorted = [...tasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
             
             sorted.forEach(t => {
                 counts[t.status]++;
@@ -628,6 +639,10 @@
             const d = document.createElement('div');
             const act = t.status === 'doing';
             const exp = expandedTasks.has(t.id);
+            // Get Category Color
+            const catObj = categories.find(c => c.name === t.category);
+            const catColor = catObj ? catObj.color : '#64748b'; // Fallback slate-500
+
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
             d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); };
@@ -655,10 +670,16 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
+            // Style category badge with dynamic color
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
-                    <div class="flex justify-between items-start"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700/50">${t.category}</span>${!act ? acts : ''}</div>
+                    <div class="flex justify-between items-start">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border" style="color: ${catColor}; border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">
+                            ${t.category}
+                        </span>
+                        ${!act ? acts : ''}
+                    </div>
                     <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6">${t.title}</h3>
                     ${dh}
                     ${total > 0 ? `
@@ -681,26 +702,15 @@
 
         function toggleSubtaskList(e, id) { e.stopPropagation(); expandedTasks.has(id) ? expandedTasks.delete(id) : expandedTasks.add(id); renderBoard(); }
         function toggleSubtaskCheck(id, idx) { const t = tasks.find(x => x.id === id); if(t && t.subtasks) { t.subtasks[idx].completed = !t.subtasks[idx].completed; saveTasks(); } }
-        
         function requestDelete(e, id) { if(e) e.stopPropagation(); taskToDeleteId = id; document.getElementById('delete-modal').classList.remove('hidden'); }
         function closeDeleteModal() { document.getElementById('delete-modal').classList.add('hidden'); taskToDeleteId = null; }
         function confirmDelete() { if (taskToDeleteId) { tasks = tasks.filter(t => t.id !== taskToDeleteId); saveTasks(); closeDeleteModal(); } }
-        
-        function completeTask(e, id) { 
-            if(e) e.stopPropagation(); 
-            const t = tasks.find(t => t.id === id); 
-            if(t) { 
-                t.status = 'done'; 
-                if(t.subtasks) t.subtasks.forEach(s => s.completed = true);
-                if(navigator.vibrate) navigator.vibrate(50); // Feedback Tátil
-                saveTasks(); 
-                fireConfetti(); 
-            } 
-        }
+        function completeTask(e, id) { if(e) e.stopPropagation(); const t = tasks.find(t => t.id === id); if(t) { t.status = 'done'; if(t.subtasks) t.subtasks.forEach(s => s.completed = true); saveTasks(); fireConfetti(); } }
 
         function openModal(id = null) {
             const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
             const form = document.getElementById('task-form');
+            renderTaskModalCategories(); // Populate Select
             if(id) {
                 const t = tasks.find(x => x.id === id);
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
@@ -719,24 +729,9 @@
         function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
         function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
-        
         function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
         function allowDrop(e) { e.preventDefault(); }
-        
-        function drop(e, status) { 
-            e.preventDefault(); 
-            const id = e.dataTransfer.getData("text"); 
-            const t = tasks.find(x => x.id === id); 
-            if(t && t.status !== status) { 
-                t.status = status; 
-                if(status === 'done') {
-                    if(t.subtasks) t.subtasks.forEach(s => s.completed = true);
-                    if(navigator.vibrate) navigator.vibrate(50);
-                    fireConfetti(); 
-                }
-                saveTasks(); 
-            } 
-        }
+        function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { if(t.subtasks) t.subtasks.forEach(s => s.completed = true); fireConfetti(); } saveTasks(); } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
         function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; }
