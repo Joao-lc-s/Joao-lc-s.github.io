@@ -219,12 +219,12 @@
                 <div class="text-center flex-1 sm:flex-none">
                     <p id="count-done" class="text-lg md:text-xl font-bold text-emerald-500">0</p>
                     <p class="text-[10px] text-slate-500 uppercase tracking-wider">Feito</p>
-                </div>
-            </div>
-        </div>
-
+        <!-- Kanban Board -->
         <div class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
-            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
+            <!-- ADICIONADO: 'pr-8 md:pr-0' para criar espaço extra no final e permitir o snap centralizar -->
+            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0 pr-8 md:pr-0">
+                
+                <!-- Column: To Do -->
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
                         <h2 class="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div> A Fazer</h2>
@@ -765,3 +765,4 @@
     </script>
 </body>
 </html>
+            
