@@ -10,29 +10,21 @@
     <meta name="apple-mobile-web-app-title" content="FlowTask">
     <meta name="theme-color" content="#6366f1">
     
-    <!-- Ícones Gerados via Data URI -->
+    <!-- Ícones -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <!-- Manifesto Dinâmico -->
-    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwi\
-    c2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3Vu\
-    ZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9z\
-    dmcreG1sOy4uLihnZXJadoIGF1dG9tYXRpY2FtZW50ZSBwZWxvIGxpbmsgYmFpeG8pLi4uIiwic2l6ZXMiOiIxOTJ4MTkyI\
-    iwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    <link rel="manifest" href='data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwic2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sOy4uLiIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ=='>
 
-    <title>FlowTask Pro | Super App</title>
+    <title>FlowTask Pro | Cloud Sync</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Configurações Tailwind -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -90,7 +82,6 @@
         }
 
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
-
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
         .dark .glass { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
 
@@ -145,7 +136,7 @@
 
     <!-- OFFLINE INDICATOR -->
     <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
-        Você está offline. A IA não funcionará, mas suas tarefas estão salvas.
+        Você está offline. A sincronização foi pausada.
     </div>
 
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -162,7 +153,7 @@
                     <i data-lucide="layers" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
                 </div>
                 <div class="min-w-0">
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight truncate">FlowTask <span class="text-brand-500">Pro</span></h1>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight truncate">FlowTask <span class="text-brand-500">Cloud</span></h1>
                     <p id="date-display" class="text-xs text-slate-500 dark:text-slate-400 font-medium capitalize truncate"></p>
                 </div>
             </div>
@@ -224,14 +215,14 @@
         </div>
 
         <div class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
-            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
+            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0 pr-10 md:pr-0">
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
                         <h2 class="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div> A Fazer</h2>
                     </div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center" style="margin-right: 20px;">
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
                         <h2 class="font-semibold text-brand-600 dark:text-brand-500 flex items-center gap-2">
                             <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Andamento
@@ -258,42 +249,22 @@
         </div>
         
         <div class="space-y-8 flex-1">
-            <!-- CATEGORIAS (NOVA SEÇÃO) -->
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
                     <button onclick="addCategory()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">+ Nova</button>
                 </div>
-                <div id="categories-list" class="space-y-3">
-                    <!-- Gerado via JS -->
-                </div>
+                <div id="categories-list" class="space-y-3"></div>
             </section>
 
             <hr class="border-slate-200 dark:border-slate-800">
 
-            <!-- PWA INSTALL BUTTON (Hidden by default) -->
             <div id="pwa-install-area" class="hidden">
                 <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
                     <i data-lucide="download" class="w-4 h-4"></i> Instalar App
                 </button>
                 <hr class="border-slate-200 dark:border-slate-800 mt-6">
             </div>
-
-            <!-- DATA MANAGEMENT -->
-            <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Dados</h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="exportData()" class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                        <i data-lucide="upload" class="w-3 h-3"></i> Backup
-                    </button>
-                    <label class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer">
-                        <i data-lucide="download" class="w-3 h-3"></i> Restaurar
-                        <input type="file" class="hidden" onchange="importData(this)">
-                    </label>
-                </div>
-            </section>
-
-            <hr class="border-slate-200 dark:border-slate-800">
 
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
@@ -351,57 +322,15 @@
                     </div>
                 </div>
             </section>
-            <hr class="border-slate-200 dark:border-slate-800">
-            <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Interface</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bordas</span>
-                        <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-                            <button onclick="setRadius('0.25rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-sm"></div></button>
-                            <button onclick="setRadius('0.75rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-md"></div></button>
-                            <button onclick="setRadius('1.5rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-full"></div></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Fonte</span>
-                        <div class="flex items-center gap-2">
-                            <button onclick="setFontScale(0.9)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A-</button>
-                            <button onclick="setFontScale(1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A</button>
-                            <button onclick="setFontScale(1.1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-lg font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A+</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <hr class="border-slate-200 dark:border-slate-800">
-            <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sistema</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i> Sons</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-sound" class="sr-only peer" checked onchange="toggleSound(this.checked)">
-                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-                        </label>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><i data-lucide="zap-off" class="w-4 h-4 text-slate-400"></i> Reduzir Animações</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-motion" class="sr-only peer" onchange="toggleMotion(this.checked)">
-                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-                        </label>
-                    </div>
-                </div>
-            </section>
             
             <div class="pt-4 pb-2">
                 <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
-                    <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Ciclos de Foco Hoje</span>
-                    <span id="pomo-count" class="text-2xl font-bold text-brand-600 dark:text-brand-400">0</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Status de Conexão</span>
+                    <span id="sync-status" class="text-xs font-bold text-emerald-500 flex items-center justify-center gap-1"><i data-lucide="cloud" class="w-3 h-3"></i> Online</span>
                 </div>
             </div>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.4 • Feito com ❤️</div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v3.0 • Cloud Sync</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
@@ -485,20 +414,216 @@
         </div>
     </div>
 
-    <canvas id="confetti" class="fixed inset-0 pointer-events-none z-[70]"></canvas>
+    <!-- FIREBASE MODULE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, doc, getDoc, onSnapshot, addDoc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
+        // CONFIG & INIT
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Environment App ID
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        let currentUser = null;
+
+        // AUTH & INIT
+        async function initAuth() {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUser = user;
+                    console.log("Firebase Connected. User:", currentUser.uid);
+                    setupListeners();
+                } else {
+                    currentUser = null;
+                }
+            });
+
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth Error:", error);
+                document.getElementById('sync-status').innerHTML = '<span class="text-rose-500 flex items-center gap-1"><i data-lucide="wifi-off" class="w-3 h-3"></i> Offline</span>';
+            }
+        }
+
+        function setupListeners() {
+            if (!currentUser) return;
+
+            // TASKS LISTENER (Real-time Sync)
+            // Path: /artifacts/{appId}/public/data/tasks
+            const tasksRef = collection(db, 'artifacts', appId, 'public', 'data', 'tasks');
+            
+            onSnapshot(tasksRef, (snapshot) => {
+                window.tasks = []; // Clear local array
+                snapshot.forEach(doc => {
+                    window.tasks.push({ id: doc.id, ...doc.data() });
+                });
+                window.renderBoard();
+                document.getElementById('sync-status').innerHTML = '<span class="text-emerald-500 flex items-center gap-1"><i data-lucide="cloud" class="w-3 h-3"></i> Online</span>';
+                lucide.createIcons();
+            }, (error) => {
+                console.error("Snapshot Error:", error);
+            });
+
+            // CATEGORIES LISTENER
+            const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
+            onSnapshot(catRef, (doc) => {
+                if (doc.exists()) {
+                    window.categories = doc.data().list;
+                    window.renderCategoriesSettings();
+                    window.renderBoard(); // Update colors
+                } else {
+                    // Initialize if empty
+                    const defaultCats = [
+                        { id: 'c1', name: 'Trabalho', color: '#6366f1' },
+                        { id: 'c2', name: 'Pessoal', color: '#ec4899' },
+                        { id: 'c3', name: 'Estudo', color: '#f59e0b' },
+                        { id: 'c4', name: 'Saúde', color: '#10b981' }
+                    ];
+                    setDoc(catRef, { list: defaultCats });
+                }
+            });
+        }
+
+        // --- GLOBAL EXPORTS FOR UI ---
+        // Replacing local localStorage functions with Firestore calls
+
+        window.saveTasks = function() {
+            // No-op. Firestore listeners handle local state. 
+            // We use specific write functions below.
+        };
+
+        // SAVE TASK (Add/Update)
+        window.saveTask = async function(e) {
+            e.preventDefault();
+            const form = document.getElementById('task-form');
+            const data = {
+                title: document.getElementById('task-title').value,
+                category: document.getElementById('task-category').value,
+                dueDate: document.getElementById('task-due-date').value,
+                priority: document.querySelector('input[name="priority"]:checked').value,
+                subtasks: window.tempSubtasks,
+                // Status defaults to 'todo' for new, preserves for edit
+                status: window.currentEditingId ? window.tasks.find(t=>t.id===window.currentEditingId).status : 'todo'
+            };
+
+            if (window.currentEditingId) {
+                // Update
+                const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', window.currentEditingId);
+                await updateDoc(taskRef, data);
+            } else {
+                // Add
+                const tasksRef = collection(db, 'artifacts', appId, 'public', 'data', 'tasks');
+                await addDoc(tasksRef, { ...data, createdAt: new Date().toISOString() });
+            }
+            closeModal();
+        };
+
+        // DELETE TASK
+        window.confirmDelete = async function() {
+            if (window.taskToDeleteId) {
+                const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', window.taskToDeleteId);
+                await deleteDoc(taskRef);
+                closeDeleteModal();
+            }
+        };
+
+        // UPDATE STATUS (Drag Drop / Complete)
+        window.drop = async function(e, newStatus) {
+            e.preventDefault();
+            const id = e.dataTransfer.getData("text");
+            const task = window.tasks.find(x => x.id === id);
+            
+            if (task && task.status !== newStatus) {
+                const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id);
+                let updateData = { status: newStatus };
+                
+                // Auto-complete subtasks if moved to done
+                if (newStatus === 'done' && task.subtasks) {
+                    const completedSubs = task.subtasks.map(s => ({...s, completed: true}));
+                    updateData.subtasks = completedSubs;
+                    window.fireConfetti();
+                }
+                
+                await updateDoc(taskRef, updateData);
+            }
+        };
+
+        window.completeTask = async function(e, id) {
+            if(e) e.stopPropagation();
+            const task = window.tasks.find(t => t.id === id);
+            if (task) {
+                const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', id);
+                let completedSubs = task.subtasks ? task.subtasks.map(s => ({...s, completed: true})) : [];
+                await updateDoc(taskRef, { status: 'done', subtasks: completedSubs });
+                window.fireConfetti();
+            }
+        };
+
+        // TOGGLE SUBTASK
+        window.toggleSubtaskCheck = async function(taskId, subIndex) {
+            const task = window.tasks.find(t => t.id === taskId);
+            if (task) {
+                // Clone array to modify
+                const newSubtasks = [...task.subtasks];
+                newSubtasks[subIndex].completed = !newSubtasks[subIndex].completed;
+                
+                const taskRef = doc(db, 'artifacts', appId, 'public', 'data', 'tasks', taskId);
+                await updateDoc(taskRef, { subtasks: newSubtasks });
+            }
+        };
+
+        // CATEGORIES (Firestore)
+        window.addCategory = function() {
+            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const newCat = { id: Math.random().toString(36).substr(2,9), name: 'Nova Categoria', color: randomColor };
+            
+            const newCategories = [...window.categories, newCat];
+            const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
+            setDoc(catRef, { list: newCategories });
+        };
+
+        window.deleteCategory = function(id) {
+            if(window.categories.length <= 1) { alert("Mínimo 1 categoria."); return; }
+            if(confirm("Excluir?")) {
+                const newCategories = window.categories.filter(c => c.id !== id);
+                const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
+                setDoc(catRef, { list: newCategories });
+            }
+        };
+
+        // Separate function to update DB without UI flicker logic inside the module
+        window.saveCategoriesToDB = function(newCats) {
+            const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
+            setDoc(catRef, { list: newCats });
+        }
+
+        // Start Auth
+        initAuth();
+
+    </script>
+
+    <!-- UI LOGIC (Non-Firebase) -->
     <script>
-        let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
+        // UI State Vars (tasks/categories populated by module above)
+        let tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
         
-        // Categoria State
-        let categories = [
-            { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
-            { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
-            { id: 'cat_3', name: 'Estudo', color: '#f59e0b' },
-            { id: 'cat_4', name: 'Saúde', color: '#10b981' }
-        ];
+        // Initial Empty State to prevent render errors before DB loads
+        window.tasks = [];
+        window.categories = [];
 
+        // Audio
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
             if(!soundEnabled) return;
@@ -508,60 +633,39 @@
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden');
-        });
-        async function installPWA() {
-            if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; }
-        }
+        // Standard Event Listeners
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden'); });
+        async function installPWA() { if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; } }
         if ('Notification' in window) Notification.requestPermission();
         window.addEventListener('offline', () => document.getElementById('offline-indicator').classList.remove('hidden'));
         window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key === 'n' || e.key === 'N') openModal();
-            if (e.key === 'Escape') { closeModal(); closeDeleteModal(); toggleSettings(); }
-            if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
-        });
+        document.addEventListener('keydown', (e) => { if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return; if (e.key === 'n' || e.key === 'N') openModal(); if (e.key === 'Escape') { closeModal(); closeDeleteModal(); toggleSettings(); } if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); } });
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadTasks(); loadCategories(); setupTheme(); updateDate(); lucide.createIcons();
-            const pc = localStorage.getItem('pomo_count');
-            if(pc) { pomoCount = parseInt(pc); document.getElementById('pomo-count').innerText = pomoCount; }
+            setupTheme(); updateDate(); lucide.createIcons();
+            const pc = localStorage.getItem('pomo_count'); if(pc) { pomoCount = parseInt(pc); document.getElementById('pomo-count').innerText = pomoCount; }
             const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
+        // UI Helpers
         function generateId() { return Math.random().toString(36).substr(2, 9); }
-        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) { tasks = JSON.parse(t); tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; }); } renderBoard(); }
-        function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
         function setupTheme() { if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); }
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
         function updateDate() { document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); }
-        
-        // --- CATEGORY LOGIC ---
-        function loadCategories() {
-            const saved = localStorage.getItem('flowtask_categories');
-            if(saved) categories = JSON.parse(saved);
-            renderCategoriesSettings();
-        }
-        
-        function saveCategories() {
-            localStorage.setItem('flowtask_categories', JSON.stringify(categories));
-            renderCategoriesSettings();
-            renderBoard(); 
-        }
+        function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
+        function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
+        function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; document.getElementById('brand-preview').style.backgroundColor = hex; const p = document.getElementById('custom-brand-picker'); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById('brand-hex-input'); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); } }
+        function setBlobColor(n, hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const v = n===1?'--bg-gradient-from':'--bg-gradient-to'; document.documentElement.style.setProperty(v, hex); document.getElementById(`blob${n}-preview`).style.backgroundColor = hex; const p = document.getElementById(`blob${n}-picker`); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById(`blob${n}-hex-input`); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); }
+        function setRadius(s) { document.documentElement.style.setProperty('--ui-radius', s); }
+        function setFontScale(s) { document.documentElement.style.setProperty('--ui-font-scale', s); }
+        function toggleSound(c) { soundEnabled = c; }
+        function toggleMotion(c) { if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } }
 
-        // Função separada para salvar sem recriar a lista (corrige o bug do seletor fechando)
-        function persistCategoriesOnly() {
-            localStorage.setItem('flowtask_categories', JSON.stringify(categories));
-            renderBoard();
-        }
-
+        // Category UI Updates
         function renderCategoriesSettings() {
             const list = document.getElementById('categories-list');
-            list.innerHTML = categories.map(cat => `
+            list.innerHTML = window.categories.map(cat => `
                 <div class="flex items-center gap-2 group">
-                    <!-- CORRIGIDO: ID único para atualização direta, z-10 no input e stopPropagation -->
                     <div id="cat-color-box-${cat.id}" class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer shadow-sm transition-transform hover:scale-110" style="background-color: ${cat.color}">
                         <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" onclick="event.stopPropagation()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer p-0 border-0 z-10">
                     </div>
@@ -572,65 +676,26 @@
             lucide.createIcons();
         }
 
-        function addCategory() {
-            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            categories.push({ id: generateId(), name: 'Nova Categoria', color: randomColor });
-            saveCategories();
-        }
-
         function updateCategory(id, field, value) {
-            const cat = categories.find(c => c.id === id);
+            const cat = window.categories.find(c => c.id === id);
             if(cat) {
-                if(field === 'name') {
-                    const oldName = cat.name;
-                    cat.name = value;
-                    tasks.forEach(t => { if(t.category === oldName) t.category = value; });
-                    saveTasks(); 
-                    // Para nome, podemos recriar a lista para garantir consistência
-                    saveCategories(); 
-                } else if (field === 'color') {
-                    cat[field] = value;
-                    // CORREÇÃO CRÍTICA: Atualiza apenas o estilo do elemento, não recria o HTML
+                cat[field] = value;
+                if(field === 'color') {
                     const colorBox = document.getElementById(`cat-color-box-${id}`);
                     if(colorBox) colorBox.style.backgroundColor = value;
-                    persistCategoriesOnly(); // Salva no storage e atualiza o quadro, mas mantém o menu de configurações intacto
                 }
+                // Call Firebase save via window
+                window.saveCategoriesToDB(window.categories);
             }
         }
 
-        function deleteCategory(id) {
-            if(categories.length <= 1) { alert("Você precisa de pelo menos uma categoria."); return; }
-            if(confirm("Excluir esta categoria?")) {
-                categories = categories.filter(c => c.id !== id);
-                saveCategories();
-            }
-        }
-        
         function renderTaskModalCategories() {
             const select = document.getElementById('task-category');
             if(!select) return;
-            select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            select.innerHTML = window.categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
         }
 
-        // Backup & Restore
-        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
-        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
-        function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
-
-        function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
-        function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
-        function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; document.getElementById('brand-preview').style.backgroundColor = hex; const p = document.getElementById('custom-brand-picker'); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById('brand-hex-input'); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); } }
-        function setBlobColor(n, hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const v = n===1?'--bg-gradient-from':'--bg-gradient-to'; document.documentElement.style.setProperty(v, hex); document.getElementById(`blob${n}-preview`).style.backgroundColor = hex; const p = document.getElementById(`blob${n}-picker`); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById(`blob${n}-hex-input`); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); }
-        function setRadius(s) { document.documentElement.style.setProperty('--ui-radius', s); }
-        function setFontScale(s) { document.documentElement.style.setProperty('--ui-font-scale', s); }
-        function toggleSound(c) { soundEnabled = c; }
-        function toggleMotion(c) { if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } }
-
-        async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
-        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
-        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
-
+        // Render Board
         function renderBoard() {
             const filter = (document.getElementById('search-input').value || document.getElementById('mobile-search-input').value).toLowerCase();
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
@@ -638,7 +703,10 @@
             const today = new Date().toISOString().split('T')[0];
             let counts = { todo: 0, doing: 0, done: 0 };
             const w = { high: 3, medium: 2, low: 1 };
-            const sorted = [...tasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
+            
+            const sorted = [...window.tasks]
+                .filter(t => t.title.toLowerCase().includes(filter))
+                .sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
             
             sorted.forEach(t => {
                 counts[t.status]++;
@@ -646,7 +714,7 @@
                 cols[t.status].appendChild(createCard(t, od));
             });
             document.getElementById('count-todo').innerText = counts.todo; document.getElementById('count-doing').innerText = counts.doing; document.getElementById('count-done').innerText = counts.done;
-            const total = tasks.length; const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
+            const total = window.tasks.length; const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
             document.getElementById('progress-text').innerText = `${p}%`; document.getElementById('progress-bar').style.width = `${p}%`;
             lucide.createIcons();
         }
@@ -655,9 +723,8 @@
             const d = document.createElement('div');
             const act = t.status === 'doing';
             const exp = expandedTasks.has(t.id);
-            // Get Category Color
-            const catObj = categories.find(c => c.name === t.category);
-            const catColor = catObj ? catObj.color : '#64748b'; // Fallback slate-500
+            const catObj = window.categories.find(c => c.name === t.category);
+            const catColor = catObj ? catObj.color : '#64748b'; 
 
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
@@ -726,9 +793,9 @@
         function openModal(id = null) {
             const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
             const form = document.getElementById('task-form');
-            renderTaskModalCategories(); // Populate Select
+            renderTaskModalCategories();
             if(id) {
-                const t = tasks.find(x => x.id === id);
+                const t = window.tasks.find(x => x.id === id);
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
                 document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
                 document.getElementById('task-due-date').value = t.dueDate || '';
@@ -745,11 +812,20 @@
         function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
         function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
-        function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
         function allowDrop(e) { e.preventDefault(); }
-        function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { if(t.subtasks) t.subtasks.forEach(s => s.completed = true); fireConfetti(); } saveTasks(); } }
+        
+        // Backup (Same as before)
+        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks:window.tasks, categories:window.categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
+        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { window.tasks = d.tasks; window.saveTasks(); } if(d.categories) { window.categories = d.categories; window.saveCategoriesToDB(d.categories); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
+        function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { window.tasks.forEach(t => { if(t.status === 'done') window.requestDelete(null, t.id); }); } }
 
-        function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
+        // Gemini AI Wrapper
+        async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
+        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
+        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
+
+        // Timer Logic
+        function openPomodoro(id) { const t = window.tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
         function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; }
         function setTimerDuration(m) { stopTimer(); initialTime = m * 60; timeLeft = initialTime; document.querySelectorAll('.timer-btn').forEach(b => { if(parseInt(b.dataset.time)===m) { b.classList.add('bg-brand-600','text-white'); b.classList.remove('text-slate-300'); } else { b.classList.remove('bg-brand-600','text-white'); b.classList.add('text-slate-300'); } }); updateTimerDisplay(); }
         function startTimerEdit() { if(isTimerRunning) stopTimer(); isEditingTimer = true; timerDigits = []; updateTimerEditUI(); const inp = document.getElementById('hidden-timer-input'); inp.value = ''; inp.focus(); document.getElementById('timer-status').innerText = "Digite..."; }
