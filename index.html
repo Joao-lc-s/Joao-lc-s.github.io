@@ -10,22 +10,29 @@
     <meta name="apple-mobile-web-app-title" content="FlowTask">
     <meta name="theme-color" content="#6366f1">
     
-    <!-- Ícones -->
+    <!-- Ícones Gerados via Data URI -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <!-- Manifesto (Corrigido e Formatado) -->
-    <link rel="manifest" href='data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwic2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sOy4uLiIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ=='>
+    <!-- Manifesto Dinâmico -->
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwi\
+    c2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3Vu\
+    ZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9z\
+    dmcreG1sOy4uLihnZXJadoIGF1dG9tYXRpY2FtZW50ZSBwZWxvIGxpbmsgYmFpeG8pLi4uIiwic2l6ZXMiOiIxOTJ4MTkyI\
+    iwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
 
     <title>FlowTask Pro | Super App</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Fonts -->
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Configurações Tailwind -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -83,6 +90,7 @@
         }
 
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
+
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
         .dark .glass { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
 
@@ -215,10 +223,8 @@
             </div>
         </div>
 
-        <!-- Kanban Board -->
-        <!-- ADICIONADO: pr-10 para garantir o snap da última coluna -->
         <div class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
-            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0 pr-10 md:pr-0">
+            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
                         <h2 class="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div> A Fazer</h2>
@@ -252,7 +258,7 @@
         </div>
         
         <div class="space-y-8 flex-1">
-            <!-- CATEGORIAS -->
+            <!-- CATEGORIAS (NOVA SEÇÃO) -->
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
@@ -265,7 +271,7 @@
 
             <hr class="border-slate-200 dark:border-slate-800">
 
-            <!-- PWA INSTALL -->
+            <!-- PWA INSTALL BUTTON (Hidden by default) -->
             <div id="pwa-install-area" class="hidden">
                 <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
                     <i data-lucide="download" class="w-4 h-4"></i> Instalar App
@@ -485,6 +491,7 @@
         let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
         
+        // Categoria State
         let categories = [
             { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
             { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
@@ -531,6 +538,7 @@
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
         function updateDate() { document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); }
         
+        // --- CATEGORY LOGIC ---
         function loadCategories() {
             const saved = localStorage.getItem('flowtask_categories');
             if(saved) categories = JSON.parse(saved);
@@ -543,6 +551,7 @@
             renderBoard(); 
         }
 
+        // Função separada para salvar sem recriar a lista (corrige o bug do seletor fechando)
         function persistCategoriesOnly() {
             localStorage.setItem('flowtask_categories', JSON.stringify(categories));
             renderBoard();
@@ -552,6 +561,7 @@
             const list = document.getElementById('categories-list');
             list.innerHTML = categories.map(cat => `
                 <div class="flex items-center gap-2 group">
+                    <!-- CORRIGIDO: ID único para atualização direta, z-10 no input e stopPropagation -->
                     <div id="cat-color-box-${cat.id}" class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer shadow-sm transition-transform hover:scale-110" style="background-color: ${cat.color}">
                         <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" onclick="event.stopPropagation()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer p-0 border-0 z-10">
                     </div>
@@ -577,12 +587,14 @@
                     cat.name = value;
                     tasks.forEach(t => { if(t.category === oldName) t.category = value; });
                     saveTasks(); 
+                    // Para nome, podemos recriar a lista para garantir consistência
                     saveCategories(); 
                 } else if (field === 'color') {
                     cat[field] = value;
+                    // CORREÇÃO CRÍTICA: Atualiza apenas o estilo do elemento, não recria o HTML
                     const colorBox = document.getElementById(`cat-color-box-${id}`);
                     if(colorBox) colorBox.style.backgroundColor = value;
-                    persistCategoriesOnly(); 
+                    persistCategoriesOnly(); // Salva no storage e atualiza o quadro, mas mantém o menu de configurações intacto
                 }
             }
         }
@@ -601,6 +613,7 @@
             select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
         }
 
+        // Backup & Restore
         function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
         function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
         function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
@@ -642,8 +655,9 @@
             const d = document.createElement('div');
             const act = t.status === 'doing';
             const exp = expandedTasks.has(t.id);
+            // Get Category Color
             const catObj = categories.find(c => c.name === t.category);
-            const catColor = catObj ? catObj.color : '#64748b'; 
+            const catColor = catObj ? catObj.color : '#64748b'; // Fallback slate-500
 
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
@@ -672,6 +686,7 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
+            // Style category badge with dynamic color
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
