@@ -1,1 +1,1139 @@
-# Joao-lc-s.github.io
+<!DOCTYPE html>
+<html lang="pt-BR" class="antialiased">
+<head>
+    <meta charset="UTF-8">
+    <!-- Ajuste viewport-fit=cover para lidar com o Notch do iPhone -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- iOS Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FlowTask">
+    
+    <!-- Ícone para Home Screen (Gerado via Data URI SVG para ser self-contained) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
+
+    <title>FlowTask Pro | Customizável</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Configurações Tailwind com Variáveis CSS para Customização -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'] 
+                    },
+                    colors: {
+                        brand: {
+                            50: 'rgb(var(--color-brand-50) / <alpha-value>)',
+                            100: 'rgb(var(--color-brand-100) / <alpha-value>)',
+                            500: 'rgb(var(--color-brand-500) / <alpha-value>)',
+                            600: 'rgb(var(--color-brand-600) / <alpha-value>)',
+                            700: 'rgb(var(--color-brand-700) / <alpha-value>)',
+                        },
+                        dark: { 800: '#1e293b', 900: '#0f172a' }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'pop': 'popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'fall-in': 'fallIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                    },
+                    keyframes: {
+                        slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        slideIn: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+                        popIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+                        fallIn: { '0%': { opacity: '0', transform: 'translateY(-15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- VARIÁVEIS GLOBAIS --- */
+        :root {
+            /* Cores Padrão (Indigo) */
+            --color-brand-50: 238 242 255;
+            --color-brand-100: 224 231 255;
+            --color-brand-500: 99 102 241;
+            --color-brand-600: 79 70 229;
+            --color-brand-700: 67 56 202;
+            
+            --bg-gradient-from: #6366f1;
+            --bg-gradient-to: #a855f7;
+
+            /* Configurações UI */
+            --ui-radius: 0.75rem; /* rounded-xl default */
+            --ui-font-scale: 1;
+        }
+
+        /* --- ESTILOS GERAIS --- */
+        body { 
+            transition: background-color 0.3s ease; 
+            -webkit-tap-highlight-color: transparent; 
+            font-size: calc(16px * var(--ui-font-scale));
+            /* Previne o bounce effect no iOS ao rolar além do limite */
+            overscroll-behavior-y: none;
+        }
+
+        /* Classes Utilitárias Dinâmicas */
+        .rounded-dynamic { border-radius: var(--ui-radius) !important; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .dark .glass {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease-out;
+            will-change: transform, opacity;
+            border-radius: var(--ui-radius);
+        }
+        
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:active { transform: scale(0.98); }
+        @media (min-width: 768px) {
+            .glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); z-index: 10; }
+            .glass-card:active { transform: scale(1); }
+        }
+
+        .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .dark input[type="date"] { color-scheme: dark; }
+
+        /* --- ESTADOS DA TAREFA --- */
+        .task-overdue { border-left: 4px solid #f43f5e !important; background: linear-gradient(to right, rgba(244, 63, 94, 0.05), transparent); }
+        .task-active { border: 2px solid transparent !important; box-shadow: none !important; background: transparent !important; } /* Reset active style to match others */
+
+        button, input, select { pointer-events: auto; }
+
+        /* --- TIMER --- */
+        .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
+        .digit { display: inline-block; animation: fallIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
+        .timer-slot { display: inline-flex; justify-content: center; align-items: center; width: 0.6em; height: 1em; margin: 0 2px; border-bottom: 2px solid transparent; color: white; }
+        .timer-slot.active { border-bottom-color: rgb(var(--color-brand-500)); animation: blinkBorder 1s infinite; }
+        .timer-slot.empty { color: rgba(255,255,255,0.2); }
+        @keyframes blinkBorder { 0%, 100% { border-color: rgb(var(--color-brand-500)); } 50% { border-color: transparent; } }
+
+        .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7, #ec4899); background-size: 200% 100%; animation: shimmer 3s infinite linear; }
+
+        /* SIDEBAR SETTINGS */
+        #settings-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        #settings-sidebar.closed { transform: translateX(100%); }
+
+        /* Custom Color Picker Styling */
+        .color-picker-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            border: 1px solid #e2e8f0;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dark .color-picker-wrapper {
+            border-color: #334155;
+        }
+        .color-picker-wrapper:hover {
+            border-color: rgb(var(--color-brand-500));
+            box-shadow: 0 0 0 2px rgba(var(--color-brand-500), 0.2);
+        }
+        .color-preview {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+        }
+        input[type="color"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: rgb(var(--color-brand-500));
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: rgb(var(--color-brand-500));
+        }
+        
+        /* BLOBS */
+        .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
+        .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
+
+        .snap-x-mandatory { scroll-snap-type: x mandatory; }
+        .snap-center { scroll-snap-align: center; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
+</head>
+<!-- pt-[env(safe-area-inset-top)] adicionado para respeitar o notch no modo PWA -->
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
+
+    <!-- Background Gradient (Cores Dinâmicas) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
+        <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6">
+        
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-4 md:mb-6 shrink-0 pt-2">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-xl shadow-lg shadow-brand-500/30">
+                    <i data-lucide="layers" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight">FlowTask <span class="text-brand-500">Pro</span></h1>
+                    <p id="date-display" class="text-xs text-slate-500 dark:text-slate-400 font-medium capitalize"></p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 md:gap-3">
+                <button onclick="toggleSettings()" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Personalizar">
+                    <i data-lucide="settings" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                </button>
+                <button id="theme-toggle" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95">
+                    <i data-lucide="moon" class="w-5 h-5 text-slate-600 dark:text-slate-300 hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-5 h-5 text-slate-600 dark:text-slate-300 block dark:hidden"></i>
+                </button>
+                <button onclick="openModal()" class="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 transition-all transform hover:scale-105 active:scale-95">
+                    <i data-lucide="plus" class="w-5 h-5"></i>
+                    <span class="hidden md:inline">Nova Tarefa</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="glass rounded-dynamic p-4 mb-4 md:mb-6 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
+            <div class="flex flex-col w-full">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Progresso Diário</span>
+                    <span id="progress-text" class="text-xl font-bold text-brand-600 dark:text-brand-500">0%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-purple-500 rounded-full transition-all duration-1000 w-0"></div>
+                </div>
+            </div>
+            <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-4 sm:gap-6 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
+                <div class="text-center flex-1 sm:flex-none">
+                    <p id="count-todo" class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">0</p>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">A Fazer</p>
+                </div>
+                <div class="text-center flex-1 sm:flex-none">
+                    <p id="count-doing" class="text-lg md:text-xl font-bold text-brand-500">0</p>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">Fazendo</p>
+                </div>
+                <div class="text-center flex-1 sm:flex-none">
+                    <p id="count-done" class="text-lg md:text-xl font-bold text-emerald-500">0</p>
+                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">Feito</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board -->
+        <div class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
+            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
+                
+                <!-- Column: To Do -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
+                    <div class="p-4 pb-2">
+                        <h2 class="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div> A Fazer
+                        </h2>
+                    </div>
+                    <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
+                </div>
+
+                <!-- Column: Doing -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
+                    <div class="p-4 pb-2">
+                        <h2 class="font-semibold text-brand-600 dark:text-brand-500 flex items-center gap-2">
+                            <span class="relative flex h-2.5 w-2.5">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+                            </span>
+                            Em Andamento
+                        </h2>
+                    </div>
+                    <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
+                </div>
+
+                <!-- Column: Done -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
+                    <div class="p-4 pb-2">
+                        <h2 class="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div> Concluído
+                        </h2>
+                    </div>
+                    <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR: Personalização -->
+    <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col overflow-y-auto custom-scrollbar pt-[calc(env(safe-area-inset-top)+20px)]">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-2">
+                <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i>
+                <h2 class="text-xl font-bold text-slate-800 dark:text-white">Ajustes</h2>
+            </div>
+            <button onclick="toggleSettings()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="space-y-8 flex-1">
+            <!-- CORES -->
+            <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor Principal</label>
+                        <!-- Cores Base -->
+                        <div class="flex gap-2 flex-wrap mb-3">
+                            <button onclick="setBrandColor('#6366f1')" class="w-8 h-8 rounded-full bg-[#6366f1] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        </div>
+                        
+                        <!-- Input HEX com Color Picker -->
+                        <div class="flex items-center gap-2">
+                            <div class="relative group shrink-0">
+                                <div id="brand-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #6366f1;"></div>
+                                <input type="color" id="custom-brand-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBrandColor(this.value)" value="#6366f1">
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                </div>
+                            </div>
+                            <div class="relative flex-1">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-slate-400 text-sm font-mono">#</span>
+                                </div>
+                                <input type="text" id="brand-hex-input" 
+                                       class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" 
+                                       placeholder="HEX" 
+                                       value="6366F1" 
+                                       maxlength="6"
+                                       oninput="setBrandColor('#' + this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Gradiente de Fundo</label>
+                        
+                        <!-- Blob 1 (Esquerda) -->
+                        <div class="mb-3">
+                            <span class="text-xs text-slate-500 mb-1 block">Cor Esquerda</span>
+                            <div class="flex items-center gap-2">
+                                <div class="relative group shrink-0">
+                                    <div id="blob1-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #6366f1;"></div>
+                                    <input type="color" id="blob1-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBlobColor(1, this.value)" value="#6366f1">
+                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                                <div class="relative flex-1">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="text-slate-400 text-sm font-mono">#</span>
+                                    </div>
+                                    <input type="text" id="blob1-hex-input" 
+                                           class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" 
+                                           placeholder="HEX" 
+                                           value="6366F1" 
+                                           maxlength="6"
+                                           oninput="setBlobColor(1, '#' + this.value)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blob 2 (Direita) -->
+                        <div>
+                            <span class="text-xs text-slate-500 mb-1 block">Cor Direita</span>
+                            <div class="flex items-center gap-2">
+                                <div class="relative group shrink-0">
+                                    <div id="blob2-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #a855f7;"></div>
+                                    <input type="color" id="blob2-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBlobColor(2, this.value)" value="#a855f7">
+                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                    </div>
+                                </div>
+                                <div class="relative flex-1">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="text-slate-400 text-sm font-mono">#</span>
+                                    </div>
+                                    <input type="text" id="blob2-hex-input" 
+                                           class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" 
+                                           placeholder="HEX" 
+                                           value="A855F7" 
+                                           maxlength="6"
+                                           oninput="setBlobColor(2, '#' + this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
+            <!-- INTERFACE -->
+            <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Interface</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bordas Arredondadas</span>
+                        <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
+                            <button onclick="setRadius('0.25rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-sm"></div></button>
+                            <button onclick="setRadius('0.75rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-md"></div></button>
+                            <button onclick="setRadius('1.5rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-full"></div></button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Tamanho da Fonte</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="setFontScale(0.9)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A-</button>
+                            <button onclick="setFontScale(1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A</button>
+                            <button onclick="setFontScale(1.1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-lg font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A+</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
+            <!-- SISTEMA -->
+            <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sistema</h3>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i> Sons
+                        </span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="toggle-sound" class="sr-only peer" checked onchange="toggleSound(this.checked)">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <i data-lucide="zap-off" class="w-4 h-4 text-slate-400"></i> Reduzir Animações
+                        </span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="toggle-motion" class="sr-only peer" onchange="toggleMotion(this.checked)">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">
+            FlowTask Pro v2.1 • Feito com ❤️
+        </div>
+    </div>
+    <!-- Overlay para fechar sidebar -->
+    <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
+
+    <!-- MODAL: Add/Edit Task -->
+    <div id="task-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop max-h-[90vh] overflow-y-auto custom-scrollbar">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="modal-title" class="text-xl font-bold">Nova Tarefa</h2>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-2"><i data-lucide="x"></i></button>
+                </div>
+                
+                <form id="task-form" onsubmit="saveTask(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Título da Tarefa</label>
+                            <input type="text" id="task-title" required class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 focus:ring-2 focus:ring-brand-500 outline-none dark:text-white transition-all placeholder:text-slate-400" placeholder="Ex: Finalizar relatório trimestral">
+                        </div>
+
+                        <!-- GRID AJUSTADO: Sempre 2 colunas (grid-cols-2), mesmo no mobile -->
+                        <!-- Isso evita que o campo de data fique esticado (full width) e desproporcional -->
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prazo Final</label>
+                                <!-- Adicionado 'appearance-none' e estilo inline para forçar altura no iOS -->
+                                <input type="date" id="task-due-date" class="w-full form-input-fixed appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white transition-all cursor-pointer text-sm font-medium" style="min-height: 42px;">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label>
+                                <select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium">
+                                    <option value="Trabalho">Trabalho</option>
+                                    <option value="Pessoal">Pessoal</option>
+                                    <option value="Estudo">Estudo</option>
+                                    <option value="Saúde">Saúde</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="priority" value="low" class="peer sr-only">
+                                    <div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Baixa</div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="priority" value="medium" class="peer sr-only" checked>
+                                    <div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Média</div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="priority" value="high" class="peer sr-only">
+                                    <div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-rose-500 peer-checked:text-white peer-checked:border-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Alta</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-end mb-1.5">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Checklist</label>
+                                <button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95">
+                                    <i data-lucide="sparkles" class="w-3 h-3"></i> Gerar com IA
+                                </button>
+                            </div>
+                            <div class="flex gap-2 mb-2">
+                                <input type="text" id="new-subtask-input" class="flex-1 form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 text-sm outline-none dark:text-white focus:border-brand-500 transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}">
+                                <button type="button" onclick="addSubtaskToForm()" class="h-[42px] w-[42px] flex items-center justify-center bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                                    <i data-lucide="plus" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <ul id="subtask-list-form" class="space-y-1 max-h-32 overflow-y-auto custom-scrollbar"></ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-slate-900 py-2">
+                        <button type="button" onclick="closeModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors">Cancelar</button>
+                        <button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: DELETE CONFIRMATION -->
+    <div id="delete-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeDeleteModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="glass bg-white dark:bg-slate-900 w-full max-w-sm rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop text-center">
+                <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Excluir Tarefa?</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Essa ação não pode ser desfeita. Tem certeza que deseja continuar?</p>
+                <div class="flex gap-3 justify-center">
+                    <button onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors border border-slate-200 dark:border-slate-700">Cancelar</button>
+                    <button onclick="confirmDelete()" class="flex-1 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-medium shadow-lg shadow-rose-500/30 transition-all">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Pomodoro -->
+    <div id="pomodoro-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center text-white p-4">
+            <button onclick="closePomodoro()" class="absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="x" class="w-8 h-8"></i></button>
+            
+            <div class="mb-4 text-center animate-pop w-full max-w-lg flex flex-col items-center">
+                <span class="text-brand-400 font-bold tracking-widest uppercase text-xs border border-brand-500/30 px-3 py-1 rounded-full bg-brand-500/10">Modo Foco</span>
+                <h2 id="pomo-task-title" class="text-2xl md:text-3xl font-bold mt-4 mx-auto truncate px-4 w-full"></h2>
+                
+                <!-- Motivation Area (Frame Específico) -->
+                <div class="w-full px-6 mt-4 min-h-[3.5rem] flex items-center justify-center">
+                    <button id="btn-motivate" onclick="generateMotivation()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30">
+                        <i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> Motivação IA
+                    </button>
+                    <div id="motivation-text" class="hidden text-sm text-brand-100 font-medium italic animate-slide-up w-full text-center bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl shadow-inner relative">
+                        <!-- Aspas decorativas -->
+                        <span class="absolute top-1 left-2 text-brand-500/20 text-2xl font-serif">“</span>
+                        <span id="motivation-content"></span>
+                        <span class="absolute bottom-[-0.5rem] right-2 text-brand-500/20 text-2xl font-serif">”</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mb-8 bg-white/5 p-1 rounded-xl overflow-x-auto max-w-full shrink-0">
+                <button onclick="setTimerDuration(15)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="15">15m</button>
+                <button onclick="setTimerDuration(25)" class="timer-btn px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium shadow-lg whitespace-nowrap" data-time="25">25m</button>
+                <button onclick="setTimerDuration(45)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="45">45m</button>
+                <button onclick="setTimerDuration(60)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="60">60m</button>
+            </div>
+
+            <div class="relative w-72 h-72 shrink-0 flex items-center justify-center group/timer">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#1e293b" stroke-width="4" />
+                    <circle id="timer-circle" class="progress-ring__circle" cx="50" cy="50" r="45" fill="none" stroke="rgb(var(--color-brand-500))" stroke-width="4" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0" />
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
+                    <input type="number" id="hidden-timer-input" class="absolute opacity-0 w-1 h-1 pointer-events-none" inputmode="numeric">
+                    <div id="timer-display" 
+                         class="text-6xl font-bold tracking-tighter font-mono flex items-center justify-center cursor-pointer hover:scale-105 transition-transform relative select-none text-white drop-shadow-lg"
+                         title="Clique para digitar o tempo"
+                         onclick="startTimerEdit()"></div>
+                    <span id="timer-status" class="text-slate-400 mt-4 text-sm font-medium">Pausado</span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex gap-6">
+                <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group">
+                    <i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i>
+                </button>
+                <button onclick="resetTimer()" class="w-20 h-20 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500">
+                    <i data-lucide="rotate-ccw" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confetti" class="fixed inset-0 pointer-events-none z-[70]"></canvas>
+
+    <!-- LOGIC -->
+    <script>
+        // State
+        let tasks = [];
+        let tempSubtasks = [];
+        let currentEditingId = null;
+        let taskToDeleteId = null; 
+        let timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false;
+        let isEditingTimer = false, timerDigits = [];
+        let expandedTasks = new Set();
+        let soundEnabled = true;
+
+        // Audio Context para o Beep (Sem arquivo externo)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playBeep() {
+            if(!soundEnabled) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 880; // A5
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.5);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTasks();
+            setupTheme();
+            updateDate();
+            lucide.createIcons();
+            const hiddenInput = document.getElementById('hidden-timer-input');
+            hiddenInput.addEventListener('input', handleTimerInput);
+            hiddenInput.addEventListener('blur', finishTimerEdit);
+        });
+
+        function generateId() { return Math.random().toString(36).substr(2, 9); }
+        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) tasks = JSON.parse(t); renderBoard(); }
+        function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
+        
+        function setupTheme() {
+            const isDark = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if(isDark) document.documentElement.classList.add('dark');
+        }
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        function updateDate() {
+            document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+
+        // --- CUSTOMIZATION LOGIC ---
+        function toggleSettings() {
+            const sidebar = document.getElementById('settings-sidebar');
+            const overlay = document.getElementById('settings-overlay');
+            sidebar.classList.toggle('closed');
+            overlay.classList.toggle('hidden');
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(result[3], 16)}` : null;
+        }
+
+        function setBrandColor(hex) {
+            // Garante formato HEX correto
+            if (!hex.startsWith('#')) hex = '#' + hex;
+            
+            // Validação simples de HEX (3 ou 6 digitos)
+            const isValidHex = /^#([0-9A-F]{3}){1,2}$/i.test(hex);
+            if (!isValidHex) return;
+
+            const rgb = hexToRgb(hex);
+            if(rgb) {
+                document.documentElement.style.setProperty('--color-brand-500', rgb);
+                document.documentElement.style.setProperty('--color-brand-600', rgb); 
+                document.documentElement.style.setProperty('--color-brand-50', rgb); 
+                const circle = document.getElementById('timer-circle');
+                if(circle) circle.style.stroke = `rgb(${rgb})`;
+                
+                // Sincroniza UI (Preview, Picker e Input de Texto)
+                const preview = document.getElementById('brand-preview');
+                const picker = document.getElementById('custom-brand-picker');
+                const textInput = document.getElementById('brand-hex-input');
+
+                if(preview) preview.style.backgroundColor = hex;
+                if(picker && picker.value.toUpperCase() !== hex.toUpperCase()) picker.value = hex;
+                if(textInput && document.activeElement !== textInput) {
+                    textInput.value = hex.replace('#', '').toUpperCase();
+                }
+            }
+        }
+
+        function setBlobColor(blobNum, hex) {
+            // Garante formato HEX correto
+            if (!hex.startsWith('#')) hex = '#' + hex;
+            
+            // Validação simples de HEX (3 ou 6 digitos)
+            const isValidHex = /^#([0-9A-F]{3}){1,2}$/i.test(hex);
+            if (!isValidHex) return;
+
+            const previewId = `blob${blobNum}-preview`;
+            const pickerId = `blob${blobNum}-picker`;
+            const inputId = `blob${blobNum}-hex-input`;
+            const cssVar = blobNum === 1 ? '--bg-gradient-from' : '--bg-gradient-to';
+
+            document.documentElement.style.setProperty(cssVar, hex);
+            
+            // Sincroniza UI
+            const preview = document.getElementById(previewId);
+            const picker = document.getElementById(pickerId);
+            const input = document.getElementById(inputId);
+
+            if(preview) preview.style.backgroundColor = hex;
+            if(picker && picker.value.toUpperCase() !== hex.toUpperCase()) picker.value = hex;
+            if(input && document.activeElement !== input) {
+                input.value = hex.replace('#', '').toUpperCase();
+            }
+        }
+
+        function setRadius(size) {
+            document.documentElement.style.setProperty('--ui-radius', size);
+        }
+
+        function setFontScale(scale) {
+            document.documentElement.style.setProperty('--ui-font-scale', scale);
+        }
+
+        function toggleSound(checked) {
+            soundEnabled = checked;
+        }
+
+        function toggleMotion(checked) {
+            if(checked) {
+                // Desativa animações corretamente removendo-as, para evitar "piscadas"
+                const style = document.createElement('style');
+                style.id = 'reduced-motion-style';
+                style.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`;
+                document.head.appendChild(style);
+            } else {
+                const style = document.getElementById('reduced-motion-style');
+                if(style) style.remove();
+            }
+        }
+
+        // --- GEMINI API ---
+        async function callGemini(prompt) {
+            let key = localStorage.getItem('gemini_api_key');
+            if (!key) {
+                key = prompt("Para usar a IA, insira sua API Key do Google Gemini (será salva no navegador):");
+                if (key) localStorage.setItem('gemini_api_key', key); else return null;
+            }
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${key}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                if (!response.ok) throw new Error('Falha na API');
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text;
+            } catch (error) { 
+                console.error("Erro Gemini:", error);
+                alert("Erro ao conectar com a IA. Verifique sua chave API.");
+                return null; 
+            }
+        }
+
+        async function generateSubtasks() {
+            const title = document.getElementById('task-title').value;
+            if(!title) { alert("Digite um título primeiro!"); return; }
+            const btn = document.getElementById('btn-magic-subtasks');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; btn.disabled = true; lucide.createIcons();
+            const result = await callGemini(`Crie uma lista de 3 a 5 sub-tarefas para: "${title}". Apenas texto, uma por linha.`);
+            if(result) {
+                result.split('\n').filter(l => l.trim().length > 0).forEach(line => {
+                    const cleanLine = line.replace(/^[\*\-\d\.]+\s*/, '').trim();
+                    if(cleanLine) tempSubtasks.push({title: cleanLine, completed: false});
+                });
+                renderSubtasks();
+            }
+            btn.disabled = false; btn.innerHTML = originalContent; lucide.createIcons();
+        }
+
+        async function generateMotivation() {
+            const title = document.getElementById('pomo-task-title').innerText;
+            const btn = document.getElementById('btn-motivate');
+            const txt = document.getElementById('motivation-text');
+            const content = document.getElementById('motivation-content');
+            
+            btn.classList.add('hidden'); 
+            txt.classList.remove('hidden'); 
+            content.innerText = "Gerando inspiração...";
+            
+            // Prompt ajustado para remover formatação markdown e focar no conteúdo
+            const prompt = `Escreva uma única frase curta de motivação (máximo 20 palavras) especificamente para me ajudar a realizar a tarefa: "${title}". Seja direto, inspirador e evite clichês genéricos. IMPORTANTE: Não use asteriscos (**), não use formatação markdown, não dê opções. Retorne apenas o texto puro da frase.`;
+            
+            const result = await callGemini(prompt);
+            
+            if(result) {
+                // Limpeza extra garantida via JS
+                content.innerText = result.replace(/\*\*/g, '').trim(); 
+            } else {
+                content.innerText = "Foque no agora. Um passo de cada vez.";
+            }
+        }
+
+        // --- BOARD & TASKS ---
+        function renderBoard() {
+            const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
+            Object.values(cols).forEach(c => c.innerHTML = '');
+            const today = new Date().toISOString().split('T')[0];
+            let counts = { todo: 0, doing: 0, done: 0 };
+            const priorityWeight = { high: 3, medium: 2, low: 1 };
+            
+            const sortedTasks = [...tasks].sort((a, b) => {
+                const wA = priorityWeight[a.priority] || 0;
+                const wB = priorityWeight[b.priority] || 0;
+                if (wB !== wA) return wB - wA;
+                return a.title.localeCompare(b.title);
+            });
+
+            sortedTasks.forEach(task => {
+                counts[task.status]++;
+                const isOverdue = task.dueDate && task.dueDate < today && task.status !== 'done';
+                const card = createCard(task, isOverdue);
+                if (cols[task.status]) cols[task.status].appendChild(card);
+            });
+
+            document.getElementById('count-todo').innerText = counts.todo;
+            document.getElementById('count-doing').innerText = counts.doing;
+            document.getElementById('count-done').innerText = counts.done;
+            const total = tasks.length;
+            const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
+            document.getElementById('progress-text').innerText = `${p}%`;
+            document.getElementById('progress-bar').style.width = `${p}%`;
+            lucide.createIcons();
+        }
+
+        function createCard(task, isOverdue) {
+            const div = document.createElement('div');
+            const isActive = task.status === 'doing';
+            const isExpanded = expandedTasks.has(task.id);
+            
+            // Base classes
+            div.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${isOverdue ? 'task-overdue' : ''} ${isActive ? 'task-active' : ''}`;
+            
+            div.draggable = true;
+            div.ondragstart = (e) => { e.dataTransfer.setData("text", task.id); e.target.classList.add('dragging'); };
+            div.ondragend = (e) => { e.target.classList.remove('dragging'); };
+
+            const prioColors = { 
+                low: 'bg-emerald-500', 
+                medium: 'bg-amber-500', 
+                high: 'bg-rose-500' 
+            };
+            
+            const doneSub = task.subtasks.filter(s => s.completed).length;
+            const totalSub = task.subtasks.length;
+            const progress = totalSub === 0 ? 0 : Math.round((doneSub/totalSub)*100);
+
+            // Date HTML com ícone melhorado
+            let dateHtml = '';
+            if(task.dueDate) {
+                const d = new Date(task.dueDate); d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+                const str = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
+                const isLate = isOverdue;
+                dateHtml = `
+                    <div class="flex items-center gap-1.5 text-[11px] font-medium mt-2 w-fit ${isLate ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}">
+                        <i data-lucide="${isLate ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> 
+                        <span>${isLate ? 'Atrasado: ' : ''}${str}</span>
+                    </div>`;
+            }
+
+            // Action Buttons
+            let actions = isActive ? `
+                <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="openPomodoro('${task.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-xs font-bold uppercase tracking-wide shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95">
+                        <i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar
+                    </button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="completeTask(event, '${task.id}')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-600 dark:bg-emerald-500/20 dark:hover:bg-emerald-500/30 dark:text-emerald-400 w-9 h-9 flex items-center justify-center rounded-lg transition-colors" title="Concluir">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                    </button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${task.id}')" class="bg-slate-100 hover:bg-rose-100 text-slate-400 hover:text-rose-500 dark:bg-slate-800 dark:hover:bg-rose-900/30 w-9 h-9 flex items-center justify-center rounded-lg transition-colors" title="Excluir">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>` : `
+                <div class="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="editTask('${task.id}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400 transition-colors"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${task.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                </div>
+                <div class="flex md:hidden justify-end mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 gap-4">
+                     <button ontouchstart="event.stopPropagation()" onclick="editTask('${task.id}')" class="text-slate-400 flex items-center gap-1 text-xs"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i> Editar</button>
+                     <button ontouchstart="event.stopPropagation()" onclick="requestDelete(event, '${task.id}')" class="text-rose-500 flex items-center gap-1 text-xs"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Excluir</button>
+                </div>`;
+
+            // Construção do HTML do Card
+            div.innerHTML = `
+                <!-- Linha de Prioridade Lateral -->
+                <div class="absolute left-0 top-0 bottom-0 w-1 ${prioColors[task.priority]}"></div>
+                
+                <div class="pl-5 pr-4 py-4">
+                    <!-- Cabeçalho: Categoria -->
+                    <div class="flex justify-between items-start">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 border border-slate-200 dark:border-slate-700/50">
+                            ${task.category}
+                        </span>
+                        ${!isActive ? actions : ''}
+                    </div>
+
+                    <!-- Título -->
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6">
+                        ${task.title}
+                    </h3>
+                    
+                    ${dateHtml}
+
+                    <!-- Seção de Progresso e Checklist -->
+                    ${totalSub > 0 ? `
+                    <div class="mt-4">
+                        <!-- Barra de Progresso com Rótulo -->
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${progress}% Concluído</span>
+                            <span class="text-[10px] text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 rounded">${doneSub}/${totalSub}</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
+                           <div class="h-full bg-brand-500 transition-all duration-700 ease-out" style="width: ${progress}%"></div>
+                        </div>
+
+                        <!-- Botão Toggle Bonito -->
+                        <button 
+                            ontouchstart="event.stopPropagation()" 
+                            onmousedown="event.stopPropagation()" 
+                            onclick="toggleSubtaskList(event, '${task.id}')" 
+                            class="w-full group/btn flex items-center justify-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-1.5 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"
+                        >
+                            <span>${isExpanded ? 'Ocultar Checklist' : 'Ver Checklist'}</span>
+                            <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}"></i>
+                        </button>
+
+                        <!-- Lista de Subtarefas Estilizada -->
+                        <div class="${isExpanded ? 'block' : 'hidden'} mt-2 space-y-1 animate-slide-in">
+                            ${task.subtasks.map((st, idx) => `
+                                <div class="group/item flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer select-none" 
+                                     onmousedown="event.stopPropagation()" 
+                                     ontouchstart="event.stopPropagation()"
+                                     onclick="toggleSubtaskCheck('${task.id}', ${idx})">
+                                    
+                                    <!-- Custom Checkbox -->
+                                    <div class="relative flex items-center justify-center mt-0.5 shrink-0">
+                                        <input type="checkbox" ${st.completed ? 'checked' : ''} class="peer appearance-none w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded checked:bg-brand-500 checked:border-brand-500 transition-all cursor-pointer">
+                                        <i data-lucide="check" class="absolute w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i>
+                                    </div>
+                                    
+                                    <span class="text-xs ${st.completed ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-700 dark:text-slate-200'} transition-colors leading-relaxed">
+                                        ${st.title}
+                                    </span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>` : ''}
+
+                    ${isActive ? actions : ''}
+                </div>
+            `;
+            return div;
+        }
+
+        function toggleSubtaskList(e, id) { e.stopPropagation(); expandedTasks.has(id) ? expandedTasks.delete(id) : expandedTasks.add(id); renderBoard(); }
+        function toggleSubtaskCheck(id, idx) { const t = tasks.find(x => x.id === id); if(t) { t.subtasks[idx].completed = !t.subtasks[idx].completed; saveTasks(); } }
+        
+        function requestDelete(e, id) { if(e) e.stopPropagation(); taskToDeleteId = id; document.getElementById('delete-modal').classList.remove('hidden'); }
+        function closeDeleteModal() { document.getElementById('delete-modal').classList.add('hidden'); taskToDeleteId = null; }
+        function confirmDelete() { if (taskToDeleteId) { tasks = tasks.filter(t => t.id !== taskToDeleteId); saveTasks(); closeDeleteModal(); } }
+        
+        function completeTask(e, id) { 
+            if(e) e.stopPropagation(); 
+            const t = tasks.find(t => t.id === id); 
+            if(t) { 
+                t.status = 'done'; 
+                // Marca todas as sub-tarefas como concluídas
+                if(t.subtasks) t.subtasks.forEach(sub => sub.completed = true);
+                saveTasks(); 
+                fireConfetti(); 
+            } 
+        }
+
+        function openModal(id = null) {
+            const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
+            const form = document.getElementById('task-form');
+            if(id) {
+                const t = tasks.find(x => x.id === id);
+                document.getElementById('modal-title').innerText = "Editar Tarefa";
+                document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
+                document.getElementById('task-due-date').value = t.dueDate || '';
+                document.getElementsByName('priority').forEach(r => r.checked = r.value === t.priority);
+                tempSubtasks = [...t.subtasks];
+            } else {
+                document.getElementById('modal-title').innerText = "Nova Tarefa"; form.reset();
+                document.getElementsByName('priority')[1].checked = true;
+            }
+            renderSubtasks(); document.getElementById('task-title').focus();
+        }
+        function closeModal() { document.getElementById('task-modal').classList.add('hidden'); }
+        function editTask(id) { openModal(id); }
+        function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
+        function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
+        function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
+        function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
+        
+        function allowDrop(e) { e.preventDefault(); }
+        
+        function drop(e, status) { 
+            e.preventDefault(); 
+            const id = e.dataTransfer.getData("text"); 
+            const t = tasks.find(x => x.id === id); 
+            if(t && t.status !== status) { 
+                t.status = status; 
+                
+                // Se moveu para concluído, marca sub-tarefas
+                if(status === 'done') {
+                    if(t.subtasks) t.subtasks.forEach(sub => sub.completed = true);
+                    fireConfetti(); 
+                }
+                
+                saveTasks(); 
+            } 
+        }
+
+        // --- POMODORO ---
+        function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
+        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; }
+        function setTimerDuration(m) {
+            stopTimer(); initialTime = m * 60; timeLeft = initialTime;
+            document.querySelectorAll('.timer-btn').forEach(b => {
+                if(parseInt(b.dataset.time)===m) { b.classList.add('bg-brand-600','text-white'); b.classList.remove('text-slate-300'); }
+                else { b.classList.remove('bg-brand-600','text-white'); b.classList.add('text-slate-300'); }
+            });
+            updateTimerDisplay();
+        }
+        function startTimerEdit() { if(isTimerRunning) stopTimer(); isEditingTimer = true; timerDigits = []; updateTimerEditUI(); const inp = document.getElementById('hidden-timer-input'); inp.value = ''; inp.focus(); document.getElementById('timer-status').innerText = "Digite..."; }
+        function handleTimerInput(e) { if(!isEditingTimer) return; const c = e.target.value.slice(-1); if(/[0-9]/.test(c)) { if(timerDigits.length < 4) timerDigits.push(c); } e.target.value = ''; updateTimerEditUI(); if(timerDigits.length === 4) setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300); }
+        function finishTimerEdit() { if(!isEditingTimer) return; const m = parseInt((timerDigits[0]||'0') + (timerDigits[1]||'0')); const s = parseInt((timerDigits[2]||'0') + (timerDigits[3]||'0')); const t = m*60 + s; if(t > 0) { initialTime = t; timeLeft = t; } else { initialTime = 25*60; timeLeft = initialTime; } isEditingTimer = false; updateTimerDisplay(); document.getElementById('timer-status').innerText = "Personalizado"; }
+        function updateTimerEditUI() { const d = timerDigits; let html = ''; for(let i=0; i<4; i++) { if(i===2) html += '<span class="mx-1 text-white/50 pb-2">:</span>'; html += `<span class="timer-slot ${d.length===i ? 'active' : ''} ${!d[i] ? 'empty' : ''}">${d[i]||'0'}</span>`; } document.getElementById('timer-display').innerHTML = html; }
+        function toggleTimer() { isTimerRunning ? stopTimer() : startTimer(); }
+        
+        function startTimer() {
+            isTimerRunning = true;
+            document.getElementById('timer-status').innerText = "Foco total!";
+            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`;
+            lucide.createIcons();
+            
+            // Intervalo exato de 1 segundo
+            timerInterval = setInterval(() => {
+                if(timeLeft > 0) { 
+                    timeLeft--; 
+                    updateTimerDisplay(); 
+                } else { 
+                    stopTimer();
+                    playBeep(); // SOM
+                    fireConfetti(); // VISUAL
+                    document.getElementById('timer-status').innerText = "Ciclo Concluído!";
+                    document.getElementById('timer-display').classList.add('animate-pulse');
+                }
+            }, 1000);
+        }
+        function stopTimer() { isTimerRunning = false; clearInterval(timerInterval); document.getElementById('timer-status').innerText = "Pausado"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); document.getElementById('timer-display').classList.remove('animate-pulse'); }
+        function resetTimer() { stopTimer(); timeLeft = initialTime; updateTimerDisplay(); }
+        function updateTimerDisplay() {
+            if(isEditingTimer) return;
+            const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+            const s = (timeLeft%60).toString().padStart(2,'0');
+            const str = m + ":" + s;
+            let html = '';
+            // Renderização inteligente para animação
+            for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`;
+            document.getElementById('timer-display').innerHTML = html;
+            
+            const circle = document.getElementById('timer-circle');
+            const dash = circle.r.baseVal.value * 2 * Math.PI;
+            // Cálculo reverso para o anel diminuir com o tempo
+            const offset = dash - (timeLeft/initialTime) * dash;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        function fireConfetti() {
+            const c = document.getElementById('confetti'); const ctx = c.getContext('2d');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            const p = Array.from({length:100}, () => ({ x: Math.random()*c.width, y: Math.random()*c.height - c.height, color: `hsl(${Math.random()*360},70%,50%)`, size: Math.random()*10+5, speed: Math.random()*5+2 }));
+            function step() { ctx.clearRect(0,0,c.width,c.height); let a = false; p.forEach(i => { i.y += i.speed; i.x += Math.sin(i.y/50); if(i.y < c.height) a = true; ctx.fillStyle = i.color; ctx.fillRect(i.x, i.y, i.size, i.size); }); if(a) requestAnimationFrame(step); }
+            step();
+        }
+    </script>
+</body>
+</html>
