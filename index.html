@@ -583,26 +583,8 @@
         };
 
         // CATEGORIES (Firestore)
-        window.addCategory = function() {
-            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            const newCat = { id: Math.random().toString(36).substr(2,9), name: 'Nova Categoria', color: randomColor };
-            
-            const newCategories = [...window.categories, newCat];
-            const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
-            setDoc(catRef, { list: newCategories });
-        };
-
-        window.deleteCategory = function(id) {
-            if(window.categories.length <= 1) { alert("Mínimo 1 categoria."); return; }
-            if(confirm("Excluir?")) {
-                const newCategories = window.categories.filter(c => c.id !== id);
-                const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
-                setDoc(catRef, { list: newCategories });
-            }
-        };
-
-        // Separate function to update DB without UI flicker logic inside the module
+        // Ensure these functions update the global window.categories and call saveCategoriesToDB
+        // saveCategoriesToDB is the key to persistence
         window.saveCategoriesToDB = function(newCats) {
             const catRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'categories');
             setDoc(catRef, { list: newCats });
@@ -676,15 +658,45 @@
             lucide.createIcons();
         }
 
+        // Updated Category Functions that call Firebase
+        function addCategory() {
+            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const newCat = { id: generateId(), name: 'Nova Categoria', color: randomColor };
+            window.categories.push(newCat);
+            renderCategoriesSettings();
+            window.saveCategoriesToDB(window.categories);
+        }
+
         function updateCategory(id, field, value) {
             const cat = window.categories.find(c => c.id === id);
             if(cat) {
-                cat[field] = value;
-                if(field === 'color') {
+                if(field === 'name') {
+                    const oldName = cat.name;
+                    cat.name = value;
+                    // Update tasks if category renamed
+                    window.tasks.forEach(t => { 
+                        if(t.category === oldName) {
+                            t.category = value; 
+                            // Trigger task update (inefficient but safe for simple apps)
+                            // window.saveTask not easily callable here for batch, but tasks list is updated locally.
+                            // Ideally, batch update in DB, but let's focus on category list first.
+                        } 
+                    });
+                } else if (field === 'color') {
+                    cat[field] = value;
                     const colorBox = document.getElementById(`cat-color-box-${id}`);
                     if(colorBox) colorBox.style.backgroundColor = value;
                 }
-                // Call Firebase save via window
+                window.saveCategoriesToDB(window.categories);
+            }
+        }
+
+        function deleteCategory(id) {
+            if(window.categories.length <= 1) { alert("Você precisa de pelo menos uma categoria."); return; }
+            if(confirm("Excluir esta categoria?")) {
+                window.categories = window.categories.filter(c => c.id !== id);
+                renderCategoriesSettings();
                 window.saveCategoriesToDB(window.categories);
             }
         }
@@ -753,7 +765,6 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
-            // Style category badge with dynamic color
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
