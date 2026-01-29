@@ -511,7 +511,7 @@
                 category: document.getElementById('task-category').value,
                 dueDate: document.getElementById('task-due-date').value,
                 priority: document.querySelector('input[name="priority"]:checked').value,
-                subtasks: window.tempSubtasks,
+                subtasks: window.tempSubtasks || [],
                 // Status defaults to 'todo' for new, preserves for edit
                 status: window.currentEditingId ? window.tasks.find(t=>t.id===window.currentEditingId).status : 'todo'
             };
@@ -598,12 +598,24 @@
     <!-- UI LOGIC (Non-Firebase) -->
     <script>
         // UI State Vars (tasks/categories populated by module above)
-        let tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
+        // Define Globals explicitly for Module Access
+        window.tasks = []; 
+        window.tempSubtasks = []; 
+        window.currentEditingId = null; 
+        window.taskToDeleteId = null;
+        window.categories = []; // Initializing categories too
+
+        // Local UI state
+        let timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
         
-        // Initial Empty State to prevent render errors before DB loads
-        window.tasks = [];
-        window.categories = [];
+        // Categoria State Initialization (Fallback)
+        window.categories = [
+            { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
+            { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
+            { id: 'cat_3', name: 'Estudo', color: '#f59e0b' },
+            { id: 'cat_4', name: 'Saúde', color: '#10b981' }
+        ];
 
         // Audio
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -765,6 +777,7 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
+            // Style category badge with dynamic color
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
@@ -820,9 +833,9 @@
         }
         function closeModal() { document.getElementById('task-modal').classList.add('hidden'); }
         function editTask(id) { openModal(id); }
-        function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
-        function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
-        function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
+        function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { window.tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
+        function removeSubtask(idx) { window.tempSubtasks.splice(idx,1); renderSubtasks(); }
+        function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = window.tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
         function allowDrop(e) { e.preventDefault(); }
         
         // Backup (Same as before)
@@ -832,7 +845,7 @@
 
         // Gemini AI Wrapper
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
-        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
+        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) window.tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
         async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
         // Timer Logic
