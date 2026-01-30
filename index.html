@@ -12,11 +12,12 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <title>FlowTask v1.1</title>
+    <title>FlowTask v2.0 Pro</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         tailwind.config = {
@@ -63,6 +64,7 @@
             --color-brand-700: 67 56 202;
             --bg-gradient-from: #6366f1;
             --bg-gradient-to: #a855f7;
+            --bg-solid: transparent; /* Novo: Cor sólida de fundo */
             --ui-radius: 0.75rem; 
             --ui-font-scale: 1;
         }
@@ -72,22 +74,69 @@
             -webkit-tap-highlight-color: transparent; 
             font-size: calc(16px * var(--ui-font-scale));
             overscroll-behavior-y: none;
+            background-color: var(--bg-solid);
         }
 
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
-        .dark .glass { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        /* LIQUID GLASS APPLE STYLE */
+        .glass { 
+            background: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(20px) saturate(180%); 
+            -webkit-backdrop-filter: blur(20px) saturate(180%); 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        .dark .glass { 
+            background: rgba(30, 41, 59, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
 
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.2s ease-out; will-change: transform, opacity; border-radius: var(--ui-radius); }
-        .dark .glass-card { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(var(--color-brand-500), 0.3);
+            border-color: rgba(var(--color-brand-500), 0.5);
+        }
+        .glass-btn:active { transform: scale(0.96); }
+
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(16px) saturate(120%); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            will-change: transform, opacity; 
+            border-radius: var(--ui-radius); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-card { 
+            background: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
         .glass-card:active { transform: scale(0.98); }
-        @media (min-width: 768px) { .glass-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15); z-index: 10; } .glass-card:active { transform: scale(1); } }
+        @media (min-width: 768px) { 
+            .glass-card:hover { 
+                transform: translateY(-5px) scale(1.01); 
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+                z-index: 10; 
+                border-color: rgba(var(--color-brand-500), 0.3);
+            } 
+            .glass-card:active { transform: scale(1); } 
+        }
 
         .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
         .appearance-none { -webkit-appearance: none; appearance: none; }
         .dark input[type="date"] { color-scheme: dark; }
         .task-overdue { border-left: 4px solid #f43f5e !important; background: linear-gradient(to right, rgba(244, 63, 94, 0.05), transparent); }
-        .task-active { border: 2px solid transparent !important; box-shadow: none !important; background: transparent !important; }
+        .task-active { border: 2px solid transparent !important; box-shadow: 0 0 0 2px rgba(var(--color-brand-500), 0.3) !important; }
         button, input, select { pointer-events: auto; }
         
         .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
@@ -109,12 +158,19 @@
         .pin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid currentColor; transition: all 0.2s; }
         .pin-dot.filled { background-color: currentColor; }
         
-        /* Layout Fixes */
+        /* Blob & Background */
         .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
         .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
-        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode .glass, .zen-mode #view-switcher-container { display: none !important; }
-        .zen-mode #col-doing { width: 100% !important; max-width: 600px; margin: 0 auto; min-width: auto; }
         
+        /* ZEN MODE GIGANTE */
+        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode header, .zen-mode #stats-bar { display: none !important; }
+        .zen-mode #view-kanban { overflow: visible !important; display: flex; align-items: center; justify-content: center; height: 100vh; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--bg-solid); backdrop-filter: blur(10px); padding: 2rem; }
+        .zen-mode .blob-1, .zen-mode .blob-2 { opacity: 0.1; }
+        .zen-mode #col-doing { width: 100% !important; max-width: 800px; height: auto; max-height: 90vh; border: none; background: transparent; box-shadow: none; }
+        .zen-mode #col-doing .glass-card { transform: scale(1.1); margin-bottom: 2rem; border: 1px solid rgba(var(--color-brand-500), 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        .zen-mode #col-doing h2 { font-size: 2rem; text-align: center; margin-bottom: 2rem; justify-content: center; }
+        .zen-mode #zen-exit-btn { display: flex !important; }
+
         #pin-screen { backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9999; }
     </style>
 </head>
@@ -127,14 +183,12 @@
                 <h2 class="text-xl font-bold tracking-wide">Bloqueado</h2>
                 <p class="text-slate-500 text-sm mt-1">Digite seu PIN para acessar</p>
             </div>
-
-            <div class="flex gap-4 mb-10 h-4">
+            <div class="flex gap-4 mb-10 h-4" id="pin-dots">
                 <div class="pin-dot text-slate-800 dark:text-white" id="dot-0"></div>
                 <div class="pin-dot text-slate-800 dark:text-white" id="dot-1"></div>
                 <div class="pin-dot text-slate-800 dark:text-white" id="dot-2"></div>
                 <div class="pin-dot text-slate-800 dark:text-white" id="dot-3"></div>
             </div>
-
             <div class="grid grid-cols-3 gap-x-6 gap-y-4 mb-8">
                 <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(1)">1</div>
                 <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(2)">2</div>
@@ -146,9 +200,7 @@
                 <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(8)">8</div>
                 <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(9)">9</div>
                 <div class="pin-btn opacity-0 cursor-default"></div> <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(0)">0</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center" onclick="pinDelete()">
-                    <i data-lucide="delete" class="w-6 h-6"></i>
-                </div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center" onclick="pinDelete()"><i data-lucide="delete" class="w-6 h-6"></i></div>
             </div>
             <button onclick="localStorage.removeItem('flowtask_pin'); location.reload();" class="text-xs text-slate-400 mt-4 hover:text-brand-500">Esqueci meu PIN (Resetar)</button>
         </div>
@@ -159,56 +211,66 @@
         <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
 
-    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
-        Você está offline. A IA não funcionará.
-    </div>
+    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">Você está offline. A IA não funcionará.</div>
+
+    <button id="zen-exit-btn" onclick="toggleZenMode()" class="hidden fixed top-6 right-6 z-[60] bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-md font-bold shadow-2xl transition-all hover:scale-105 active:scale-95 border border-white/20 items-center gap-2">
+        <i data-lucide="minimize-2"></i> Sair do Modo Foco
+    </button>
 
     <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6 gap-4">
         
         <header class="flex flex-col gap-4 shrink-0">
-            
             <div class="glass rounded-dynamic px-5 py-3 flex justify-between items-center shadow-sm">
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <div class="p-1.5 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-lg shadow-lg shadow-brand-500/30 shrink-0">
-                        <i data-lucide="layers" class="text-white w-5 h-5"></i>
+                <div class="flex items-center gap-4 overflow-hidden">
+                    <div class="relative group cursor-pointer" onclick="document.getElementById('avatar-input').click()">
+                        <div id="user-avatar" class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center text-lg shadow-inner overflow-hidden border-2 border-white dark:border-slate-700">👤</div>
+                        <input type="file" id="avatar-input" class="hidden" accept="image/*" onchange="handleAvatarUpload(this)">
+                        <div class="absolute inset-0 bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-bold">Mudar</div>
                     </div>
+
                     <div class="flex flex-col">
-                        <h1 class="text-lg font-bold tracking-tight leading-none">FlowTask <span class="text-brand-500 text-xs align-top">Pro</span></h1>
+                        <h1 class="text-lg font-bold tracking-tight leading-none flex items-center gap-2">
+                             <span id="greeting-text">Olá</span>
+                             <span class="text-brand-500 text-xs align-top px-1.5 py-0.5 bg-brand-50 dark:bg-brand-900/30 rounded-full">Pro</span>
+                        </h1>
                         <p id="date-display" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium capitalize truncate leading-tight mt-0.5"></p>
                     </div>
                 </div>
-                <div class="hidden sm:block text-xs font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full border border-brand-100 dark:border-brand-900/50">
-                    Modo Produtivo
+                
+                <div class="flex items-center gap-2">
+                    <button onclick="openTrashModal()" class="p-2 text-slate-400 hover:text-rose-500 transition-colors" title="Lixeira">
+                        <i data-lucide="trash" class="w-4 h-4"></i>
+                    </button>
+                    <div class="hidden sm:block text-xs font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full border border-brand-100 dark:border-brand-900/50">
+                        Modo Produtivo
+                    </div>
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row gap-3">
-                
                 <div class="relative flex-1 group">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i data-lucide="search" class="w-4 h-4 text-slate-400 group-focus-within:text-brand-500 transition-colors"></i>
                     </div>
-                    <input type="text" id="search-input" onkeyup="renderBoard()" 
-                           placeholder="O que você procura hoje?" 
-                           class="w-full h-11 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm hover:shadow-md hover:bg-white dark:hover:bg-slate-800">
+                    <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="O que você procura hoje?" class="w-full h-11 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm hover:shadow-md hover:bg-white dark:hover:bg-slate-800">
                 </div>
 
                 <div class="flex items-center justify-between md:justify-end gap-2 shrink-0">
                     <div class="flex gap-2">
-                        <button onclick="toggleZenMode()" id="zen-btn" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Modo Zen">
-                            <i data-lucide="eye" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        <button onclick="toggleZenMode()" id="zen-btn" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Modo Zen Gigante">
+                            <i data-lucide="maximize-2" class="w-5 h-5"></i>
                         </button>
-                        <button onclick="toggleStats()" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Estatísticas">
-                            <i data-lucide="bar-chart-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        <button onclick="toggleStats()" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Histórico e Stats">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
                         </button>
-                        <button onclick="toggleSettings()" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Ajustes">
-                            <i data-lucide="settings-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        <button onclick="toggleSettings()" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Ajustes">
+                            <i data-lucide="settings-2" class="w-5 h-5"></i>
                         </button>
                     </div>
                     
                     <div class="w-px h-8 bg-slate-300 dark:bg-slate-700 mx-1 hidden md:block"></div>
 
-                    <button onclick="openModal()" class="h-11 px-5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <button onclick="openModal()" class="glass-btn h-11 px-5 bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 flex items-center gap-2 border-0">
                         <i data-lucide="plus" class="w-5 h-5"></i>
                         <span>Nova</span>
                     </button>
@@ -216,12 +278,10 @@
             </div>
         </header>
 
-        <div class="glass rounded-dynamic p-4 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
+        <div id="stats-bar" class="glass rounded-dynamic p-4 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
             <div class="flex flex-col w-full">
                 <div class="flex justify-between items-end mb-2">
-                    <span class="text-sm font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-                        <i data-lucide="target" class="w-4 h-4 text-brand-500"></i> Progresso Diário
-                    </span>
+                    <span class="text-sm font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2"><i data-lucide="target" class="w-4 h-4 text-brand-500"></i> Progresso Diário</span>
                     <span id="progress-text" class="text-xl font-bold text-brand-600 dark:text-brand-500">0%</span>
                 </div>
                 <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
@@ -231,53 +291,26 @@
                 </div>
             </div>
             <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-2 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
-                 <div class="bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-2 text-center min-w-[70px]">
-                    <p id="count-todo" class="text-lg font-bold text-slate-700 dark:text-white leading-none">0</p>
-                    <p class="text-[9px] text-slate-400 uppercase tracking-wider mt-1">A Fazer</p>
-                </div>
-                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20">
-                    <p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p>
-                    <p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p>
-                </div>
-                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20">
-                    <p id="count-done" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 leading-none">0</p>
-                    <p class="text-[9px] text-emerald-400/80 uppercase tracking-wider mt-1">Feito</p>
-                </div>
+                 <div class="bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-2 text-center min-w-[70px]"><p id="count-todo" class="text-lg font-bold text-slate-700 dark:text-white leading-none">0</p><p class="text-[9px] text-slate-400 uppercase tracking-wider mt-1">A Fazer</p></div>
+                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20"><p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p><p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p></div>
+                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20"><p id="count-done" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 leading-none">0</p><p class="text-[9px] text-emerald-400/80 uppercase tracking-wider mt-1">Feito</p></div>
             </div>
         </div>
 
         <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
             <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
-                    <div class="p-4 pb-2 border-b border-black/5 dark:border-white/5">
-                        <h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide">
-                            <div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer
-                        </h2>
-                    </div>
+                    <div class="p-4 pb-2 border-b border-black/5 dark:border-white/5"><h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer</h2></div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
-
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-brand-50/50 dark:bg-slate-900/40 rounded-dynamic border border-brand-200/30 dark:border-brand-500/10 backdrop-blur-sm snap-center shadow-inner relative">
-                    <div class="p-4 pb-2 border-b border-brand-200/30 dark:border-white/5">
-                        <h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide">
-                            <span class="relative flex h-2.5 w-2.5">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
-                            </span> 
-                            Em Foco
-                        </h2>
-                    </div>
+                    <div class="p-4 pb-2 border-b border-brand-200/30 dark:border-white/5"><h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Foco</h2></div>
                     <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
                 </div>
-
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
                     <div class="p-4 pb-2 flex justify-between items-center border-b border-black/5 dark:border-white/5">
-                        <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide">
-                            <div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito
-                        </h2>
-                        <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded" title="Limpar tarefas concluídas">
-                            <i data-lucide="archive" class="w-3 h-3"></i> Arquivar
-                        </button>
+                        <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito</h2>
+                        <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded" title="Limpar tarefas concluídas"><i data-lucide="archive" class="w-3 h-3"></i> Arquivar</button>
                     </div>
                     <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
                 </div>
@@ -302,13 +335,23 @@
                      </button>
                 </div>
                 
-                <div>
+                <div class="mb-4">
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Destaque</label>
-                    <div class="flex gap-2 flex-wrap mb-3">
+                    <div class="flex gap-2 flex-wrap">
                         <button onclick="setBrandColor('#6366f1')" class="w-8 h-8 rounded-full bg-[#6366f1] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
                         <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
                         <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
                         <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        <input type="color" onchange="setBrandColor(this.value)" class="w-8 h-8 rounded-full overflow-hidden cursor-pointer border-0 p-0">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Fundo (Sólida)</label>
+                    <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <input type="color" id="bg-color-picker" class="w-8 h-8 rounded-lg cursor-pointer border-0 p-0" oninput="setBackgroundColor(this.value)">
+                        <span class="text-xs text-slate-500">Selecione uma cor para substituir o gradiente</span>
+                        <button onclick="resetBackground()" class="text-xs text-rose-500 font-bold hover:underline">Reset</button>
                     </div>
                 </div>
             </section>
@@ -319,7 +362,7 @@
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Segurança</h3>
                 <div class="flex items-center justify-between">
                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bloqueio por PIN</span>
-                    <button id="btn-set-pin" onclick="setupPin()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-700 transition-colors">Configurar</button>
+                    <button id="btn-set-pin" onclick="setupPin()" class="glass-btn px-3 py-1.5 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400 transition-colors">Configurar</button>
                 </div>
             </section>
 
@@ -367,19 +410,54 @@
                 </div>
             </section>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v1.1</div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.0</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
     <div id="stats-modal" class="fixed inset-0 z-[65] hidden">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="toggleStats()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop">
+            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop max-h-[90vh] overflow-y-auto custom-scrollbar">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold">Produtividade</h2>
+                    <h2 class="text-xl font-bold flex items-center gap-2"><i data-lucide="activity" class="text-brand-500"></i> Histórico & Stats</h2>
                     <button onclick="toggleStats()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
                 </div>
-                <div id="stats-content" class="space-y-6"></div>
+                
+                <div id="stats-content" class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl text-center border border-slate-100 dark:border-slate-700">
+                             <span class="block text-3xl font-bold text-brand-600" id="stat-completion-rate">0%</span>
+                             <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Taxa Conclusão</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl text-center border border-slate-100 dark:border-slate-700">
+                             <span class="block text-3xl font-bold text-emerald-600" id="stat-pomodoros">0</span>
+                             <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Ciclos Foco</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Últimos 7 Dias (Concluídas)</h4>
+                        <div class="h-40 w-full">
+                            <canvas id="historyChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="stats-categories-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="trash-modal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeTrashModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="glass bg-white dark:bg-slate-900 w-full max-w-md rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop h-[500px] flex flex-col">
+                <div class="flex justify-between items-center mb-4 shrink-0">
+                    <h2 class="text-xl font-bold text-rose-500 flex items-center gap-2"><i data-lucide="trash-2"></i> Lixeira (24h)</h2>
+                    <button onclick="closeTrashModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x"></i></button>
+                </div>
+                <div class="text-xs text-slate-400 mb-4 shrink-0">Tarefas nesta lista serão excluídas permanentemente após 24 horas.</div>
+                <div id="trash-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-1"></div>
             </div>
         </div>
     </div>
@@ -401,6 +479,15 @@
                         </div>
                         
                         <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider flex items-center gap-1"><i data-lucide="repeat" class="w-3 h-3"></i> Recorrência 🔄</label>
+                            <select id="task-repeat" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium">
+                                <option value="none">Não repetir</option>
+                                <option value="daily">Diariamente</option>
+                                <option value="weekly">Semanalmente</option>
+                            </select>
+                        </div>
+                        
+                        <div>
                             <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
                             <div class="grid grid-cols-3 gap-2">
                                 <label class="cursor-pointer group"><input type="radio" name="priority" value="low" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Baixa</div></label>
@@ -415,20 +502,8 @@
                             <ul id="subtask-list-form" class="space-y-1 max-h-32 overflow-y-auto custom-scrollbar"></ul>
                         </div>
                     </div>
-                    <div class="mt-8 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-slate-900 py-2"><button type="button" onclick="closeModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors">Cancelar</button><button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95">Salvar</button></div>
+                    <div class="mt-8 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-slate-900 py-2"><button type="button" onclick="closeModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors">Cancelar</button><button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95 glass-btn border-0">Salvar</button></div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="delete-modal" class="fixed inset-0 z-[70] hidden">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeDeleteModal()"></div>
-        <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="glass bg-white dark:bg-slate-900 w-full max-w-sm rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop text-center">
-                <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500"><i data-lucide="alert-triangle" class="w-6 h-6"></i></div>
-                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2">Excluir Tarefa?</h3>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Essa ação não pode ser desfeita. Tem certeza que deseja continuar?</p>
-                <div class="flex gap-3 justify-center"><button onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors border border-slate-200 dark:border-slate-700">Cancelar</button><button onclick="confirmDelete()" class="flex-1 px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-medium shadow-lg shadow-rose-500/30 transition-all">Excluir</button></div>
             </div>
         </div>
     </div>
@@ -439,7 +514,6 @@
             <div class="mb-4 text-center animate-pop w-full max-w-lg flex flex-col items-center">
                 <span class="text-brand-400 font-bold tracking-widest uppercase text-xs border border-brand-500/30 px-3 py-1 rounded-full bg-brand-500/10">Modo Foco</span>
                 <h2 id="pomo-task-title" class="text-2xl md:text-3xl font-bold mt-4 mx-auto truncate px-4 w-full"></h2>
-                
                 <div class="w-full px-6 mt-4 min-h-[3.5rem] flex items-center justify-center gap-2">
                     <button id="btn-motivate" onclick="generateMotivation()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30"><i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> Motivação</button>
                     <div id="motivation-text" class="hidden text-sm text-brand-100 font-medium italic animate-slide-up w-full text-center bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl shadow-inner relative"><span class="absolute top-1 left-2 text-brand-500/20 text-2xl font-serif">“</span><span id="motivation-content"></span><span class="absolute bottom-[-0.5rem] right-2 text-brand-500/20 text-2xl font-serif">”</span></div>
@@ -459,7 +533,6 @@
                     <span id="timer-status" class="text-slate-400 mt-4 text-sm font-medium">Pausado</span>
                 </div>
             </div>
-            
             <div class="mt-10 flex items-center gap-6">
                 <button id="btn-brown-noise" onclick="toggleBrownNoise()" class="w-14 h-14 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5" title="Ruído Marrom"><i data-lucide="waves" class="w-6 h-6"></i></button>
                 <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
@@ -472,9 +545,11 @@
 
     <script>
         let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
+        let completionLog = []; // [{date: 'YYYY-MM-DD', taskId: 'ID'}]
         let pwaPrompt;
         let brownNoiseNode = null, noiseContext = null;
         let pinInputBuffer = "";
+        let historyChartInstance = null;
 
         let categories = [
             { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
@@ -500,19 +575,20 @@
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             if (e.key === 'n' || e.key === 'N') openModal();
-            if (e.key === 'Escape') { closeModal(); closeDeleteModal(); toggleSettings(); }
+            if (e.key === 'Escape') { closeModal(); closeTrashModal(); toggleStats(); toggleSettings(); }
             if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             checkPin();
-            loadTasks(); loadCategories(); loadWallpaper(); setupTheme(); updateGreeting(); lucide.createIcons();
+            loadTasks(); loadCategories(); loadWallpaper(); loadAvatar(); setupTheme(); updateGreeting(); lucide.createIcons(); cleanupTrash();
             const pc = localStorage.getItem('pomo_count'); if(pc) { pomoCount = parseInt(pc); }
+            const cl = localStorage.getItem('flowtask_log'); if(cl) { completionLog = JSON.parse(cl); }
             const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
-        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) { tasks = JSON.parse(t); tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; }); } renderBoard(); }
+        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) { tasks = JSON.parse(t); tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; if(!task.repeat) task.repeat = 'none'; }); } renderBoard(); }
         function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
         function setupTheme() { if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); }
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
@@ -520,6 +596,9 @@
         function updateGreeting() {
             const h = new Date().getHours();
             let g = 'Bom dia'; if (h >= 12 && h < 18) g = 'Boa tarde'; else if (h >= 18) g = 'Boa noite';
+            // Pega o nome do localStorage se existir, senao usa vazio
+            const name = localStorage.getItem('user_name') || '';
+            document.getElementById('greeting-text').innerText = `${g}${name ? ', ' + name : ''}`;
             document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
         }
         
@@ -546,19 +625,46 @@
         function deleteCategory(id) { if(categories.length <= 1) { alert("Mínimo 1 categoria."); return; } if(confirm("Excluir?")) { categories = categories.filter(c => c.id !== id); saveCategories(); } }
         function renderTaskModalCategories() { const s = document.getElementById('task-category'); if(!s) return; s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join(''); }
 
-        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
-        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
-        function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
+        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories, completionLog, pomoCount})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
+        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } if(d.completionLog) { completionLog = d.completionLog; localStorage.setItem('flowtask_log', JSON.stringify(completionLog)); } alert("Restaurado!"); location.reload(); } catch (err) { alert("Erro ao importar."); } }; r.readAsText(f); }
+        function clearDoneTasks() { if(confirm("Arquivar tarefas concluídas?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
 
         function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
         function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; } }
+        function setBackgroundColor(hex) { document.documentElement.style.setProperty('--bg-solid', hex); document.getElementById('bg-container').style.display = 'none'; }
+        function resetBackground() { document.documentElement.style.setProperty('--bg-solid', 'transparent'); document.getElementById('bg-container').style.display = 'block'; }
         
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
         async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
         async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
-        // --- PIN LOGIC (CELULAR) ---
+        // --- AVATAR LOGIC ---
+        function handleAvatarUpload(input) {
+            const f = input.files[0];
+            if(f) {
+                if(f.size > 2000000) { alert("Máx 2MB"); return; }
+                const r = new FileReader();
+                r.onload = (e) => {
+                    const url = e.target.result;
+                    localStorage.setItem('user_avatar', url);
+                    loadAvatar();
+                };
+                r.readAsDataURL(f);
+            }
+        }
+        function loadAvatar() {
+            const av = localStorage.getItem('user_avatar');
+            const el = document.getElementById('user-avatar');
+            if(av) {
+                el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`;
+                el.classList.remove('bg-brand-100');
+            } else {
+                el.innerText = '👤';
+            }
+        }
+
+        // --- PIN LOGIC ---
         function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); pinInputBuffer = ""; updatePinDots(); } updatePinButton(); }
         function pinPress(num) {
             if(pinInputBuffer.length < 4) {
@@ -567,40 +673,23 @@
                 if(pinInputBuffer.length === 4) { setTimeout(verifyPin, 200); }
             }
         }
-        function pinDelete() {
-            if(pinInputBuffer.length > 0) {
-                pinInputBuffer = pinInputBuffer.slice(0, -1);
-                updatePinDots();
-            }
-        }
-        function updatePinDots() {
-            for(let i=0; i<4; i++) {
-                const dot = document.getElementById(`dot-${i}`);
-                if(i < pinInputBuffer.length) dot.classList.add('filled');
-                else dot.classList.remove('filled');
-            }
-        }
+        function pinDelete() { if(pinInputBuffer.length > 0) { pinInputBuffer = pinInputBuffer.slice(0, -1); updatePinDots(); } }
+        function updatePinDots() { for(let i=0; i<4; i++) { const dot = document.getElementById(`dot-${i}`); if(i < pinInputBuffer.length) dot.classList.add('filled'); else dot.classList.remove('filled'); } }
         function verifyPin() {
             const correct = localStorage.getItem('flowtask_pin');
-            if(pinInputBuffer === correct) {
-                document.getElementById('pin-screen').classList.add('hidden');
-                pinInputBuffer = "";
-            } else {
-                // Shake effect
-                const dots = document.getElementById('pin-dots'); // usando container parente
-                document.querySelector('.pin-dot').parentElement.classList.add('animate-shake');
-                setTimeout(() => {
-                    document.querySelector('.pin-dot').parentElement.classList.remove('animate-shake');
-                    pinInputBuffer = "";
-                    updatePinDots();
-                }, 500);
-            }
+            if(pinInputBuffer === correct) { document.getElementById('pin-screen').classList.add('hidden'); pinInputBuffer = ""; } 
+            else { document.getElementById('pin-dots').classList.add('animate-shake'); setTimeout(() => { document.getElementById('pin-dots').classList.remove('animate-shake'); pinInputBuffer = ""; updatePinDots(); }, 500); }
         }
-        function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido. Use 4 números."); } } }
-        function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; btn.className = localStorage.getItem('flowtask_pin') ? 'px-3 py-1.5 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-xs font-bold text-rose-600 dark:text-rose-400' : 'px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400'; }
+        function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido."); } } }
+        function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; }
 
         // Zen Mode
-        function toggleZenMode() { document.body.classList.toggle('zen-mode'); const btn = document.getElementById('zen-btn'); btn.classList.toggle('bg-brand-100'); btn.classList.toggle('text-brand-600'); }
+        function toggleZenMode() { 
+            document.body.classList.toggle('zen-mode'); 
+            const btn = document.getElementById('zen-btn'); 
+            // Update icon style or state if needed
+            renderBoard(); // Re-render to ensure layout fits
+        }
 
         // Wallpaper
         function handleWallpaperUpload(input) { const f = input.files[0]; if(f) { if(f.size > 2000000) { alert("Imagem muito grande (Max 2MB)"); return; } const r = new FileReader(); r.onload = (e) => { const url = e.target.result; localStorage.setItem('flowtask_wallpaper', url); loadWallpaper(); }; r.readAsDataURL(f); } }
@@ -613,19 +702,136 @@
             else { if (!noiseContext) noiseContext = new (window.AudioContext || window.webkitAudioContext)(); const bufferSize = 4096; brownNoiseNode = noiseContext.createScriptProcessor(bufferSize, 1, 1); brownNoiseNode.onaudioprocess = function(e) { const output = e.outputBuffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) { const white = Math.random() * 2 - 1; output[i] = (lastOut + (0.02 * white)) / 1.02; lastOut = output[i]; output[i] *= 3.5; } }; let lastOut = 0; brownNoiseNode.connect(noiseContext.destination); document.getElementById('btn-brown-noise').classList.add('bg-white/20', 'text-white'); document.getElementById('btn-brown-noise').classList.remove('text-slate-400'); }
         }
 
-        // Stats Logic
-        function toggleStats() { const m = document.getElementById('stats-modal'); if(m.classList.contains('hidden')) { m.classList.remove('hidden'); renderStats(); } else { m.classList.add('hidden'); } }
+        // --- STATS & HISTORY ---
+        function toggleStats() { 
+            const m = document.getElementById('stats-modal'); 
+            if(m.classList.contains('hidden')) { 
+                m.classList.remove('hidden'); 
+                renderStats(); 
+            } else { 
+                m.classList.add('hidden'); 
+            } 
+        }
         function renderStats() {
-            const total = tasks.length; const done = tasks.filter(t => t.status === 'done').length; const rate = total ? Math.round((done/total)*100) : 0;
-            const byCat = {}; categories.forEach(c => byCat[c.name] = 0); tasks.forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
-            document.getElementById('stats-content').innerHTML = `
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center"><span class="block text-2xl font-bold text-brand-600">${rate}%</span><span class="text-xs text-slate-500 uppercase">Conclusão</span></div>
-                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center"><span class="block text-2xl font-bold text-emerald-600">${pomoCount}</span><span class="text-xs text-slate-500 uppercase">Focos (Pomo)</span></div>
-                </div>
-                <div><h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Por Categoria</h4><div class="space-y-2">${Object.entries(byCat).map(([name, count]) => { const cat = categories.find(c => c.name === name); const w = total ? (count/total)*100 : 0; return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`; }).join('')}</div></div>`;
+            // KPIs
+            const total = tasks.filter(t => t.status !== 'trash').length;
+            const done = tasks.filter(t => t.status === 'done').length;
+            const rate = total ? Math.round((done/total)*100) : 0;
+            document.getElementById('stat-completion-rate').innerText = `${rate}%`;
+            document.getElementById('stat-pomodoros').innerText = pomoCount;
+
+            // Categories
+            const byCat = {}; categories.forEach(c => byCat[c.name] = 0);
+            tasks.filter(t => t.status !== 'trash').forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
+            
+            document.getElementById('stats-categories-list').innerHTML = `
+                <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Tarefas por Categoria</h4>
+                <div class="space-y-2">
+                    ${Object.entries(byCat).map(([name, count]) => {
+                        const cat = categories.find(c => c.name === name);
+                        const w = total ? (count/total)*100 : 0;
+                        return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`;
+                    }).join('')}
+                </div>`;
+
+            // Chart
+            const ctx = document.getElementById('historyChart').getContext('2d');
+            if(historyChartInstance) historyChartInstance.destroy();
+            
+            // Get last 7 days labels and data
+            const labels = [];
+            const data = [];
+            for(let i=6; i>=0; i--) {
+                const d = new Date(); d.setDate(d.getDate() - i);
+                const dateStr = d.toISOString().split('T')[0];
+                labels.push(d.toLocaleDateString('pt-BR', {weekday: 'short'}));
+                data.push(completionLog.filter(l => l.date === dateStr).length);
+            }
+
+            historyChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tarefas Concluídas',
+                        data: data,
+                        backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                        borderColor: '#6366f1',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
         }
 
+        // --- TRASH LOGIC ---
+        function cleanupTrash() {
+            const now = Date.now();
+            const oneDay = 24 * 60 * 60 * 1000;
+            // Remove permanently if in trash > 24h
+            const initialLen = tasks.length;
+            tasks = tasks.filter(t => {
+                if(t.status === 'trash' && t.deletedAt) {
+                    return (now - t.deletedAt) < oneDay;
+                }
+                return true;
+            });
+            if(tasks.length !== initialLen) saveTasks();
+        }
+        function requestDelete(e, id) { 
+            if(e) e.stopPropagation(); 
+            // Soft delete
+            const t = tasks.find(x => x.id === id);
+            if(t) {
+                t.status = 'trash';
+                t.deletedAt = Date.now();
+                saveTasks();
+            }
+        }
+        function restoreTask(id) {
+            const t = tasks.find(x => x.id === id);
+            if(t) {
+                t.status = 'todo';
+                delete t.deletedAt;
+                saveTasks();
+                openTrashModal(); // Refresh list
+            }
+        }
+        function deletePermanently(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasks();
+            openTrashModal();
+        }
+        function openTrashModal() {
+            document.getElementById('trash-modal').classList.remove('hidden');
+            const trashList = document.getElementById('trash-list');
+            const deleted = tasks.filter(t => t.status === 'trash');
+            
+            if(deleted.length === 0) {
+                trashList.innerHTML = '<div class="text-center text-slate-400 py-10">Lixeira vazia</div>';
+            } else {
+                trashList.innerHTML = deleted.map(t => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate flex-1 pr-2">${t.title}</span>
+                        <div class="flex gap-2">
+                            <button onclick="restoreTask('${t.id}')" class="text-emerald-500 hover:bg-emerald-50 p-1.5 rounded" title="Restaurar"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
+                            <button onclick="deletePermanently('${t.id}')" class="text-rose-500 hover:bg-rose-50 p-1.5 rounded" title="Excluir"><i data-lucide="x" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            }
+        }
+        function closeTrashModal() { document.getElementById('trash-modal').classList.add('hidden'); }
+
+
+        // --- BOARD RENDER ---
         function renderBoard() {
             const filter = document.getElementById('search-input').value.toLowerCase();
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
@@ -633,14 +839,18 @@
             const today = new Date().toISOString().split('T')[0];
             let counts = { todo: 0, doing: 0, done: 0 };
             const w = { high: 3, medium: 2, low: 1 };
-            const sorted = [...tasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
+            
+            // Filter out trash
+            const activeTasks = tasks.filter(t => t.status !== 'trash');
+            
+            const sorted = [...activeTasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
             
             sorted.forEach(t => {
                 counts[t.status]++; const od = t.dueDate && t.dueDate < today && t.status !== 'done';
                 cols[t.status].appendChild(createCard(t, od));
             });
             document.getElementById('count-todo').innerText = counts.todo; document.getElementById('count-doing').innerText = counts.doing; document.getElementById('count-done').innerText = counts.done;
-            const total = tasks.length; const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
+            const total = activeTasks.length; const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
             document.getElementById('progress-text').innerText = `${p}%`; document.getElementById('progress-bar').style.width = `${p}%`;
             lucide.createIcons();
         }
@@ -648,6 +858,10 @@
         function createCard(t, od) {
             const d = document.createElement('div'); const act = t.status === 'doing'; const exp = expandedTasks.has(t.id);
             const catObj = categories.find(c => c.name === t.category); const catColor = catObj ? catObj.color : '#64748b';
+            
+            // Recurrence Icon
+            const recurIcon = t.repeat && t.repeat !== 'none' ? `<span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 px-1.5 rounded ml-1" title="Repete: ${t.repeat}">🔄</span>` : '';
+
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
             d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); };
@@ -669,17 +883,44 @@
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
                     <div class="flex justify-between items-start"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border text-slate-600 dark:text-slate-300" style="border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">${t.category}</span>${!act ? acts : ''}</div>
-                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6">${t.title}</h3>${dh}
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6 flex items-start gap-1">${t.title} ${recurIcon}</h3>${dh}
                     ${total > 0 ? `<div class="mt-4" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()"><div class="flex items-center justify-between mb-1.5"><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${prog}% Concluído</span><span class="text-[10px] text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 rounded">${done}/${total}</span></div><div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500 transition-all duration-700 ease-out" style="width: ${prog}%"></div></div><button onclick="toggleSubtaskList(event, '${t.id}')" class="w-full group/btn flex items-center justify-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-1.5 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"><span>${exp ? 'Ocultar Checklist' : 'Ver Checklist'}</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300 ${exp ? 'rotate-180' : ''}"></i></button><div class="${exp ? 'block' : 'hidden'} mt-2 space-y-1 animate-slide-in">${t.subtasks.map((st, i) => `<div class="group/item flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer select-none" onclick="toggleSubtaskCheck('${t.id}', ${i})"><div class="relative flex items-center justify-center mt-0.5 shrink-0"><input type="checkbox" ${st.completed ? 'checked' : ''} class="peer appearance-none w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded checked:bg-brand-500 checked:border-brand-500 transition-all cursor-pointer pointer-events-none"><i data-lucide="check" class="absolute w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i></div><span class="text-xs ${st.completed ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-700 dark:text-slate-200'} transition-colors leading-relaxed">${st.title}</span></div>`).join('')}</div></div>` : ''}${act ? acts : ''}</div>`;
             return d;
         }
 
         function toggleSubtaskList(e, id) { e.stopPropagation(); expandedTasks.has(id) ? expandedTasks.delete(id) : expandedTasks.add(id); renderBoard(); }
         function toggleSubtaskCheck(id, idx) { const t = tasks.find(x => x.id === id); if(t && t.subtasks) { t.subtasks[idx].completed = !t.subtasks[idx].completed; saveTasks(); } }
-        function requestDelete(e, id) { if(e) e.stopPropagation(); taskToDeleteId = id; document.getElementById('delete-modal').classList.remove('hidden'); }
-        function closeDeleteModal() { document.getElementById('delete-modal').classList.add('hidden'); taskToDeleteId = null; }
-        function confirmDelete() { if (taskToDeleteId) { tasks = tasks.filter(t => t.id !== taskToDeleteId); saveTasks(); closeDeleteModal(); } }
-        function completeTask(e, id) { if(e) e.stopPropagation(); const t = tasks.find(t => t.id === id); if(t) { t.status = 'done'; if(t.subtasks) t.subtasks.forEach(s => s.completed = true); saveTasks(); fireConfetti(); } }
+        
+        function completeTask(e, id) { 
+            if(e) e.stopPropagation(); 
+            const t = tasks.find(t => t.id === id); 
+            if(t) { 
+                // Log Completion
+                completionLog.push({ date: new Date().toISOString().split('T')[0], taskId: t.id });
+                localStorage.setItem('flowtask_log', JSON.stringify(completionLog));
+
+                // Recurrence Logic
+                if (t.repeat && t.repeat !== 'none') {
+                    // Reset Subtasks
+                    if(t.subtasks) t.subtasks.forEach(s => s.completed = false);
+                    
+                    // Calculate next date
+                    const nextDate = new Date();
+                    if (t.repeat === 'daily') nextDate.setDate(nextDate.getDate() + 1);
+                    if (t.repeat === 'weekly') nextDate.setDate(nextDate.getDate() + 7);
+                    
+                    t.dueDate = nextDate.toISOString().split('T')[0];
+                    t.status = 'todo'; // Returns to todo
+                    alert(`Tarefa recorrente reagendada para ${t.dueDate.split('-').reverse().join('/')}`);
+                } else {
+                    t.status = 'done'; 
+                    if(t.subtasks) t.subtasks.forEach(s => s.completed = true); 
+                }
+                
+                saveTasks(); 
+                fireConfetti(); 
+            } 
+        }
 
         function openModal(id = null) {
             const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
@@ -690,11 +931,13 @@
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
                 document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
                 document.getElementById('task-due-date').value = t.dueDate || '';
+                document.getElementById('task-repeat').value = t.repeat || 'none';
                 document.getElementsByName('priority').forEach(r => r.checked = r.value === t.priority);
                 tempSubtasks = t.subtasks ? [...t.subtasks] : [];
             } else {
                 document.getElementById('modal-title').innerText = "Nova Tarefa"; form.reset();
                 document.getElementsByName('priority')[1].checked = true;
+                document.getElementById('task-repeat').value = 'none';
             }
             renderSubtasks(); document.getElementById('task-title').focus();
         }
@@ -704,9 +947,27 @@
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
         function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
         
-        function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
+        function saveTask(e) { 
+            e.preventDefault(); 
+            const data = { 
+                title: document.getElementById('task-title').value, 
+                category: document.getElementById('task-category').value, 
+                dueDate: document.getElementById('task-due-date').value, 
+                priority: document.querySelector('input[name="priority"]:checked').value, 
+                subtasks: tempSubtasks,
+                repeat: document.getElementById('task-repeat').value
+            }; 
+            if(currentEditingId) { 
+                const idx = tasks.findIndex(t => t.id === currentEditingId); 
+                tasks[idx] = { ...tasks[idx], ...data }; 
+            } else { 
+                tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); 
+            } 
+            saveTasks(); 
+            closeModal(); 
+        }
         function allowDrop(e) { e.preventDefault(); }
-        function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { if(t.subtasks) t.subtasks.forEach(s => s.completed = true); fireConfetti(); } saveTasks(); } }
+        function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { completeTask(null, id); } else { saveTasks(); } } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
         function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; if(brownNoiseNode) toggleBrownNoise(); }
