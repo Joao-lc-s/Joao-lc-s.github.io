@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="FlowTask">
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#4f46e5">
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%234f46e5' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <title>FlowTask v2.0 Pro</title>
+    <title>FlowTask v2.3 Pro</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -39,16 +38,18 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                         'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'shimmer': 'shimmer 2s linear infinite',
                         'pop': 'popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                         'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'toast-in': 'toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'toast-out': 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                     },
                     keyframes: {
                         slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                         slideIn: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
-                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
                         popIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
-                        shake: { '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' }, '20%, 80%': { transform: 'translate3d(2px, 0, 0)' }, '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' }, '40%, 60%': { transform: 'translate3d(4px, 0, 0)' } }
+                        shake: { '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' }, '20%, 80%': { transform: 'translate3d(2px, 0, 0)' }, '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' }, '40%, 60%': { transform: 'translate3d(4px, 0, 0)' } },
+                        toastIn: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        toastOut: { '0%': { transform: 'translateY(0)', opacity: '1' }, '100%': { transform: 'translateY(20px)', opacity: '0' } }
                     }
                 }
             }
@@ -59,92 +60,57 @@
         :root {
             --color-brand-50: 238 242 255;
             --color-brand-100: 224 231 255;
-            --color-brand-500: 99 102 241;
-            --color-brand-600: 79 70 229;
-            --color-brand-700: 67 56 202;
-            --bg-gradient-from: #6366f1;
-            --bg-gradient-to: #a855f7;
-            --bg-solid: transparent; /* Novo: Cor sólida de fundo */
-            --ui-radius: 0.75rem; 
+            --color-brand-500: 79 70 229;
+            --color-brand-600: 67 56 202;
+            --color-brand-700: 55 48 163;
+            --bg-solid: #f8fafc;
+            --ui-radius: 0.5rem;
             --ui-font-scale: 1;
         }
+
+        .dark :root { --bg-solid: #0f172a; }
 
         body { 
             transition: background-color 0.3s ease; 
             -webkit-tap-highlight-color: transparent; 
             font-size: calc(16px * var(--ui-font-scale));
             overscroll-behavior-y: none;
-            background-color: var(--bg-solid);
+            background-color: var(--bg-solid); 
         }
 
+        #bg-container { display: none !important; }
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
         
-        /* LIQUID GLASS APPLE STYLE */
-        .glass { 
-            background: rgba(255, 255, 255, 0.65); 
-            backdrop-filter: blur(20px) saturate(180%); 
-            -webkit-backdrop-filter: blur(20px) saturate(180%); 
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
-        }
-        .dark .glass { 
-            background: rgba(30, 41, 59, 0.5); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        }
+        .glass { background: #ffffff !important; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); }
+        .dark .glass { background: #05070d !important; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); }
 
-        .glass-btn {
-            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        .glass-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(var(--color-brand-500), 0.3);
-            border-color: rgba(var(--color-brand-500), 0.5);
-        }
-        .glass-btn:active { transform: scale(0.96); }
+        .glass-btn { background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease; }
+        .dark .glass-btn { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+        .glass-btn:hover { transform: translateY(-1px); border-color: rgb(var(--color-brand-500)); }
+        .glass-btn:active { transform: scale(0.98); }
 
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(16px) saturate(120%); 
-            border: 1px solid rgba(255, 255, 255, 0.6); 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            will-change: transform, opacity; 
-            border-radius: var(--ui-radius); 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        .dark .glass-card { 
-            background: rgba(30, 41, 59, 0.7); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
+        .glass-card { background: #ffffff !important; border: 1px solid #e2e8f0; transition: all 0.2s ease-out; border-radius: var(--ui-radius); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .dark .glass-card { background: #05070d !important; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
         .glass-card:active { transform: scale(0.98); }
-        @media (min-width: 768px) { 
-            .glass-card:hover { 
-                transform: translateY(-5px) scale(1.01); 
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
-                z-index: 10; 
-                border-color: rgba(var(--color-brand-500), 0.3);
-            } 
-            .glass-card:active { transform: scale(1); } 
-        }
+        @media (min-width: 768px) { .glass-card:hover { transform: translateY(-4px); z-index: 10; border-color: rgb(var(--color-brand-500)); } }
 
         .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
         .appearance-none { -webkit-appearance: none; appearance: none; }
         .dark input[type="date"] { color-scheme: dark; }
-        .task-overdue { border-left: 4px solid #f43f5e !important; background: linear-gradient(to right, rgba(244, 63, 94, 0.05), transparent); }
-        .task-active { border: 2px solid transparent !important; box-shadow: 0 0 0 2px rgba(var(--color-brand-500), 0.3) !important; }
+        .task-overdue { border-left: 4px solid #f43f5e !important; background: #fff1f2 !important; }
+        .dark .task-overdue { background: #4c0519 !important; } 
+        .task-active { border: 2px solid rgb(var(--color-brand-500)) !important; }
+        
         button, input, select { pointer-events: auto; }
         
         .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
         .digit { display: inline-block; animation: fallIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
-        .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7, #ec4899); background-size: 200% 100%; animation: shimmer 3s infinite linear; }
+        .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7); background-size: 200% 100%; }
         #settings-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         #settings-sidebar.closed { transform: translateX(100%); }
+        #scratchpad-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        #scratchpad-sidebar.closed { transform: translateX(-100%); }
         .snap-x-mandatory { scroll-snap-type: x mandatory; }
         .snap-center { scroll-snap-align: center; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -152,31 +118,20 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
 
-        /* PIN KEYPAD STYLES */
-        .pin-btn { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; user-select: none; }
-        .pin-btn:active { background-color: rgba(255,255,255,0.2); }
+        .pin-btn { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; user-select: none; border: 1px solid transparent; }
+        .pin-btn:active { background-color: rgba(0,0,0,0.05); }
+        .dark .pin-btn:active { background-color: rgba(255,255,255,0.1); }
         .pin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid currentColor; transition: all 0.2s; }
         .pin-dot.filled { background-color: currentColor; }
         
-        /* Blob & Background */
-        .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
-        .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
-        
-        /* ZEN MODE GIGANTE */
-        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode header, .zen-mode #stats-bar { display: none !important; }
-        .zen-mode #view-kanban { overflow: visible !important; display: flex; align-items: center; justify-content: center; height: 100vh; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--bg-solid); backdrop-filter: blur(10px); padding: 2rem; }
-        .zen-mode .blob-1, .zen-mode .blob-2 { opacity: 0.1; }
-        .zen-mode #col-doing { width: 100% !important; max-width: 800px; height: auto; max-height: 90vh; border: none; background: transparent; box-shadow: none; }
-        .zen-mode #col-doing .glass-card { transform: scale(1.1); margin-bottom: 2rem; border: 1px solid rgba(var(--color-brand-500), 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-        .zen-mode #col-doing h2 { font-size: 2rem; text-align: center; margin-bottom: 2rem; justify-content: center; }
-        .zen-mode #zen-exit-btn { display: flex !important; }
+        .subtask-dragging { opacity: 0.5; background-color: rgba(var(--color-brand-500), 0.1); }
 
-        #pin-screen { backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9999; }
+        #pin-screen { z-index: 9999; background: var(--bg-solid); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
+<body class="text-slate-900 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
     
-    <div id="pin-screen" class="fixed inset-0 bg-slate-200/90 dark:bg-slate-900/95 flex flex-col items-center justify-center hidden">
+    <div id="pin-screen" class="fixed inset-0 flex flex-col items-center justify-center hidden">
         <div class="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
             <div class="mb-8 flex flex-col items-center animate-slide-up">
                 <div class="p-4 bg-brand-600 rounded-2xl shadow-xl mb-4"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
@@ -202,20 +157,15 @@
                 <div class="pin-btn opacity-0 cursor-default"></div> <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(0)">0</div>
                 <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center" onclick="pinDelete()"><i data-lucide="delete" class="w-6 h-6"></i></div>
             </div>
-            <button onclick="localStorage.removeItem('flowtask_pin'); location.reload();" class="text-xs text-slate-400 mt-4 hover:text-brand-500">Esqueci meu PIN (Resetar)</button>
         </div>
-    </div>
-
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="bg-container">
-        <div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
-        <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
 
     <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">Você está offline. A IA não funcionará.</div>
 
-    <button id="zen-exit-btn" onclick="toggleZenMode()" class="hidden fixed top-6 right-6 z-[60] bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full backdrop-blur-md font-bold shadow-2xl transition-all hover:scale-105 active:scale-95 border border-white/20 items-center gap-2">
-        <i data-lucide="minimize-2"></i> Sair do Modo Foco
-    </button>
+    <div id="undo-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-slate-900 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-4 hidden">
+        <span class="text-sm font-medium">Ação realizada</span>
+        <button onclick="performUndo()" class="text-xs font-bold text-brand-400 hover:text-brand-300 uppercase tracking-wider">Desfazer</button>
+    </div>
 
     <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6 gap-4">
         
@@ -223,7 +173,15 @@
             <div class="glass rounded-dynamic px-5 py-3 flex justify-between items-center shadow-sm">
                 <div class="flex items-center gap-4 overflow-hidden">
                     <div class="relative group cursor-pointer" onclick="document.getElementById('avatar-input').click()">
-                        <div id="user-avatar" class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center text-lg shadow-inner overflow-hidden border-2 border-white dark:border-slate-700">👤</div>
+                        <div id="user-avatar" class="w-10 h-10 rounded-full flex items-center justify-center shadow-md overflow-hidden border-2 border-white dark:border-slate-700 cursor-pointer group">
+                            <div class="w-full h-full bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white drop-shadow-md">
+                                    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/>
+                                    <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>
+                                    <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
+                                </svg>
+                            </div>
+                        </div>
                         <input type="file" id="avatar-input" class="hidden" accept="image/*" onchange="handleAvatarUpload(this)">
                         <div class="absolute inset-0 bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-bold">Mudar</div>
                     </div>
@@ -231,18 +189,28 @@
                     <div class="flex flex-col">
                         <h1 class="text-lg font-bold tracking-tight leading-none flex items-center gap-2">
                              <span id="greeting-text">Olá</span>
-                             <span class="text-brand-500 text-xs align-top px-1.5 py-0.5 bg-brand-50 dark:bg-brand-900/30 rounded-full">Pro</span>
+                             <span class="text-brand-500 text-xs align-top px-1.5 py-0.5 bg-brand-500/10 dark:bg-brand-900/30 rounded-full">Pro</span>
                         </h1>
                         <p id="date-display" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium capitalize truncate leading-tight mt-0.5"></p>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-2">
-                    <button onclick="openTrashModal()" class="p-2 text-slate-400 hover:text-rose-500 transition-colors" title="Lixeira">
-                        <i data-lucide="trash" class="w-4 h-4"></i>
-                    </button>
-                    <div class="hidden sm:block text-xs font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full border border-brand-100 dark:border-brand-900/50">
-                        Modo Produtivo
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-end">
+                        <div class="flex items-center gap-1 text-orange-500 font-bold text-sm">
+                            <i data-lucide="flame" class="w-4 h-4 fill-current animate-pulse"></i>
+                            <span id="streak-count">0</span> dias
+                        </div>
+                        <div class="text-[10px] text-slate-400">Sequência</div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button onclick="toggleScratchpad()" class="p-2 text-slate-400 hover:text-brand-500 transition-colors" title="Bloco de Notas Rápido">
+                            <i data-lucide="notebook-pen" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="openTrashModal()" class="p-2 text-slate-400 hover:text-rose-500 transition-colors" title="Lixeira">
+                            <i data-lucide="trash" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -252,25 +220,22 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i data-lucide="search" class="w-4 h-4 text-slate-400 group-focus-within:text-brand-500 transition-colors"></i>
                     </div>
-                    <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="O que você procura hoje?" class="w-full h-11 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm hover:shadow-md hover:bg-white dark:hover:bg-slate-800">
+                    <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Pesquisar por título ou tag..." class="w-full h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm">
                 </div>
 
                 <div class="flex items-center justify-between md:justify-end gap-2 shrink-0">
-                    <div class="flex gap-2">
-                        <button onclick="toggleZenMode()" id="zen-btn" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Modo Zen Gigante">
-                            <i data-lucide="maximize-2" class="w-5 h-5"></i>
+                    <div class="flex gap-2 w-full md:w-auto">
+                        <button onclick="toggleStats()" class="glass-btn h-11 flex-1 md:flex-none px-3 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300 gap-2" title="Histórico e Stats">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> <span class="text-xs font-bold md:text-sm md:font-medium">Stats</span>
                         </button>
-                        <button onclick="toggleStats()" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Histórico e Stats">
-                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
-                        </button>
-                        <button onclick="toggleSettings()" class="glass-btn h-11 w-11 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300" title="Ajustes">
-                            <i data-lucide="settings-2" class="w-5 h-5"></i>
+                        <button onclick="toggleSettings()" class="glass-btn h-11 flex-1 md:flex-none px-3 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300 gap-2" title="Ajustes">
+                            <i data-lucide="settings-2" class="w-4 h-4"></i> <span class="text-xs font-bold md:text-sm md:font-medium">Ajustes</span>
                         </button>
                     </div>
                     
                     <div class="w-px h-8 bg-slate-300 dark:bg-slate-700 mx-1 hidden md:block"></div>
 
-                    <button onclick="openModal()" class="glass-btn h-11 px-5 bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 flex items-center gap-2 border-0">
+                    <button onclick="openModal()" class="glass-btn h-11 px-5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-sm flex items-center gap-2 border-0">
                         <i data-lucide="plus" class="w-5 h-5"></i>
                         <span>Nova</span>
                     </button>
@@ -285,30 +250,29 @@
                     <span id="progress-text" class="text-xl font-bold text-brand-600 dark:text-brand-500">0%</span>
                 </div>
                 <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
-                    <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-purple-500 rounded-full transition-all duration-1000 w-0 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite]"></div>
+                    <div id="progress-bar" class="h-full bg-brand-500 rounded-full transition-all duration-1000 w-0 relative overflow-hidden">
                     </div>
                 </div>
             </div>
             <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-2 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
                  <div class="bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-2 text-center min-w-[70px]"><p id="count-todo" class="text-lg font-bold text-slate-700 dark:text-white leading-none">0</p><p class="text-[9px] text-slate-400 uppercase tracking-wider mt-1">A Fazer</p></div>
-                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20"><p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p><p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p></div>
+                <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-indigo-100 dark:border-indigo-900/20"><p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p><p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p></div>
                 <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20"><p id="count-done" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 leading-none">0</p><p class="text-[9px] text-emerald-400/80 uppercase tracking-wider mt-1">Feito</p></div>
             </div>
         </div>
 
         <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
             <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
-                    <div class="p-4 pb-2 border-b border-black/5 dark:border-white/5"><h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer</h2></div>
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
+                    <div class="p-4 pb-2 border-b border-slate-200 dark:border-slate-700/50"><h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer</h2></div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-brand-50/50 dark:bg-slate-900/40 rounded-dynamic border border-brand-200/30 dark:border-brand-500/10 backdrop-blur-sm snap-center shadow-inner relative">
-                    <div class="p-4 pb-2 border-b border-brand-200/30 dark:border-white/5"><h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Foco</h2></div>
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-white dark:bg-slate-900 rounded-dynamic border border-brand-200 dark:border-brand-500/30 snap-center shadow-md relative">
+                    <div class="p-4 pb-2 border-b border-brand-100 dark:border-brand-500/20"><h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Foco</h2></div>
                     <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
-                    <div class="p-4 pb-2 flex justify-between items-center border-b border-black/5 dark:border-white/5">
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
+                    <div class="p-4 pb-2 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50">
                         <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito</h2>
                         <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded" title="Limpar tarefas concluídas"><i data-lucide="archive" class="w-3 h-3"></i> Arquivar</button>
                     </div>
@@ -318,7 +282,15 @@
         </div>
     </div>
 
-    <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col overflow-y-auto custom-scrollbar pt-[calc(env(safe-area-inset-top)+20px)]">
+    <div id="scratchpad-sidebar" class="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col pt-[calc(env(safe-area-inset-top)+20px)]">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-2"><i data-lucide="notebook-pen" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Notas Rápidas</h2></div>
+            <button onclick="toggleScratchpad()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
+        </div>
+        <textarea id="scratchpad-area" class="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 resize-none outline-none focus:border-brand-500 text-sm leading-relaxed" placeholder="Digite suas ideias aqui..."></textarea>
+    </div>
+
+    <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col overflow-y-auto custom-scrollbar pt-[calc(env(safe-area-inset-top)+20px)]">
         <div class="flex justify-between items-center mb-8">
             <div class="flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Ajustes</h2></div>
             <button onclick="toggleSettings()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><i data-lucide="x"></i></button>
@@ -326,32 +298,58 @@
         
         <div class="space-y-8 flex-1">
              <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
-                <div class="flex items-center justify-between mb-4 bg-slate-50 dark:bg-slate-800 p-2 rounded-xl">
-                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300 ml-2">Modo Escuro</span>
-                     <button id="theme-toggle" class="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm border border-slate-200 dark:border-slate-600">
-                        <i data-lucide="moon" class="w-4 h-4 text-slate-600 dark:text-slate-300 hidden dark:block"></i>
-                        <i data-lucide="sun" class="w-4 h-4 text-slate-600 dark:text-slate-300 block dark:hidden"></i>
-                     </button>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Temas Prontos</h3>
+                <div class="grid grid-cols-2 gap-2 mb-6">
+                    <button onclick="applyTheme('cyberpunk')" class="p-3 rounded-lg bg-black border border-purple-500 text-purple-400 text-xs font-bold hover:scale-105 transition-transform">Cyberpunk</button>
+                    <button onclick="applyTheme('nature')" class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold hover:scale-105 transition-transform">Natureza</button>
+                    <button onclick="applyTheme('dracula')" class="p-3 rounded-lg bg-[#282a36] border border-[#bd93f9] text-[#bd93f9] text-xs font-bold hover:scale-105 transition-transform">Dracula</button>
+                    <button onclick="applyTheme('minimal')" class="p-3 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:scale-105 transition-transform">Minimalista</button>
                 </div>
-                
+
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Personalizar</h3>
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Destaque</label>
-                    <div class="flex gap-2 flex-wrap">
-                        <button onclick="setBrandColor('#6366f1')" class="w-8 h-8 rounded-full bg-[#6366f1] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        <input type="color" onchange="setBrandColor(this.value)" class="w-8 h-8 rounded-full overflow-hidden cursor-pointer border-0 p-0">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="setBrandColor('#4f46e5')" class="w-8 h-8 rounded-full bg-[#4f46e5] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                            <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <div class="relative w-8 h-8 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                                <input type="color" id="brand-color-picker" oninput="setBrandColor(this.value)" class="absolute inset-0 w-full h-full cursor-pointer p-0 border-0 opacity-0">
+                                <div id="brand-color-preview" class="w-full h-full bg-brand-500"></div>
+                             </div>
+                             <input type="text" id="brand-hex-input" placeholder="#000000" maxlength="7" oninput="handleHexInput(this.value, 'brand')" class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm uppercase font-mono text-slate-600 dark:text-slate-300 outline-none focus:border-brand-500">
+                        </div>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Fundo (Sólida)</label>
-                    <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
-                        <input type="color" id="bg-color-picker" class="w-8 h-8 rounded-lg cursor-pointer border-0 p-0" oninput="setBackgroundColor(this.value)">
-                        <span class="text-xs text-slate-500">Selecione uma cor para substituir o gradiente</span>
-                        <button onclick="resetBackground()" class="text-xs text-rose-500 font-bold hover:underline">Reset</button>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Fundo</label>
+                    <div class="flex flex-col gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-3">
+                             <div class="relative w-9 h-9 rounded-full overflow-hidden border border-slate-300 dark:border-slate-600 shadow-sm shrink-0 hover:scale-105 transition-transform">
+                                <input type="color" 
+                                    id="bg-color-picker" 
+                                    class="absolute inset-0 w-full h-full cursor-pointer p-0 border-0 opacity-0" 
+                                    oninput="setBackgroundColor(this.value); document.getElementById('bg-color-preview').style.backgroundColor = this.value; document.getElementById('bg-hex-input').value = this.value">
+                                <div id="bg-color-preview" class="w-full h-full" style="background-color: var(--bg-solid)"></div>
+                             </div>
+
+                             <input type="text" 
+                                id="bg-hex-input" 
+                                placeholder="#000000" 
+                                maxlength="7" 
+                                oninput="handleHexInput(this.value, 'bg')" 
+                                class="w-44 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 text-sm uppercase font-mono text-slate-600 dark:text-slate-300 outline-none focus:border-brand-500 text-center shadow-sm flex-1">
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wide">Personalizado</span>
+                            <button onclick="resetBackground()" class="text-xs text-rose-500 font-bold hover:underline">Resetar Padrão</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -410,9 +408,10 @@
                 </div>
             </section>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.0</div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.3</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
+    <div id="scratchpad-overlay" onclick="toggleScratchpad()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
     <div id="stats-modal" class="fixed inset-0 z-[65] hidden">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="toggleStats()"></div>
@@ -432,6 +431,13 @@
                         <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl text-center border border-slate-100 dark:border-slate-700">
                              <span class="block text-3xl font-bold text-emerald-600" id="stat-pomodoros">0</span>
                              <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Ciclos Foco</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Distribuição (Categorias)</h4>
+                        <div class="h-40 w-full flex justify-center">
+                            <canvas id="categoryChart"></canvas>
                         </div>
                     </div>
                     
@@ -470,16 +476,28 @@
                 <form id="task-form" onsubmit="saveTask(event)">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Título da Tarefa</label>
-                            <input type="text" id="task-title" required class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 focus:ring-2 focus:ring-brand-500 outline-none dark:text-white transition-all placeholder:text-slate-400" placeholder="Ex: Finalizar relatório trimestral">
+                            <div class="flex justify-between items-end mb-1.5">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Título da Tarefa</label>
+                                <button type="button" onclick="startDictation('task-title')" class="text-slate-400 hover:text-brand-500 transition-colors"><i data-lucide="mic" class="w-4 h-4"></i></button>
+                            </div>
+                            <input type="text" id="task-title" required class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 focus:ring-2 focus:ring-brand-500 outline-none dark:text-white transition-all placeholder:text-slate-400" placeholder="Ex: Pagar conta hoje" onblur="attemptNLP(this.value)">
                         </div>
+                        
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
                             <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prazo Final</label><input type="date" id="task-due-date" class="w-full form-input-fixed appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white transition-all cursor-pointer text-sm font-medium" style="min-height: 42px;"></div>
                             <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"></select></div>
                         </div>
+
+                        <div>
+                            <div class="flex justify-between items-end mb-1.5">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Tags</label>
+                                <button type="button" onclick="generateTags()" id="btn-magic-tags" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Sugerir</button>
+                            </div>
+                            <input type="text" id="task-tags" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 text-sm outline-none dark:text-white focus:border-brand-500 transition-all placeholder:text-slate-400" placeholder="Ex: trabalho, urgente, design">
+                        </div>
                         
                         <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider flex items-center gap-1"><i data-lucide="repeat" class="w-3 h-3"></i> Recorrência 🔄</label>
+                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider flex items-center gap-1"><i data-lucide="repeat" class="w-3 h-3"></i> Recorrência</label>
                             <select id="task-repeat" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium">
                                 <option value="none">Não repetir</option>
                                 <option value="daily">Diariamente</option>
@@ -497,16 +515,23 @@
                         </div>
 
                         <div>
-                            <div class="flex justify-between items-end mb-1.5"><label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Checklist</label><button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Gerar com IA</button></div>
-                            <div class="flex gap-2 mb-2"><input type="text" id="new-subtask-input" class="flex-1 form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 text-sm outline-none dark:text-white focus:border-brand-500 transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}"><button type="button" onclick="addSubtaskToForm()" class="h-[42px] w-[42px] flex items-center justify-center bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
+                            <div class="flex justify-between items-end mb-1.5"><label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Checklist</label><button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Gerar</button></div>
+                            <div class="flex gap-2 mb-2">
+                                <div class="relative flex-1">
+                                    <input type="text" id="new-subtask-input" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 pr-8 text-sm outline-none dark:text-white focus:border-brand-500 transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}">
+                                    <button type="button" onclick="startDictation('new-subtask-input')" class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brand-500"><i data-lucide="mic" class="w-4 h-4"></i></button>
+                                </div>
+                                <button type="button" onclick="addSubtaskToForm()" class="h-[42px] w-[42px] flex items-center justify-center bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                            </div>
                             <ul id="subtask-list-form" class="space-y-1 max-h-32 overflow-y-auto custom-scrollbar"></ul>
-                        </div>
-                    </div>
-                    <div class="mt-8 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-slate-900 py-2"><button type="button" onclick="closeModal()" class="px-5 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl font-medium transition-colors">Cancelar</button><button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95 glass-btn border-0">Salvar</button></div>
-                </form>
-            </div>
-        </div>
-    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <button type="button" onclick="closeModal()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl font-medium shadow-lg shadow-rose-600/30 transition-all transform active:scale-95 glass-btn border-0">Cancelar</button>
+                                <button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95 glass-btn border-0">Salvar</button>
+                            </div>
+                            </div>
+                            </div>
 
     <div id="pomodoro-modal" class="fixed inset-0 z-[60] hidden">
         <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center text-white p-4">
@@ -519,12 +544,14 @@
                     <div id="motivation-text" class="hidden text-sm text-brand-100 font-medium italic animate-slide-up w-full text-center bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl shadow-inner relative"><span class="absolute top-1 left-2 text-brand-500/20 text-2xl font-serif">“</span><span id="motivation-content"></span><span class="absolute bottom-[-0.5rem] right-2 text-brand-500/20 text-2xl font-serif">”</span></div>
                 </div>
             </div>
-            <div class="flex gap-2 mb-8 bg-white/5 p-1 rounded-xl overflow-x-auto max-w-full shrink-0">
+            
+            <div class="flex gap-2 mb-4 bg-white/5 p-1 rounded-xl overflow-x-auto max-w-full shrink-0">
                 <button onclick="setTimerDuration(15)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="15">15m</button>
                 <button onclick="setTimerDuration(25)" class="timer-btn px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium shadow-lg whitespace-nowrap" data-time="25">25m</button>
                 <button onclick="setTimerDuration(45)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="45">45m</button>
                 <button onclick="setTimerDuration(60)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="60">60m</button>
             </div>
+
             <div class="relative w-72 h-72 shrink-0 flex items-center justify-center group/timer">
                 <svg class="w-full h-full" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1e293b" stroke-width="4" /><circle id="timer-circle" class="progress-ring__circle" cx="50" cy="50" r="45" fill="none" stroke="rgb(var(--color-brand-500))" stroke-width="4" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0" /></svg>
                 <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
@@ -533,10 +560,21 @@
                     <span id="timer-status" class="text-slate-400 mt-4 text-sm font-medium">Pausado</span>
                 </div>
             </div>
-            <div class="mt-10 flex items-center gap-6">
-                <button id="btn-brown-noise" onclick="toggleBrownNoise()" class="w-14 h-14 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5" title="Ruído Marrom"><i data-lucide="waves" class="w-6 h-6"></i></button>
-                <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
-                <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
+            
+            <div class="mt-8 flex flex-col items-center gap-4 w-full max-w-xs">
+                <div class="flex items-center justify-center gap-3 w-full">
+                    <button id="btn-toggle-noise" onclick="toggleNoise()" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5"><i data-lucide="waves" class="w-5 h-5"></i></button>
+                    <select id="noise-type" class="bg-white/5 border border-white/10 text-white text-xs rounded-lg px-3 py-3 outline-none focus:border-brand-500 cursor-pointer" onchange="changeNoiseType(this.value)">
+                        <option value="brown">Ruído Marrom</option>
+                        <option value="pink">Ruído Rosa</option>
+                        <option value="white">Ruído Branco</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
+                    <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -544,19 +582,27 @@
     <canvas id="confetti" class="fixed inset-0 pointer-events-none z-[70]"></canvas>
 
     <script>
-        let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
-        let completionLog = []; // [{date: 'YYYY-MM-DD', taskId: 'ID'}]
-        let pwaPrompt;
-        let brownNoiseNode = null, noiseContext = null;
+        let tasks = [], tempSubtasks = [], currentEditingId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
+        let completionLog = []; 
+        let audioContext = null, noiseNode = null;
         let pinInputBuffer = "";
         let historyChartInstance = null;
+        let pieChartInstance = null;
+        let lastDeletedTask = null;
 
         let categories = [
-            { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
+            { id: 'cat_1', name: 'Trabalho', color: '#4f46e5' },
             { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
             { id: 'cat_3', name: 'Estudo', color: '#f59e0b' },
             { id: 'cat_4', name: 'Saúde', color: '#10b981' }
         ];
+
+        const themes = {
+            cyberpunk: { bg: '#09090b', brand: '#d946ef' },
+            nature: { bg: '#f0fdf4', brand: '#16a34a' },
+            dracula: { bg: '#282a36', brand: '#bd93f9' },
+            minimal: { bg: '#ffffff', brand: '#171717' }
+        };
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
@@ -567,6 +613,30 @@
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
 
+        function loadAvatar() {
+            const av = localStorage.getItem('user_avatar');
+            const el = document.getElementById('user-avatar');
+            
+            // Reseta classes para garantir visual limpo
+            el.className = "w-10 h-10 rounded-full flex items-center justify-center shadow-md overflow-hidden border-2 border-white dark:border-slate-700 cursor-pointer group";
+
+            if(av) {
+                // Se tiver foto do usuário
+                el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`;
+            } else {
+                // LOGO FLOWTASK PADRÃO (SVG)
+                el.innerHTML = `
+                    <div class="w-full h-full bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white drop-shadow-md">
+                            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/>
+                            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>
+                            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
+                        </svg>
+                    </div>
+                `;
+            }
+        }
+
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden'); });
         async function installPWA() { if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; } }
         if ('Notification' in window) Notification.requestPermission();
@@ -575,37 +645,269 @@
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             if (e.key === 'n' || e.key === 'N') openModal();
-            if (e.key === 'Escape') { closeModal(); closeTrashModal(); toggleStats(); toggleSettings(); }
+            if (e.key === 'Escape') { closeModal(); closeTrashModal(); toggleStats(); toggleSettings(); toggleScratchpad(); }
             if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             checkPin();
-            loadTasks(); loadCategories(); loadWallpaper(); loadAvatar(); setupTheme(); updateGreeting(); lucide.createIcons(); cleanupTrash();
+            loadSettings(); 
+            loadTasks(); loadCategories(); loadWallpaper(); loadAvatar(); updateGreeting(); cleanupTrash();
+            loadScratchpad(); 
             const pc = localStorage.getItem('pomo_count'); if(pc) { pomoCount = parseInt(pc); }
-            const cl = localStorage.getItem('flowtask_log'); if(cl) { completionLog = JSON.parse(cl); }
+            try {
+                const cl = localStorage.getItem('flowtask_log'); if(cl) { completionLog = JSON.parse(cl); }
+            } catch(e) { console.error("Erro log", e); }
+            calculateStreak();
+            lucide.createIcons();
             const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
+        function loadSettings() {
+            if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            const savedBg = localStorage.getItem('flowtask_bg_color');
+            if(savedBg) {
+                document.documentElement.style.setProperty('--bg-solid', savedBg);
+                document.getElementById('bg-color-picker').value = savedBg;
+                document.getElementById('bg-hex-input').value = savedBg;
+                document.getElementById('bg-color-preview').style.backgroundColor = savedBg;
+                const c = document.getElementById('bg-container');
+                if(c) c.style.display = 'none';
+            } else { document.documentElement.style.removeProperty('--bg-solid'); }
+            const savedBrand = localStorage.getItem('flowtask_brand_color');
+            if(savedBrand) setBrandColor(savedBrand, false);
+        }
+
+        // --- SCRATCHPAD ---
+        function toggleScratchpad() {
+            document.getElementById('scratchpad-sidebar').classList.toggle('closed');
+            document.getElementById('scratchpad-overlay').classList.toggle('hidden');
+        }
+        function loadScratchpad() {
+            const content = localStorage.getItem('flowtask_scratchpad') || '';
+            const area = document.getElementById('scratchpad-area');
+            area.value = content;
+            area.addEventListener('input', (e) => localStorage.setItem('flowtask_scratchpad', e.target.value));
+        }
+
+        // --- NLP ---
+        function attemptNLP(text) {
+            const titleInput = document.getElementById('task-title');
+            const dateInput = document.getElementById('task-due-date');
+            
+            const lower = text.toLowerCase();
+            const today = new Date();
+            let targetDate = null;
+
+            if (lower.includes('hoje')) {
+                targetDate = today;
+                titleInput.value = text.replace(/hoje/gi, '').trim();
+            } else if (lower.includes('amanhã') || lower.includes('amanha')) {
+                targetDate = new Date(today);
+                targetDate.setDate(today.getDate() + 1);
+                titleInput.value = text.replace(/amanhã|amanha/gi, '').trim();
+            } 
+
+            if (targetDate) {
+                dateInput.value = targetDate.toISOString().split('T')[0];
+            }
+        }
+
+        // --- TAGS ---
+        async function generateTags() {
+            const t = document.getElementById('task-title').value;
+            if(!t) { alert("Digite um título primeiro"); return; }
+            const btn = document.getElementById('btn-magic-tags');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '...'; btn.disabled = true;
+            
+            const prompt = `Gere 3 tags curtas (uma palavra cada) separadas por vírgula para a tarefa: "${t}". Em minúsculas. Ex: trabalho, urgente`;
+            const result = await callGemini(prompt);
+            
+            if(result) {
+                const tags = result.replace(/\./g, '').split(',').map(s => s.trim()).join(', ');
+                document.getElementById('task-tags').value = tags;
+            }
+            btn.innerHTML = originalText; btn.disabled = false;
+        }
+
+        // --- UNDO SYSTEM ---
+        let undoTimeout;
+        function showUndoToast(actionType, task) {
+            const toast = document.getElementById('undo-toast');
+            lastDeletedTask = task; 
+            
+            toast.querySelector('span').innerText = actionType === 'delete' ? 'Tarefa excluída' : 'Tarefa concluída';
+            toast.classList.remove('hidden');
+            toast.classList.remove('animate-toast-out');
+            toast.classList.add('animate-toast-in');
+
+            clearTimeout(undoTimeout);
+            undoTimeout = setTimeout(() => {
+                toast.classList.add('animate-toast-out');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+                lastDeletedTask = null; 
+            }, 3000); 
+        }
+
+        function performUndo() {
+            if (lastDeletedTask) {
+                const t = lastDeletedTask;
+                if(t.status === 'trash') {
+                    t.status = 'todo'; 
+                    delete t.deletedAt;
+                } else if(t.status === 'done') {
+                    t.status = 'todo'; 
+                    completionLog.pop(); 
+                    localStorage.setItem('flowtask_log', JSON.stringify(completionLog));
+                    calculateStreak();
+                }
+                
+                if(!tasks.find(x => x.id === t.id)) {
+                    tasks.push(t);
+                }
+
+                saveTasks();
+                
+                const toast = document.getElementById('undo-toast');
+                toast.classList.add('hidden');
+                clearTimeout(undoTimeout);
+                lastDeletedTask = null;
+            }
+        }
+
+        // --- STREAK SYSTEM ---
+        function calculateStreak() {
+            if(!completionLog.length) { document.getElementById('streak-count').innerText = "0"; return; }
+            const dates = [...new Set(completionLog.map(l => l.date))].sort().reverse();
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+            let streak = 0;
+            if (dates[0] === today || dates[0] === yesterdayStr) {
+                streak = 1;
+                let currentDate = new Date(dates[0]);
+                for (let i = 1; i < dates.length; i++) {
+                    currentDate.setDate(currentDate.getDate() - 1);
+                    const expectedStr = currentDate.toISOString().split('T')[0];
+                    if (dates[i] === expectedStr) streak++; else break;
+                }
+            }
+            document.getElementById('streak-count').innerText = streak;
+        }
+
+        // --- SOUNDSCAPES ---
+        function createNoiseBuffer(ctx, type) {
+            const bufferSize = 2 * ctx.sampleRate;
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                const white = Math.random() * 2 - 1;
+                if(type === 'white') {
+                    output[i] = white;
+                } else if(type === 'pink') {
+                    let b0, b1, b2, b3, b4, b5, b6; b0=b1=b2=b3=b4=b5=b6=0;
+                    b0 = 0.99886 * b0 + white * 0.0555179;
+                    b1 = 0.99332 * b1 + white * 0.0750759;
+                    b2 = 0.96900 * b2 + white * 0.1538520;
+                    b3 = 0.86650 * b3 + white * 0.3104856;
+                    b4 = 0.55000 * b4 + white * 0.5329522;
+                    b5 = -0.7616 * b5 - white * 0.0168980;
+                    output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                    output[i] *= 0.11; b6 = white * 0.115926;
+                } else { 
+                    let lastOut = 0;
+                    output[i] = (lastOut + (0.02 * white)) / 1.02;
+                    lastOut = output[i];
+                    output[i] *= 3.5;
+                }
+            }
+            return buffer;
+        }
+
+        function toggleNoise() {
+            if(noiseNode) {
+                noiseNode.stop(); noiseNode = null;
+                document.getElementById('btn-toggle-noise').classList.remove('bg-white/20', 'text-white');
+                document.getElementById('btn-toggle-noise').classList.add('text-slate-400');
+            } else {
+                if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const type = document.getElementById('noise-type').value;
+                const buffer = createNoiseBuffer(audioContext, type);
+                noiseNode = audioContext.createBufferSource();
+                noiseNode.buffer = buffer;
+                noiseNode.loop = true;
+                const gainNode = audioContext.createGain();
+                gainNode.gain.value = 0.1;
+                noiseNode.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                noiseNode.start();
+                document.getElementById('btn-toggle-noise').classList.add('bg-white/20', 'text-white');
+                document.getElementById('btn-toggle-noise').classList.remove('text-slate-400');
+            }
+        }
+
+        function changeNoiseType(val) { if(noiseNode) { toggleNoise(); toggleNoise(); } }
+
+        function applyTheme(name) {
+            const t = themes[name];
+            if(t) { setBackgroundColor(t.bg); setBrandColor(t.brand); }
+        }
+
+        function startDictation(targetId) {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = 'pt-BR';
+                recognition.start();
+                recognition.onresult = function(event) {
+                    document.getElementById(targetId).value = event.results[0][0].transcript;
+                    if(targetId === 'task-title') attemptNLP(event.results[0][0].transcript);
+                };
+                recognition.onerror = function(e) { alert("Erro no reconhecimento de voz."); };
+            } else { alert("Seu navegador não suporta ditado."); }
+        }
+
         function generateId() { return Math.random().toString(36).substr(2, 9); }
-        function loadTasks() { const t = localStorage.getItem('flowtask_tasks'); if(t) { tasks = JSON.parse(t); tasks.forEach(task => { if(!task.subtasks) task.subtasks = []; if(!task.repeat) task.repeat = 'none'; }); } renderBoard(); }
+        function loadTasks() { 
+            try {
+                const t = localStorage.getItem('flowtask_tasks'); 
+                if(t) { 
+                    tasks = JSON.parse(t); 
+                    tasks.forEach(task => { 
+                        if(!task.subtasks) task.subtasks = []; 
+                        if(!task.repeat) task.repeat = 'none'; 
+                        if(!task.tags) task.tags = [];
+                    }); 
+                } 
+            } catch(e) { console.error(e); tasks = []; }
+            renderBoard(); 
+        }
         function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
-        function setupTheme() { if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); }
-        document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
+        
+        document.getElementById('theme-toggle').addEventListener('click', () => { 
+            document.documentElement.classList.toggle('dark'); 
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+        });
         
         function updateGreeting() {
             const h = new Date().getHours();
             let g = 'Bom dia'; if (h >= 12 && h < 18) g = 'Boa tarde'; else if (h >= 18) g = 'Boa noite';
-            // Pega o nome do localStorage se existir, senao usa vazio
             const name = localStorage.getItem('user_name') || '';
             document.getElementById('greeting-text').innerText = `${g}${name ? ', ' + name : ''}`;
             document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
         }
         
-        function loadCategories() { const saved = localStorage.getItem('flowtask_categories'); if(saved) categories = JSON.parse(saved); renderCategoriesSettings(); }
+        function loadCategories() { 
+            try { const saved = localStorage.getItem('flowtask_categories'); if(saved) categories = JSON.parse(saved); } catch(e) {}
+            renderCategoriesSettings(); 
+        }
         function saveCategories() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderCategoriesSettings(); renderBoard(); }
-        function persistCategoriesOnly() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderBoard(); }
-
+        
         function renderCategoriesSettings() {
             const list = document.getElementById('categories-list');
             list.innerHTML = categories.map(cat => `
@@ -620,231 +922,150 @@
             lucide.createIcons();
         }
 
-        function addCategory() { const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6']; categories.push({ id: generateId(), name: 'Nova Categoria', color: colors[Math.floor(Math.random() * colors.length)] }); saveCategories(); }
-        function updateCategory(id, field, value) { const cat = categories.find(c => c.id === id); if(cat) { if(field === 'name') { const old = cat.name; cat.name = value; tasks.forEach(t => { if(t.category === old) t.category = value; }); saveTasks(); saveCategories(); } else if (field === 'color') { cat[field] = value; document.getElementById(`cat-color-box-${id}`).style.backgroundColor = value; persistCategoriesOnly(); } } }
+        function addCategory() { const colors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6']; categories.push({ id: generateId(), name: 'Nova Categoria', color: colors[Math.floor(Math.random() * colors.length)] }); saveCategories(); }
+        function updateCategory(id, field, value) { const cat = categories.find(c => c.id === id); if(cat) { if(field === 'name') { const old = cat.name; cat.name = value; tasks.forEach(t => { if(t.category === old) t.category = value; }); saveTasks(); saveCategories(); } else if (field === 'color') { cat[field] = value; document.getElementById(`cat-color-box-${id}`).style.backgroundColor = value; } } }
         function deleteCategory(id) { if(categories.length <= 1) { alert("Mínimo 1 categoria."); return; } if(confirm("Excluir?")) { categories = categories.filter(c => c.id !== id); saveCategories(); } }
         function renderTaskModalCategories() { const s = document.getElementById('task-category'); if(!s) return; s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join(''); }
 
-        function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories, completionLog, pomoCount})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
-        function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } if(d.completionLog) { completionLog = d.completionLog; localStorage.setItem('flowtask_log', JSON.stringify(completionLog)); } alert("Restaurado!"); location.reload(); } catch (err) { alert("Erro ao importar."); } }; r.readAsText(f); }
+        function exportData() { 
+            const data = { tasks, categories, completionLog, pomoCount, preferences: { brandColor: localStorage.getItem('flowtask_brand_color'), bgColor: localStorage.getItem('flowtask_bg_color'), theme: localStorage.getItem('theme') } };
+            const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data)); 
+            const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); 
+        }
+
+        function importData(input) { 
+            const f = input.files[0]; if (!f) return; 
+            const r = new FileReader(); 
+            r.onload = (e) => { 
+                try { 
+                    const d = JSON.parse(e.target.result); 
+                    if(d.tasks) { tasks = d.tasks; saveTasks(); } 
+                    if(d.categories) { categories = d.categories; saveCategories(); } 
+                    if(d.completionLog) { completionLog = d.completionLog; localStorage.setItem('flowtask_log', JSON.stringify(completionLog)); } 
+                    if(d.pomoCount) { localStorage.setItem('pomo_count', d.pomoCount); }
+                    if(d.preferences) {
+                        if(d.preferences.brandColor) localStorage.setItem('flowtask_brand_color', d.preferences.brandColor);
+                        if(d.preferences.bgColor) localStorage.setItem('flowtask_bg_color', d.preferences.bgColor);
+                        if(d.preferences.theme) localStorage.setItem('theme', d.preferences.theme);
+                    }
+                    alert("Restaurado!"); location.reload(); 
+                } catch (err) { alert("Erro ao importar."); } 
+            }; 
+            r.readAsText(f); 
+        }
+
         function clearDoneTasks() { if(confirm("Arquivar tarefas concluídas?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
 
         function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
-        function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; } }
-        function setBackgroundColor(hex) { document.documentElement.style.setProperty('--bg-solid', hex); document.getElementById('bg-container').style.display = 'none'; }
-        function resetBackground() { document.documentElement.style.setProperty('--bg-solid', 'transparent'); document.getElementById('bg-container').style.display = 'block'; }
+        
+        function setBrandColor(hex, save = true) { 
+            if(!hex.startsWith('#')) hex = '#'+hex; 
+            document.getElementById('brand-color-picker').value = hex; document.getElementById('brand-hex-input').value = hex; document.getElementById('brand-color-preview').style.backgroundColor = hex;
+            if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; 
+            const rgb = hexToRgb(hex); 
+            if(rgb) { 
+                document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); 
+                document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; 
+                if(save) localStorage.setItem('flowtask_brand_color', hex);
+            } 
+        }
+
+        function setBackgroundColor(hex) { 
+            document.documentElement.style.setProperty('--bg-solid', hex); 
+            document.getElementById('bg-color-picker').value = hex; document.getElementById('bg-hex-input').value = hex; document.getElementById('bg-color-preview').style.backgroundColor = hex;
+            localStorage.setItem('flowtask_bg_color', hex); document.getElementById('bg-container').style.display = 'none'; 
+        }
+        
+        function handleHexInput(val, type) { if(!val.startsWith('#')) val = '#' + val; if(val.length === 7) { if(type === 'brand') setBrandColor(val); if(type === 'bg') setBackgroundColor(val); } }
+
+        function resetBackground() { 
+            document.documentElement.style.removeProperty('--bg-solid'); localStorage.removeItem('flowtask_bg_color');
+            document.getElementById('bg-hex-input').value = ''; document.getElementById('bg-color-picker').value = '#f8fafc'; document.getElementById('bg-color-preview').style.backgroundColor = ''; document.getElementById('bg-container').style.display = 'none'; 
+        }
         
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
-        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
+        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) { tempSubtasks.push({title: cl, completed: false}); } }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
         async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
-        // --- AVATAR LOGIC ---
-        function handleAvatarUpload(input) {
-            const f = input.files[0];
-            if(f) {
-                if(f.size > 2000000) { alert("Máx 2MB"); return; }
-                const r = new FileReader();
-                r.onload = (e) => {
-                    const url = e.target.result;
-                    localStorage.setItem('user_avatar', url);
-                    loadAvatar();
-                };
-                r.readAsDataURL(f);
-            }
-        }
-        function loadAvatar() {
-            const av = localStorage.getItem('user_avatar');
-            const el = document.getElementById('user-avatar');
-            if(av) {
-                el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`;
-                el.classList.remove('bg-brand-100');
-            } else {
-                el.innerText = '👤';
-            }
-        }
+        function handleAvatarUpload(input) { const f = input.files[0]; if(f) { const r = new FileReader(); r.onload = (e) => { localStorage.setItem('user_avatar', e.target.result); loadAvatar(); }; r.readAsDataURL(f); } }
+        function loadAvatar() { const av = localStorage.getItem('user_avatar'); const el = document.getElementById('user-avatar'); el.classList.remove('bg-brand-100'); el.style.padding = '0'; el.style.overflow = 'hidden'; if(av) { el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`; } else { el.innerHTML = `<div class="w-full h-full bg-gradient-to-tr from-brand-600 to-purple-600 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers text-white w-1/2 h-1/2"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></div>`; } }
 
-        // --- PIN LOGIC ---
         function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); pinInputBuffer = ""; updatePinDots(); } updatePinButton(); }
-        function pinPress(num) {
-            if(pinInputBuffer.length < 4) {
-                pinInputBuffer += num;
-                updatePinDots();
-                if(pinInputBuffer.length === 4) { setTimeout(verifyPin, 200); }
-            }
-        }
+        function pinPress(num) { if(pinInputBuffer.length < 4) { pinInputBuffer += num; updatePinDots(); if(pinInputBuffer.length === 4) { setTimeout(verifyPin, 200); } } }
         function pinDelete() { if(pinInputBuffer.length > 0) { pinInputBuffer = pinInputBuffer.slice(0, -1); updatePinDots(); } }
         function updatePinDots() { for(let i=0; i<4; i++) { const dot = document.getElementById(`dot-${i}`); if(i < pinInputBuffer.length) dot.classList.add('filled'); else dot.classList.remove('filled'); } }
-        function verifyPin() {
-            const correct = localStorage.getItem('flowtask_pin');
-            if(pinInputBuffer === correct) { document.getElementById('pin-screen').classList.add('hidden'); pinInputBuffer = ""; } 
-            else { document.getElementById('pin-dots').classList.add('animate-shake'); setTimeout(() => { document.getElementById('pin-dots').classList.remove('animate-shake'); pinInputBuffer = ""; updatePinDots(); }, 500); }
-        }
+        function verifyPin() { const correct = localStorage.getItem('flowtask_pin'); if(pinInputBuffer === correct) { document.getElementById('pin-screen').classList.add('hidden'); pinInputBuffer = ""; } else { document.getElementById('pin-dots').classList.add('animate-shake'); setTimeout(() => { document.getElementById('pin-dots').classList.remove('animate-shake'); pinInputBuffer = ""; updatePinDots(); }, 500); } }
         function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido."); } } }
         function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; }
 
-        // Zen Mode
-        function toggleZenMode() { 
-            document.body.classList.toggle('zen-mode'); 
-            const btn = document.getElementById('zen-btn'); 
-            // Update icon style or state if needed
-            renderBoard(); // Re-render to ensure layout fits
-        }
-
-        // Wallpaper
-        function handleWallpaperUpload(input) { const f = input.files[0]; if(f) { if(f.size > 2000000) { alert("Imagem muito grande (Max 2MB)"); return; } const r = new FileReader(); r.onload = (e) => { const url = e.target.result; localStorage.setItem('flowtask_wallpaper', url); loadWallpaper(); }; r.readAsDataURL(f); } }
-        function loadWallpaper() { const w = localStorage.getItem('flowtask_wallpaper'); const c = document.getElementById('bg-container'); if(w) { c.innerHTML = `<div class="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20" style="background-image: url('${w}')"></div>`; } else { c.innerHTML = `<div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div><div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>`; } }
+        function handleWallpaperUpload(input) { const f = input.files[0]; if(f) { const r = new FileReader(); r.onload = (e) => { const url = e.target.result; localStorage.setItem('flowtask_wallpaper', url); loadWallpaper(); }; r.readAsDataURL(f); } }
+        function loadWallpaper() { const w = localStorage.getItem('flowtask_wallpaper'); const c = document.getElementById('bg-container'); if(w) { c.style.display = 'block'; c.innerHTML = `<div class="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20" style="background-image: url('${w}')"></div>`; } else { c.style.display = 'none'; } }
         function clearWallpaper() { localStorage.removeItem('flowtask_wallpaper'); loadWallpaper(); }
 
-        // Brown Noise
-        function toggleBrownNoise() {
-            if (brownNoiseNode) { brownNoiseNode.disconnect(); brownNoiseNode = null; document.getElementById('btn-brown-noise').classList.remove('bg-white/20', 'text-white'); document.getElementById('btn-brown-noise').classList.add('text-slate-400'); } 
-            else { if (!noiseContext) noiseContext = new (window.AudioContext || window.webkitAudioContext)(); const bufferSize = 4096; brownNoiseNode = noiseContext.createScriptProcessor(bufferSize, 1, 1); brownNoiseNode.onaudioprocess = function(e) { const output = e.outputBuffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) { const white = Math.random() * 2 - 1; output[i] = (lastOut + (0.02 * white)) / 1.02; lastOut = output[i]; output[i] *= 3.5; } }; let lastOut = 0; brownNoiseNode.connect(noiseContext.destination); document.getElementById('btn-brown-noise').classList.add('bg-white/20', 'text-white'); document.getElementById('btn-brown-noise').classList.remove('text-slate-400'); }
-        }
-
-        // --- STATS & HISTORY ---
         function toggleStats() { 
             const m = document.getElementById('stats-modal'); 
-            if(m.classList.contains('hidden')) { 
-                m.classList.remove('hidden'); 
-                renderStats(); 
-            } else { 
-                m.classList.add('hidden'); 
-            } 
+            if(m.classList.contains('hidden')) { m.classList.remove('hidden'); renderStats(); } else { m.classList.add('hidden'); } 
         }
         function renderStats() {
-            // KPIs
             const total = tasks.filter(t => t.status !== 'trash').length;
             const done = tasks.filter(t => t.status === 'done').length;
             const rate = total ? Math.round((done/total)*100) : 0;
             document.getElementById('stat-completion-rate').innerText = `${rate}%`;
             document.getElementById('stat-pomodoros').innerText = pomoCount;
 
-            // Categories
             const byCat = {}; categories.forEach(c => byCat[c.name] = 0);
             tasks.filter(t => t.status !== 'trash').forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
             
-            document.getElementById('stats-categories-list').innerHTML = `
-                <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Tarefas por Categoria</h4>
-                <div class="space-y-2">
-                    ${Object.entries(byCat).map(([name, count]) => {
-                        const cat = categories.find(c => c.name === name);
-                        const w = total ? (count/total)*100 : 0;
-                        return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`;
-                    }).join('')}
-                </div>`;
+            document.getElementById('stats-categories-list').innerHTML = `<h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Tarefas por Categoria</h4><div class="space-y-2">${Object.entries(byCat).map(([name, count]) => { const cat = categories.find(c => c.name === name); const w = total ? (count/total)*100 : 0; return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`; }).join('')}</div>`;
 
-            // Chart
-            const ctx = document.getElementById('historyChart').getContext('2d');
+            // Charts
+            const ctxHistory = document.getElementById('historyChart').getContext('2d');
             if(historyChartInstance) historyChartInstance.destroy();
-            
-            // Get last 7 days labels and data
-            const labels = [];
-            const data = [];
-            for(let i=6; i>=0; i--) {
-                const d = new Date(); d.setDate(d.getDate() - i);
-                const dateStr = d.toISOString().split('T')[0];
-                labels.push(d.toLocaleDateString('pt-BR', {weekday: 'short'}));
-                data.push(completionLog.filter(l => l.date === dateStr).length);
-            }
+            const labelsH = []; const dataH = [];
+            for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(d.getDate() - i); labelsH.push(d.toLocaleDateString('pt-BR', {weekday: 'short'})); dataH.push(completionLog.filter(l => l.date === d.toISOString().split('T')[0]).length); }
+            historyChartInstance = new Chart(ctxHistory, { type: 'bar', data: { labels: labelsH, datasets: [{ label: 'Concluídas', data: dataH, backgroundColor: 'rgba(99, 102, 241, 0.5)', borderColor: '#4f46e5', borderWidth: 1, borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }, plugins: { legend: { display: false } } } });
 
-            historyChartInstance = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Tarefas Concluídas',
-                        data: data,
-                        backgroundColor: 'rgba(99, 102, 241, 0.5)',
-                        borderColor: '#6366f1',
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
-                    plugins: { legend: { display: false } }
-                }
-            });
+            // Pie Chart
+            const ctxPie = document.getElementById('categoryChart').getContext('2d');
+            if(pieChartInstance) pieChartInstance.destroy();
+            pieChartInstance = new Chart(ctxPie, { type: 'doughnut', data: { labels: Object.keys(byCat), datasets: [{ data: Object.values(byCat), backgroundColor: categories.map(c => c.color), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } } } });
         }
 
-        // --- TRASH LOGIC ---
-        function cleanupTrash() {
-            const now = Date.now();
-            const oneDay = 24 * 60 * 60 * 1000;
-            // Remove permanently if in trash > 24h
-            const initialLen = tasks.length;
-            tasks = tasks.filter(t => {
-                if(t.status === 'trash' && t.deletedAt) {
-                    return (now - t.deletedAt) < oneDay;
-                }
-                return true;
-            });
-            if(tasks.length !== initialLen) saveTasks();
-        }
+        function cleanupTrash() { const now = Date.now(); const oneDay = 24 * 60 * 60 * 1000; const initialLen = tasks.length; tasks = tasks.filter(t => { if(t.status === 'trash' && t.deletedAt) { return (now - t.deletedAt) < oneDay; } return true; }); if(tasks.length !== initialLen) saveTasks(); }
         function requestDelete(e, id) { 
             if(e) e.stopPropagation(); 
-            // Soft delete
             const t = tasks.find(x => x.id === id);
             if(t) {
-                t.status = 'trash';
-                t.deletedAt = Date.now();
+                t.status = 'trash'; t.deletedAt = Date.now();
                 saveTasks();
+                setTimeout(() => {
+                    renderBoard(); // Delay rendering slightly to allow animation if needed, but mainly correct order
+                    showUndoToast('delete', t);
+                }, 0);
             }
         }
-        function restoreTask(id) {
-            const t = tasks.find(x => x.id === id);
-            if(t) {
-                t.status = 'todo';
-                delete t.deletedAt;
-                saveTasks();
-                openTrashModal(); // Refresh list
-            }
-        }
-        function deletePermanently(id) {
-            tasks = tasks.filter(t => t.id !== id);
-            saveTasks();
-            openTrashModal();
-        }
-        function openTrashModal() {
-            document.getElementById('trash-modal').classList.remove('hidden');
-            const trashList = document.getElementById('trash-list');
-            const deleted = tasks.filter(t => t.status === 'trash');
-            
-            if(deleted.length === 0) {
-                trashList.innerHTML = '<div class="text-center text-slate-400 py-10">Lixeira vazia</div>';
-            } else {
-                trashList.innerHTML = deleted.map(t => `
-                    <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate flex-1 pr-2">${t.title}</span>
-                        <div class="flex gap-2">
-                            <button onclick="restoreTask('${t.id}')" class="text-emerald-500 hover:bg-emerald-50 p-1.5 rounded" title="Restaurar"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
-                            <button onclick="deletePermanently('${t.id}')" class="text-rose-500 hover:bg-rose-50 p-1.5 rounded" title="Excluir"><i data-lucide="x" class="w-4 h-4"></i></button>
-                        </div>
-                    </div>
-                `).join('');
-                lucide.createIcons();
-            }
-        }
+        function restoreTask(id) { const t = tasks.find(x => x.id === id); if(t) { t.status = 'todo'; delete t.deletedAt; saveTasks(); openTrashModal(); } }
+        function deletePermanently(id) { tasks = tasks.filter(t => t.id !== id); saveTasks(); openTrashModal(); }
+        function openTrashModal() { document.getElementById('trash-modal').classList.remove('hidden'); const trashList = document.getElementById('trash-list'); const deleted = tasks.filter(t => t.status === 'trash'); if(deleted.length === 0) { trashList.innerHTML = '<div class="text-center text-slate-400 py-10">Lixeira vazia</div>'; } else { trashList.innerHTML = deleted.map(t => `<div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"><span class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate flex-1 pr-2">${t.title}</span><div class="flex gap-2"><button onclick="restoreTask('${t.id}')" class="text-emerald-500 hover:bg-emerald-50 p-1.5 rounded"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button><button onclick="deletePermanently('${t.id}')" class="text-rose-500 hover:bg-rose-50 p-1.5 rounded"><i data-lucide="x" class="w-4 h-4"></i></button></div></div>`).join(''); lucide.createIcons(); } }
         function closeTrashModal() { document.getElementById('trash-modal').classList.add('hidden'); }
 
-
-        // --- BOARD RENDER ---
         function renderBoard() {
             const filter = document.getElementById('search-input').value.toLowerCase();
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
-            const today = new Date().toISOString().split('T')[0];
-            let counts = { todo: 0, doing: 0, done: 0 };
-            const w = { high: 3, medium: 2, low: 1 };
             
-            // Filter out trash
+            // Updated Filter Logic: Title OR Tags
             const activeTasks = tasks.filter(t => t.status !== 'trash');
+            const sorted = [...activeTasks].filter(t => {
+                const titleMatch = t.title.toLowerCase().includes(filter);
+                const tagMatch = t.tags && t.tags.some(tag => tag.toLowerCase().includes(filter));
+                return titleMatch || tagMatch;
+            }).sort((a, b) => (a.priority === 'high' ? -1 : 1));
             
-            const sorted = [...activeTasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
-            
+            let counts = { todo: 0, doing: 0, done: 0 };
+            const today = new Date().toISOString().split('T')[0];
+
             sorted.forEach(t => {
                 counts[t.status]++; const od = t.dueDate && t.dueDate < today && t.status !== 'done';
                 cols[t.status].appendChild(createCard(t, od));
@@ -858,33 +1079,34 @@
         function createCard(t, od) {
             const d = document.createElement('div'); const act = t.status === 'doing'; const exp = expandedTasks.has(t.id);
             const catObj = categories.find(c => c.name === t.category); const catColor = catObj ? catObj.color : '#64748b';
+            const recurIcon = t.repeat && t.repeat !== 'none' ? `<i data-lucide="repeat" class="w-3 h-3 text-slate-400 ml-1 inline-block"></i>` : '';
             
-            // Recurrence Icon
-            const recurIcon = t.repeat && t.repeat !== 'none' ? `<span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 px-1.5 rounded ml-1" title="Repete: ${t.repeat}">🔄</span>` : '';
+            // Tags Render
+            const tagHtml = t.tags && t.tags.length ? `<div class="flex flex-wrap gap-1 mt-2">${t.tags.map(tag => `<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 border border-slate-200 dark:border-slate-600">#${tag}</span>`).join('')}</div>` : '';
 
-            d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
-            d.draggable = true;
-            d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); };
-            d.ondragend = (e) => { e.target.classList.remove('dragging'); };
+            d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
+            d.draggable = true; d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); }; d.ondragend = (e) => { e.target.classList.remove('dragging'); };
             const pc = { low: 'bg-emerald-500', medium: 'bg-amber-500', high: 'bg-rose-500' };
             const done = t.subtasks ? t.subtasks.filter(s => s.completed).length : 0; const total = t.subtasks ? t.subtasks.length : 0; const prog = total === 0 ? 0 : Math.round((done/total)*100);
-            let dh = ''; if(t.dueDate) { const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); dh = `<div class="flex items-center gap-1.5 text-[11px] font-medium mt-2 w-fit ${od ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${od ? 'Atrasado: ' : ''}${s}</span></div>`; }
+            let dh = ''; if(t.dueDate) { const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); dh = `<div class="flex items-center gap-1.5 text-[11px] font-medium mt-1 w-fit ${od ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${od ? 'Atrasado: ' : ''}${s}</span></div>`; }
+            
             let acts = act ? `
                 <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
-                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="openPomodoro('${t.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-xs font-bold uppercase tracking-wide shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar</button>
-                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="completeTask(event, '${t.id}')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-600 dark:bg-emerald-500/20 dark:hover:bg-emerald-500/30 dark:text-emerald-400 w-9 h-9 flex items-center justify-center rounded-lg transition-colors"><i data-lucide="check" class="w-4 h-4"></i></button>
-                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="bg-slate-100 hover:bg-rose-100 text-slate-400 hover:text-rose-500 dark:bg-slate-800 dark:hover:bg-rose-900/30 w-9 h-9 flex items-center justify-center rounded-lg transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="openPomodoro('${t.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-xs font-bold uppercase tracking-wide shadow-md flex items-center justify-center gap-2"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar</button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="completeTask(event, '${t.id}')" class="bg-emerald-100 text-emerald-600 w-9 h-9 flex items-center justify-center rounded-lg"><i data-lucide="check" class="w-4 h-4"></i></button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="bg-slate-100 text-slate-400 hover:text-rose-500 w-9 h-9 flex items-center justify-center rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                 </div>` : `
                 <div class="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="editTask('${t.id}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400 transition-colors"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
-                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="editTask('${t.id}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                    <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
+
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
-                <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
+                <div class="pl-5 pr-4 py-4 flex flex-col h-full" onclick="toggleSubtaskList(event, '${t.id}')">
                     <div class="flex justify-between items-start"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border text-slate-600 dark:text-slate-300" style="border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">${t.category}</span>${!act ? acts : ''}</div>
-                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6 flex items-start gap-1">${t.title} ${recurIcon}</h3>${dh}
-                    ${total > 0 ? `<div class="mt-4" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()"><div class="flex items-center justify-between mb-1.5"><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${prog}% Concluído</span><span class="text-[10px] text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 rounded">${done}/${total}</span></div><div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500 transition-all duration-700 ease-out" style="width: ${prog}%"></div></div><button onclick="toggleSubtaskList(event, '${t.id}')" class="w-full group/btn flex items-center justify-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-1.5 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"><span>${exp ? 'Ocultar Checklist' : 'Ver Checklist'}</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300 ${exp ? 'rotate-180' : ''}"></i></button><div class="${exp ? 'block' : 'hidden'} mt-2 space-y-1 animate-slide-in">${t.subtasks.map((st, i) => `<div class="group/item flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer select-none" onclick="toggleSubtaskCheck('${t.id}', ${i})"><div class="relative flex items-center justify-center mt-0.5 shrink-0"><input type="checkbox" ${st.completed ? 'checked' : ''} class="peer appearance-none w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded checked:bg-brand-500 checked:border-brand-500 transition-all cursor-pointer pointer-events-none"><i data-lucide="check" class="absolute w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i></div><span class="text-xs ${st.completed ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-700 dark:text-slate-200'} transition-colors leading-relaxed">${st.title}</span></div>`).join('')}</div></div>` : ''}${act ? acts : ''}</div>`;
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6 flex items-start gap-1">${t.title} ${recurIcon}</h3>${dh}${tagHtml}
+                    ${total > 0 ? `<div class="mt-4"><div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500" style="width: ${prog}%"></div></div><button class="w-full text-xs text-slate-400 flex items-center justify-center gap-1 py-1"><span>${exp?'Ocultar':'Ver'} Checklist (${done}/${total})</span><i data-lucide="chevron-down" class="w-3 h-3 ${exp?'rotate-180':''}"></i></button><div class="${exp?'block':'hidden'} mt-2 space-y-1">${t.subtasks.map((st,i) => `<div class="flex gap-2 items-center p-1"><input type="checkbox" ${st.completed?'checked':''} onclick="toggleSubtaskCheck('${t.id}',${i})" class="accent-brand-500"><span class="text-xs ${st.completed?'line-through text-slate-400':''}">${st.title}</span></div>`).join('')}</div></div>` : ''}${act ? acts : ''}</div>`;
             return d;
         }
 
@@ -895,28 +1117,34 @@
             if(e) e.stopPropagation(); 
             const t = tasks.find(t => t.id === id); 
             if(t) { 
-                // Log Completion
                 completionLog.push({ date: new Date().toISOString().split('T')[0], taskId: t.id });
                 localStorage.setItem('flowtask_log', JSON.stringify(completionLog));
+                calculateStreak();
 
-                // Recurrence Logic
                 if (t.repeat && t.repeat !== 'none') {
-                    // Reset Subtasks
                     if(t.subtasks) t.subtasks.forEach(s => s.completed = false);
-                    
-                    // Calculate next date
                     const nextDate = new Date();
                     if (t.repeat === 'daily') nextDate.setDate(nextDate.getDate() + 1);
                     if (t.repeat === 'weekly') nextDate.setDate(nextDate.getDate() + 7);
-                    
                     t.dueDate = nextDate.toISOString().split('T')[0];
-                    t.status = 'todo'; // Returns to todo
+                    t.status = 'todo'; 
                     alert(`Tarefa recorrente reagendada para ${t.dueDate.split('-').reverse().join('/')}`);
                 } else {
                     t.status = 'done'; 
                     if(t.subtasks) t.subtasks.forEach(s => s.completed = true); 
+                    
+                    // DELAY FIX + UNDO (Idea 29 + Bug Fix)
+                    setTimeout(() => {
+                        showUndoToast('complete', t);
+                        saveTasks(); // Only render AFTER toast logic is ready
+                        
+                        // FIX: Fire confetti in next frame to prevent stutter
+                        requestAnimationFrame(() => {
+                            fireConfetti();
+                        });
+                    }, 50); // Tiny buffer
+                    return; // Return early, saveTasks called inside timeout
                 }
-                
                 saveTasks(); 
                 fireConfetti(); 
             } 
@@ -931,6 +1159,7 @@
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
                 document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
                 document.getElementById('task-due-date').value = t.dueDate || '';
+                document.getElementById('task-tags').value = t.tags ? t.tags.join(', ') : ''; // Tags
                 document.getElementById('task-repeat').value = t.repeat || 'none';
                 document.getElementsByName('priority').forEach(r => r.checked = r.value === t.priority);
                 tempSubtasks = t.subtasks ? [...t.subtasks] : [];
@@ -938,6 +1167,7 @@
                 document.getElementById('modal-title').innerText = "Nova Tarefa"; form.reset();
                 document.getElementsByName('priority')[1].checked = true;
                 document.getElementById('task-repeat').value = 'none';
+                document.getElementById('task-tags').value = '';
             }
             renderSubtasks(); document.getElementById('task-title').focus();
         }
@@ -949,13 +1179,17 @@
         
         function saveTask(e) { 
             e.preventDefault(); 
+            const tagsInput = document.getElementById('task-tags').value;
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t.length > 0) : [];
+
             const data = { 
                 title: document.getElementById('task-title').value, 
                 category: document.getElementById('task-category').value, 
                 dueDate: document.getElementById('task-due-date').value, 
                 priority: document.querySelector('input[name="priority"]:checked').value, 
                 subtasks: tempSubtasks,
-                repeat: document.getElementById('task-repeat').value
+                repeat: document.getElementById('task-repeat').value,
+                tags: tags 
             }; 
             if(currentEditingId) { 
                 const idx = tasks.findIndex(t => t.id === currentEditingId); 
@@ -963,14 +1197,13 @@
             } else { 
                 tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); 
             } 
-            saveTasks(); 
-            closeModal(); 
+            saveTasks(); closeModal(); 
         }
         function allowDrop(e) { e.preventDefault(); }
         function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { completeTask(null, id); } else { saveTasks(); } } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
-        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; if(brownNoiseNode) toggleBrownNoise(); }
+        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; if(noiseNode) toggleNoise(); }
         function setTimerDuration(m) { stopTimer(); initialTime = m * 60; timeLeft = initialTime; document.querySelectorAll('.timer-btn').forEach(b => { if(parseInt(b.dataset.time)===m) { b.classList.add('bg-brand-600','text-white'); b.classList.remove('text-slate-300'); } else { b.classList.remove('bg-brand-600','text-white'); b.classList.add('text-slate-300'); } }); updateTimerDisplay(); }
         function startTimerEdit() { if(isTimerRunning) stopTimer(); isEditingTimer = true; timerDigits = []; updateTimerEditUI(); const inp = document.getElementById('hidden-timer-input'); inp.value = ''; inp.focus(); document.getElementById('timer-status').innerText = "Digite..."; }
         function handleTimerInput(e) { if(!isEditingTimer) return; const c = e.target.value.slice(-1); if(/[0-9]/.test(c)) { if(timerDigits.length < 4) timerDigits.push(c); } e.target.value = ''; updateTimerEditUI(); if(timerDigits.length === 4) setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300); }
@@ -978,11 +1211,54 @@
         function updateTimerEditUI() { const d = timerDigits; let html = ''; for(let i=0; i<4; i++) { if(i===2) html += '<span class="mx-1 text-white/50 pb-2">:</span>'; html += `<span class="timer-slot ${d.length===i ? 'active' : ''} ${!d[i] ? 'empty' : ''}">${d[i]||'0'}</span>`; } document.getElementById('timer-display').innerHTML = html; }
         function toggleTimer() { isTimerRunning ? stopTimer() : startTimer(); }
         
-        function startTimer() { isTimerRunning = true; document.getElementById('timer-status').innerText = "Foco total!"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(e=>{}); } timerInterval = setInterval(() => { if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } else { stopTimer(); playBeep(); fireConfetti(); if(navigator.vibrate) navigator.vibrate([100, 50, 100]); if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); pomoCount++; localStorage.setItem('pomo_count', pomoCount); document.getElementById('timer-status').innerText = "Ciclo Concluído!"; document.getElementById('timer-display').classList.add('animate-pulse'); } }, 1000); }
-        function stopTimer() { isTimerRunning = false; clearInterval(timerInterval); document.getElementById('timer-status').innerText = "Pausado"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); document.getElementById('timer-display').classList.remove('animate-pulse'); if (document.exitFullscreen && document.fullscreenElement) { document.exitFullscreen().catch(e=>{}); } }
+        function startTimer() { 
+            isTimerRunning = true; 
+            document.getElementById('timer-status').innerText = "Foco total!"; 
+            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; 
+            lucide.createIcons(); 
+            if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(e=>{}); } 
+            timerInterval = setInterval(() => { 
+                if(timeLeft > 0) { 
+                    timeLeft--; 
+                    updateTimerDisplay(); 
+                } else { 
+                    stopTimer(); 
+                    playBeep(); 
+                    fireConfetti(); 
+                    if(navigator.vibrate) navigator.vibrate([100, 50, 100]); 
+                    if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); 
+                    pomoCount++; 
+                    localStorage.setItem('pomo_count', pomoCount); 
+                    document.getElementById('timer-status').innerText = "Ciclo Concluído!"; 
+                    document.getElementById('timer-display').classList.add('animate-pulse'); 
+                } 
+            }, 1000); 
+        }
+        function stopTimer() { 
+            isTimerRunning = false; 
+            clearInterval(timerInterval); 
+            document.getElementById('timer-status').innerText = "Pausado"; 
+            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; 
+            lucide.createIcons(); 
+            document.getElementById('timer-display').classList.remove('animate-pulse'); 
+            document.title = "FlowTask v2.3 Pro";
+            if (document.exitFullscreen && document.fullscreenElement) { document.exitFullscreen().catch(e=>{}); } 
+        }
         function resetTimer() { stopTimer(); timeLeft = initialTime; updateTimerDisplay(); }
-        function updateTimerDisplay() { if(isEditingTimer) return; const m = Math.floor(timeLeft/60).toString().padStart(2,'0'); const s = (timeLeft%60).toString().padStart(2,'0'); const str = m + ":" + s; let html = ''; for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`; document.getElementById('timer-display').innerHTML = html; const circle = document.getElementById('timer-circle'); const dash = circle.r.baseVal.value * 2 * Math.PI; const offset = dash - (timeLeft/initialTime) * dash; circle.style.strokeDashoffset = offset; }
+        function updateTimerDisplay() { 
+            if(isEditingTimer) return; 
+            const m = Math.floor(timeLeft/60).toString().padStart(2,'0'); 
+            const s = (timeLeft%60).toString().padStart(2,'0'); 
+            const str = m + ":" + s; 
+            document.title = isTimerRunning ? `${str} - Focando...` : "FlowTask v2.3 Pro";
+            let html = ''; for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`; 
+            document.getElementById('timer-display').innerHTML = html; 
+            const circle = document.getElementById('timer-circle'); 
+            const dash = circle.r.baseVal.value * 2 * Math.PI; 
+            const offset = dash - (timeLeft/initialTime) * dash; 
+            circle.style.strokeDashoffset = offset; 
+        }
         function fireConfetti() { const c = document.getElementById('confetti'); const ctx = c.getContext('2d'); c.width = window.innerWidth; c.height = window.innerHeight; const p = Array.from({length:100}, () => ({ x: Math.random()*c.width, y: Math.random()*c.height - c.height, color: `hsl(${Math.random()*360},70%,50%)`, size: Math.random()*10+5, speed: Math.random()*5+2 })); function step() { ctx.clearRect(0,0,c.width,c.height); let a = false; p.forEach(i => { i.y += i.speed; i.x += Math.sin(i.y/50); if(i.y < c.height) a = true; ctx.fillStyle = i.color; ctx.fillRect(i.x, i.y, i.size, i.size); }); if(a) requestAnimationFrame(step); } step(); }
     </script>
-</body>
+</body> 
 </html>
