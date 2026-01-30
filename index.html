@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- PWA & Mobile Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FlowTask">
     <meta name="theme-color" content="#6366f1">
     
-    <!-- Ícones Gerados via Data URI -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <!-- Manifesto Dinâmico -->
     <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgUHJvIiwi\
     c2hvcnRfbmFtZSI6IkZsb3dUYXNrIiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3Vu\
     ZF9jb2xvciI6IiNmZmZmZmYiLCJ0aGVtZV9jb2xvciI6IiM2MzY2ZjEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9z\
@@ -23,16 +20,12 @@
 
     <title>FlowTask Pro | Super App</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Configurações Tailwind -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -139,38 +132,40 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+
+        /* --- NOVOS ESTILOS PARA RECURSOS EXTRAS --- */
+        /* Modo Zen */
+        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode .glass, .zen-mode #mobile-search, .zen-mode #view-switcher-container { display: none !important; }
+        .zen-mode #col-doing { width: 100% !important; max-width: 600px; margin: 0 auto; min-width: auto; }
+        .zen-mode header h1, .zen-mode header p { opacity: 0.5; }
+        
+        /* Matriz de Eisenhower */
+        .matrix-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; height: 100%; }
+        @media(max-width: 768px) { .matrix-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; } .matrix-quadrant { min-width: 85vw; scroll-snap-align: center; } }
+        
+        /* PIN Screen */
+        #pin-screen { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 9999; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+    <div id="pin-screen" class="fixed inset-0 bg-slate-100/90 dark:bg-slate-900/90 flex flex-col items-center justify-center hidden">
+        <div class="mb-8 flex flex-col items-center">
+            <div class="p-4 bg-brand-600 rounded-2xl shadow-xl mb-4"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
+            <h2 class="text-2xl font-bold">Bloqueado</h2>
+            <p class="text-slate-500">Digite seu PIN para acessar</p>
+        </div>
+        <div class="flex gap-4 mb-8">
+            <input type="password" id="pin-input" class="text-center text-4xl tracking-widest w-48 bg-transparent border-b-2 border-slate-300 focus:border-brand-500 outline-none font-mono" maxlength="4" inputmode="numeric">
+        </div>
+        <button onclick="unlockApp()" class="px-8 py-3 bg-brand-600 text-white rounded-xl font-bold shadow-lg hover:bg-brand-500 transition-transform active:scale-95">Entrar</button>
+    </div>
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyCe2nWYJ1LIieu3mBu_kWm6xNox6KXiE14",
-            authDomain: "flowtask-1a1e5.firebaseapp.com",
-            projectId: "flowtask-1a1e5",
-            storageBucket: "flowtask-1a1e5.firebasestorage.app",
-            messagingSenderId: "99007666696",
-            appId: "1:99007666696:web:12d87a292cf75af50c4fbd",
-            measurementId: "G-1VN5GCTF0X"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-    </script>
-    <!-- OFFLINE INDICATOR -->
     <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
         Você está offline. A IA não funcionará, mas suas tarefas estão salvas.
     </div>
 
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="bg-container">
         <div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div>
         <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
@@ -178,7 +173,6 @@
     <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6">
         
         <header class="flex justify-between items-center mb-4 md:mb-6 shrink-0 pt-2 gap-4">
-            <!-- LOGO & DATE -->
             <div class="flex items-center gap-3 overflow-hidden">
                 <div class="p-2 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-xl shadow-lg shadow-brand-500/30 shrink-0">
                     <i data-lucide="layers" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
@@ -189,13 +183,24 @@
                 </div>
             </div>
 
-            <!-- SEARCH BAR -->
             <div class="flex-1 max-w-xs hidden sm:block relative">
                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
                 <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Buscar ( / )..." class="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all">
             </div>
 
             <div class="flex items-center gap-2 md:gap-3 shrink-0">
+                <button onclick="toggleView()" id="view-switcher-btn" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Alternar Visualização">
+                    <i data-lucide="layout-grid" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                </button>
+
+                <button onclick="toggleZenMode()" id="zen-btn" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Modo Zen">
+                    <i data-lucide="eye" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                </button>
+
+                <button onclick="toggleStats()" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Estatísticas">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                </button>
+
                 <button onclick="document.getElementById('mobile-search').classList.toggle('hidden')" class="sm:hidden p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 active:scale-95">
                     <i data-lucide="search" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
                 </button>
@@ -214,7 +219,6 @@
             </div>
         </header>
 
-        <!-- Mobile Search Field -->
         <div id="mobile-search" class="hidden mb-4 sm:hidden">
             <input type="text" id="mobile-search-input" onkeyup="renderBoard()" placeholder="Buscar tarefas..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
         </div>
@@ -245,7 +249,7 @@
             </div>
         </div>
 
-        <div class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
+        <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
             <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
@@ -253,7 +257,7 @@
                     </div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center style=""ma">
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
                     <div class="p-4 pb-2">
                         <h2 class="font-semibold text-brand-600 dark:text-brand-500 flex items-center gap-2">
                             <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Andamento
@@ -270,9 +274,42 @@
                 </div>
             </div>
         </div>
+
+        <div id="view-matrix" class="flex-1 hidden pb-4 transition-opacity duration-300">
+            <div class="matrix-grid">
+                <div class="matrix-quadrant bg-rose-50/50 dark:bg-rose-900/10 rounded-dynamic border border-rose-200 dark:border-rose-900/30 flex flex-col overflow-hidden">
+                    <div class="p-3 bg-rose-100/50 dark:bg-rose-900/30 border-b border-rose-200 dark:border-rose-800/50">
+                        <h3 class="font-bold text-rose-700 dark:text-rose-400 text-sm uppercase">Faça Agora</h3>
+                        <span class="text-[10px] text-rose-500">Importante & Urgente</span>
+                    </div>
+                    <div id="matrix-q1" class="p-2 flex-1 overflow-y-auto space-y-2 custom-scrollbar"></div>
+                </div>
+                <div class="matrix-quadrant bg-brand-50/50 dark:bg-brand-900/10 rounded-dynamic border border-brand-200 dark:border-brand-900/30 flex flex-col overflow-hidden">
+                    <div class="p-3 bg-brand-100/50 dark:bg-brand-900/30 border-b border-brand-200 dark:border-brand-800/50">
+                        <h3 class="font-bold text-brand-700 dark:text-brand-400 text-sm uppercase">Agende</h3>
+                        <span class="text-[10px] text-brand-500">Importante & Não Urgente</span>
+                    </div>
+                    <div id="matrix-q2" class="p-2 flex-1 overflow-y-auto space-y-2 custom-scrollbar"></div>
+                </div>
+                <div class="matrix-quadrant bg-amber-50/50 dark:bg-amber-900/10 rounded-dynamic border border-amber-200 dark:border-amber-900/30 flex flex-col overflow-hidden">
+                    <div class="p-3 bg-amber-100/50 dark:bg-amber-900/30 border-b border-amber-200 dark:border-amber-800/50">
+                        <h3 class="font-bold text-amber-700 dark:text-amber-400 text-sm uppercase">Delegue</h3>
+                        <span class="text-[10px] text-amber-500">Não Importante & Urgente</span>
+                    </div>
+                    <div id="matrix-q3" class="p-2 flex-1 overflow-y-auto space-y-2 custom-scrollbar"></div>
+                </div>
+                <div class="matrix-quadrant bg-slate-100/50 dark:bg-slate-800/30 rounded-dynamic border border-slate-200 dark:border-slate-700/50 flex flex-col overflow-hidden">
+                    <div class="p-3 bg-slate-200/50 dark:bg-slate-800/50 border-b border-slate-300 dark:border-slate-700">
+                        <h3 class="font-bold text-slate-600 dark:text-slate-400 text-sm uppercase">Elimine</h3>
+                        <span class="text-[10px] text-slate-500">Não Importante & Não Urgente</span>
+                    </div>
+                    <div id="matrix-q4" class="p-2 flex-1 overflow-y-auto space-y-2 custom-scrollbar"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- SIDEBAR -->
     <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col overflow-y-auto custom-scrollbar pt-[calc(env(safe-area-inset-top)+20px)]">
         <div class="flex justify-between items-center mb-8">
             <div class="flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Ajustes</h2></div>
@@ -280,20 +317,38 @@
         </div>
         
         <div class="space-y-8 flex-1">
-            <!-- CATEGORIAS (NOVA SEÇÃO) -->
+            <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Segurança</h3>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bloqueio por PIN</span>
+                    <button id="btn-set-pin" onclick="setupPin()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-700 transition-colors">Configurar</button>
+                </div>
+            </section>
+
+             <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Papel de Parede</h3>
+                <label class="block w-full cursor-pointer">
+                    <div class="flex items-center justify-center gap-2 w-full py-2 bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 transition-colors">
+                        <i data-lucide="image" class="w-4 h-4 text-slate-500"></i>
+                        <span class="text-xs font-medium text-slate-600 dark:text-slate-400">Carregar Imagem</span>
+                    </div>
+                    <input type="file" class="hidden" accept="image/*" onchange="handleWallpaperUpload(this)">
+                </label>
+                <button onclick="clearWallpaper()" class="mt-2 text-[10px] text-rose-500 hover:underline w-full text-center">Remover Wallpaper</button>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
             <section>
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
                     <button onclick="addCategory()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">+ Nova</button>
                 </div>
-                <div id="categories-list" class="space-y-3">
-                    <!-- Gerado via JS -->
-                </div>
+                <div id="categories-list" class="space-y-3"></div>
             </section>
 
             <hr class="border-slate-200 dark:border-slate-800">
 
-            <!-- PWA INSTALL BUTTON (Hidden by default) -->
             <div id="pwa-install-area" class="hidden">
                 <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
                     <i data-lucide="download" class="w-4 h-4"></i> Instalar App
@@ -301,7 +356,6 @@
                 <hr class="border-slate-200 dark:border-slate-800 mt-6">
             </div>
 
-            <!-- DATA MANAGEMENT -->
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Dados</h3>
                 <div class="grid grid-cols-2 gap-3">
@@ -340,63 +394,10 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Gradiente de Fundo</label>
-                        <div class="mb-3">
-                            <span class="text-xs text-slate-500 mb-1 block">Cor Esquerda</span>
-                            <div class="flex items-center gap-2">
-                                <div class="relative group shrink-0">
-                                    <div id="blob1-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #6366f1;"></div>
-                                    <input type="color" id="blob1-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBlobColor(1, this.value)" value="#6366f1">
-                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none"><i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i></div>
-                                </div>
-                                <div class="relative flex-1">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 text-sm font-mono">#</span></div>
-                                    <input type="text" id="blob1-hex-input" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" placeholder="HEX" value="6366F1" maxlength="6" oninput="setBlobColor(1, '#' + this.value)">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-500 mb-1 block">Cor Direita</span>
-                            <div class="flex items-center gap-2">
-                                <div class="relative group shrink-0">
-                                    <div id="blob2-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #a855f7;"></div>
-                                    <input type="color" id="blob2-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBlobColor(2, this.value)" value="#a855f7">
-                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none"><i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i></div>
-                                </div>
-                                <div class="relative flex-1">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 text-sm font-mono">#</span></div>
-                                    <input type="text" id="blob2-hex-input" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" placeholder="HEX" value="A855F7" maxlength="6" oninput="setBlobColor(2, '#' + this.value)">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
-            <hr class="border-slate-200 dark:border-slate-800">
-            <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Interface</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bordas</span>
-                        <div class="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-                            <button onclick="setRadius('0.25rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-sm"></div></button>
-                            <button onclick="setRadius('0.75rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-md"></div></button>
-                            <button onclick="setRadius('1.5rem')" class="p-1.5 rounded hover:bg-white dark:hover:bg-slate-700 transition-colors"><div class="w-4 h-4 border-2 border-current rounded-full"></div></button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Fonte</span>
-                        <div class="flex items-center gap-2">
-                            <button onclick="setFontScale(0.9)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A-</button>
-                            <button onclick="setFontScale(1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A</button>
-                            <button onclick="setFontScale(1.1)" class="w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-lg text-lg font-bold hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors">A+</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <hr class="border-slate-200 dark:border-slate-800">
-            <section>
+            
+            <section class="mt-4">
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sistema</h3>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
@@ -415,18 +416,24 @@
                     </div>
                 </div>
             </section>
-            
-            <div class="pt-4 pb-2">
-                <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
-                    <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Ciclos de Foco Hoje</span>
-                    <span id="pomo-count" class="text-2xl font-bold text-brand-600 dark:text-brand-400">0</span>
-                </div>
-            </div>
         </div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
-    <!-- MODALS E CANVAS -->
+    <div id="stats-modal" class="fixed inset-0 z-[65] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="toggleStats()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold">Produtividade</h2>
+                    <button onclick="toggleStats()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
+                </div>
+                <div id="stats-content" class="space-y-6">
+                    </div>
+            </div>
+        </div>
+    </div>
+
     <div id="task-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
@@ -440,16 +447,26 @@
                         </div>
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
                             <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prazo Final</label><input type="date" id="task-due-date" class="w-full form-input-fixed appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white transition-all cursor-pointer text-sm font-medium" style="min-height: 42px;"></div>
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"><!-- Dynamic --></select></div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"></select></div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="low" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Baixa</div></label>
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="medium" class="peer sr-only" checked><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Média</div></label>
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="high" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-rose-500 peer-checked:text-white peer-checked:border-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Alta</div></label>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-1">
+                                <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <label class="cursor-pointer group"><input type="radio" name="priority" value="low" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Baixa</div></label>
+                                    <label class="cursor-pointer group"><input type="radio" name="priority" value="medium" class="peer sr-only" checked><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Média</div></label>
+                                    <label class="cursor-pointer group"><input type="radio" name="priority" value="high" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-rose-500 peer-checked:text-white peer-checked:border-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Alta</div></label>
+                                </div>
                             </div>
                         </div>
+                        <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                            <input type="checkbox" id="task-urgent" class="w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                            <label for="task-urgent" class="text-sm font-medium cursor-pointer flex items-center gap-2">
+                                <i data-lucide="flame" class="w-4 h-4 text-orange-500"></i> É Urgente? <span class="text-xs text-slate-500 font-normal">(Matriz de Eisenhower)</span>
+                            </label>
+                        </div>
+
                         <div>
                             <div class="flex justify-between items-end mb-1.5"><label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Checklist</label><button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Gerar com IA</button></div>
                             <div class="flex gap-2 mb-2"><input type="text" id="new-subtask-input" class="flex-1 form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 text-sm outline-none dark:text-white focus:border-brand-500 transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}"><button type="button" onclick="addSubtaskToForm()" class="h-[42px] w-[42px] flex items-center justify-center bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
@@ -480,8 +497,12 @@
             <div class="mb-4 text-center animate-pop w-full max-w-lg flex flex-col items-center">
                 <span class="text-brand-400 font-bold tracking-widest uppercase text-xs border border-brand-500/30 px-3 py-1 rounded-full bg-brand-500/10">Modo Foco</span>
                 <h2 id="pomo-task-title" class="text-2xl md:text-3xl font-bold mt-4 mx-auto truncate px-4 w-full"></h2>
-                <div class="w-full px-6 mt-4 min-h-[3.5rem] flex items-center justify-center">
-                    <button id="btn-motivate" onclick="generateMotivation()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30"><i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> Motivação IA</button>
+                
+                <div class="w-full px-6 mt-4 min-h-[3.5rem] flex items-center justify-center gap-2">
+                    <button id="btn-motivate" onclick="generateMotivation()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30"><i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> Motivação</button>
+                    <button id="btn-brown-noise" onclick="toggleBrownNoise()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30">
+                        <i data-lucide="waves" class="w-3 h-3"></i> Ruído Marrom
+                    </button>
                     <div id="motivation-text" class="hidden text-sm text-brand-100 font-medium italic animate-slide-up w-full text-center bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl shadow-inner relative"><span class="absolute top-1 left-2 text-brand-500/20 text-2xl font-serif">“</span><span id="motivation-content"></span><span class="absolute bottom-[-0.5rem] right-2 text-brand-500/20 text-2xl font-serif">”</span></div>
                 </div>
             </div>
@@ -511,8 +532,10 @@
     <script>
         let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
+        // Novos estados
+        let currentView = 'kanban';
+        let brownNoiseNode = null, noiseContext = null;
         
-        // Categoria State
         let categories = [
             { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
             { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
@@ -546,9 +569,10 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadTasks(); loadCategories(); setupTheme(); updateDate(); lucide.createIcons();
+            checkPin();
+            loadTasks(); loadCategories(); loadWallpaper(); setupTheme(); updateDate(); lucide.createIcons();
             const pc = localStorage.getItem('pomo_count');
-            if(pc) { pomoCount = parseInt(pc); document.getElementById('pomo-count').innerText = pomoCount; }
+            if(pc) { pomoCount = parseInt(pc); }
             const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
@@ -559,30 +583,18 @@
         document.getElementById('theme-toggle').addEventListener('click', () => { document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); });
         function updateDate() { document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); }
         
-        // --- CATEGORY LOGIC ---
         function loadCategories() {
             const saved = localStorage.getItem('flowtask_categories');
             if(saved) categories = JSON.parse(saved);
             renderCategoriesSettings();
         }
-        
-        function saveCategories() {
-            localStorage.setItem('flowtask_categories', JSON.stringify(categories));
-            renderCategoriesSettings();
-            renderBoard(); 
-        }
-
-        // Função separada para salvar sem recriar a lista (corrige o bug do seletor fechando)
-        function persistCategoriesOnly() {
-            localStorage.setItem('flowtask_categories', JSON.stringify(categories));
-            renderBoard();
-        }
+        function saveCategories() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderCategoriesSettings(); renderBoard(); }
+        function persistCategoriesOnly() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderBoard(); }
 
         function renderCategoriesSettings() {
             const list = document.getElementById('categories-list');
             list.innerHTML = categories.map(cat => `
                 <div class="flex items-center gap-2 group">
-                    <!-- CORRIGIDO: ID único para atualização direta, z-10 no input e stopPropagation -->
                     <div id="cat-color-box-${cat.id}" class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer shadow-sm transition-transform hover:scale-110" style="background-color: ${cat.color}">
                         <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" onclick="event.stopPropagation()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer p-0 border-0 z-10">
                     </div>
@@ -604,37 +616,27 @@
             const cat = categories.find(c => c.id === id);
             if(cat) {
                 if(field === 'name') {
-                    const oldName = cat.name;
-                    cat.name = value;
+                    const oldName = cat.name; cat.name = value;
                     tasks.forEach(t => { if(t.category === oldName) t.category = value; });
-                    saveTasks(); 
-                    // Para nome, podemos recriar a lista para garantir consistência
-                    saveCategories(); 
+                    saveTasks(); saveCategories(); 
                 } else if (field === 'color') {
                     cat[field] = value;
-                    // CORREÇÃO CRÍTICA: Atualiza apenas o estilo do elemento, não recria o HTML
                     const colorBox = document.getElementById(`cat-color-box-${id}`);
                     if(colorBox) colorBox.style.backgroundColor = value;
-                    persistCategoriesOnly(); // Salva no storage e atualiza o quadro, mas mantém o menu de configurações intacto
+                    persistCategoriesOnly();
                 }
             }
         }
-
         function deleteCategory(id) {
             if(categories.length <= 1) { alert("Você precisa de pelo menos uma categoria."); return; }
-            if(confirm("Excluir esta categoria?")) {
-                categories = categories.filter(c => c.id !== id);
-                saveCategories();
-            }
+            if(confirm("Excluir esta categoria?")) { categories = categories.filter(c => c.id !== id); saveCategories(); }
         }
-        
         function renderTaskModalCategories() {
             const select = document.getElementById('task-category');
             if(!select) return;
             select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
         }
 
-        // Backup & Restore
         function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
         function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
         function clearDoneTasks() { if(confirm("Arquivar concluídos?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
@@ -642,9 +644,7 @@
         function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
         function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; document.getElementById('brand-preview').style.backgroundColor = hex; const p = document.getElementById('custom-brand-picker'); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById('brand-hex-input'); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); } }
-        function setBlobColor(n, hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const v = n===1?'--bg-gradient-from':'--bg-gradient-to'; document.documentElement.style.setProperty(v, hex); document.getElementById(`blob${n}-preview`).style.backgroundColor = hex; const p = document.getElementById(`blob${n}-picker`); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById(`blob${n}-hex-input`); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); }
         function setRadius(s) { document.documentElement.style.setProperty('--ui-radius', s); }
-        function setFontScale(s) { document.documentElement.style.setProperty('--ui-font-scale', s); }
         function toggleSound(c) { soundEnabled = c; }
         function toggleMotion(c) { if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } }
 
@@ -652,7 +652,153 @@
         async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
         async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
+        // --- NOVAS FUNÇÕES ---
+
+        // PIN Lock
+        function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); document.getElementById('pin-input').value = ''; document.getElementById('pin-input').focus(); } updatePinButton(); }
+        function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido. Use 4 números."); } } }
+        function unlockApp() { const pin = document.getElementById('pin-input').value; if(pin === localStorage.getItem('flowtask_pin')) { document.getElementById('pin-screen').classList.add('hidden'); } else { document.getElementById('pin-input').classList.add('animate-pulse'); setTimeout(()=>document.getElementById('pin-input').classList.remove('animate-pulse'), 500); } }
+        function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; btn.className = localStorage.getItem('flowtask_pin') ? 'px-3 py-1.5 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-xs font-bold text-rose-600 dark:text-rose-400' : 'px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400'; }
+
+        // Zen Mode
+        function toggleZenMode() { document.body.classList.toggle('zen-mode'); const btn = document.getElementById('zen-btn'); btn.classList.toggle('bg-brand-100'); btn.classList.toggle('text-brand-600'); }
+
+        // Wallpaper
+        function handleWallpaperUpload(input) { const f = input.files[0]; if(f) { if(f.size > 2000000) { alert("Imagem muito grande (Max 2MB)"); return; } const r = new FileReader(); r.onload = (e) => { const url = e.target.result; localStorage.setItem('flowtask_wallpaper', url); loadWallpaper(); }; r.readAsDataURL(f); } }
+        function loadWallpaper() { const w = localStorage.getItem('flowtask_wallpaper'); const c = document.getElementById('bg-container'); if(w) { c.innerHTML = `<div class="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20" style="background-image: url('${w}')"></div>`; } else { c.innerHTML = `<div class="blob-1 absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow"></div><div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>`; } }
+        function clearWallpaper() { localStorage.removeItem('flowtask_wallpaper'); loadWallpaper(); }
+
+        // Brown Noise
+        function toggleBrownNoise() {
+            if (brownNoiseNode) {
+                brownNoiseNode.disconnect(); brownNoiseNode = null;
+                document.getElementById('btn-brown-noise').classList.remove('bg-white/20', 'text-white');
+                document.getElementById('btn-brown-noise').classList.add('text-slate-400');
+            } else {
+                if (!noiseContext) noiseContext = new (window.AudioContext || window.webkitAudioContext)();
+                const bufferSize = 4096;
+                brownNoiseNode = noiseContext.createScriptProcessor(bufferSize, 1, 1);
+                brownNoiseNode.onaudioprocess = function(e) {
+                    const output = e.outputBuffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        const white = Math.random() * 2 - 1;
+                        output[i] = (lastOut + (0.02 * white)) / 1.02;
+                        lastOut = output[i];
+                        output[i] *= 3.5; 
+                    }
+                };
+                let lastOut = 0;
+                brownNoiseNode.connect(noiseContext.destination);
+                document.getElementById('btn-brown-noise').classList.add('bg-white/20', 'text-white');
+                document.getElementById('btn-brown-noise').classList.remove('text-slate-400');
+            }
+        }
+
+        // Stats Logic
+        function toggleStats() {
+            const m = document.getElementById('stats-modal');
+            if(m.classList.contains('hidden')) {
+                m.classList.remove('hidden'); renderStats();
+            } else { m.classList.add('hidden'); }
+        }
+        function renderStats() {
+            const total = tasks.length;
+            const done = tasks.filter(t => t.status === 'done').length;
+            const rate = total ? Math.round((done/total)*100) : 0;
+            const byCat = {}; categories.forEach(c => byCat[c.name] = 0);
+            tasks.forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
+
+            document.getElementById('stats-content').innerHTML = `
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-brand-600">${rate}%</span>
+                        <span class="text-xs text-slate-500 uppercase">Conclusão</span>
+                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center">
+                        <span class="block text-2xl font-bold text-emerald-600">${pomoCount}</span>
+                        <span class="text-xs text-slate-500 uppercase">Focos (Pomo)</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Por Categoria</h4>
+                    <div class="space-y-2">
+                        ${Object.entries(byCat).map(([name, count]) => {
+                            const cat = categories.find(c => c.name === name);
+                            const w = total ? (count/total)*100 : 0;
+                            return `
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span>
+                                <div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div>
+                                </div>
+                                <span class="w-6 text-right text-slate-500 text-xs">${count}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Matrix View Logic
+        function toggleView() {
+            const kanban = document.getElementById('view-kanban');
+            const matrix = document.getElementById('view-matrix');
+            const btn = document.getElementById('view-switcher-btn');
+            
+            if(currentView === 'kanban') {
+                currentView = 'matrix';
+                kanban.classList.add('hidden');
+                matrix.classList.remove('hidden');
+                btn.innerHTML = `<i data-lucide="columns" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>`;
+                renderMatrix();
+            } else {
+                currentView = 'kanban';
+                matrix.classList.add('hidden');
+                kanban.classList.remove('hidden');
+                btn.innerHTML = `<i data-lucide="layout-grid" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>`;
+            }
+            lucide.createIcons();
+        }
+
+        function renderMatrix() {
+            if(currentView !== 'matrix') return;
+            // Esvaziar quadrantes
+            ['q1', 'q2', 'q3', 'q4'].forEach(q => document.getElementById(`matrix-${q}`).innerHTML = '');
+            
+            tasks.forEach(t => {
+                if(t.status === 'done') return; // Matrix foca no que precisa ser feito
+                
+                const isUrgent = t.urgent === true; // Novo campo
+                const isImportant = t.priority === 'high' || t.priority === 'medium';
+                
+                let targetId = '';
+                if(isUrgent && isImportant) targetId = 'matrix-q1';
+                else if(!isUrgent && isImportant) targetId = 'matrix-q2';
+                else if(isUrgent && !isImportant) targetId = 'matrix-q3';
+                else targetId = 'matrix-q4';
+                
+                // Card Simplificado para Matrix
+                const el = document.createElement('div');
+                el.className = "bg-white dark:bg-slate-900 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 text-sm cursor-pointer hover:shadow-md transition-all";
+                el.onclick = () => editTask(t.id);
+                el.innerHTML = `
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-medium text-slate-800 dark:text-slate-200 line-clamp-2 leading-snug">${t.title}</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">${t.category}</span>
+                        ${t.dueDate ? `<span class="text-[10px] text-slate-400 flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${new Date(t.dueDate).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>` : ''}
+                    </div>
+                `;
+                document.getElementById(targetId).appendChild(el);
+            });
+            lucide.createIcons();
+        }
+
+        // --- FIM DAS NOVAS FUNÇÕES ---
+
         function renderBoard() {
+            if(currentView === 'matrix') { renderMatrix(); return; } // Se estiver na matrix, não renderiza kanban pesado
             const filter = (document.getElementById('search-input').value || document.getElementById('mobile-search-input').value).toLowerCase();
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
@@ -676,9 +822,8 @@
             const d = document.createElement('div');
             const act = t.status === 'doing';
             const exp = expandedTasks.has(t.id);
-            // Get Category Color
             const catObj = categories.find(c => c.name === t.category);
-            const catColor = catObj ? catObj.color : '#64748b'; // Fallback slate-500
+            const catColor = catObj ? catObj.color : '#64748b';
 
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
@@ -707,7 +852,6 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
-            // Style category badge with dynamic color
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
@@ -747,17 +891,19 @@
         function openModal(id = null) {
             const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
             const form = document.getElementById('task-form');
-            renderTaskModalCategories(); // Populate Select
+            renderTaskModalCategories(); 
             if(id) {
                 const t = tasks.find(x => x.id === id);
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
                 document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
                 document.getElementById('task-due-date').value = t.dueDate || '';
+                document.getElementById('task-urgent').checked = t.urgent || false; // Set Urgent Checkbox
                 document.getElementsByName('priority').forEach(r => r.checked = r.value === t.priority);
                 tempSubtasks = t.subtasks ? [...t.subtasks] : [];
             } else {
                 document.getElementById('modal-title').innerText = "Nova Tarefa"; form.reset();
                 document.getElementsByName('priority')[1].checked = true;
+                document.getElementById('task-urgent').checked = false;
             }
             renderSubtasks(); document.getElementById('task-title').focus();
         }
@@ -766,12 +912,30 @@
         function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
         function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
-        function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
+        
+        function saveTask(e) { 
+            e.preventDefault(); 
+            const data = { 
+                title: document.getElementById('task-title').value, 
+                category: document.getElementById('task-category').value, 
+                dueDate: document.getElementById('task-due-date').value, 
+                priority: document.querySelector('input[name="priority"]:checked').value,
+                urgent: document.getElementById('task-urgent').checked, // Salva urgência
+                subtasks: tempSubtasks 
+            }; 
+            if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } 
+            else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } 
+            saveTasks(); closeModal(); 
+        }
         function allowDrop(e) { e.preventDefault(); }
         function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { if(t.subtasks) t.subtasks.forEach(s => s.completed = true); fireConfetti(); } saveTasks(); } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
-        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; }
+        function closePomodoro() { 
+            document.getElementById('pomodoro-modal').classList.add('hidden'); 
+            stopTimer(); isEditingTimer = false; 
+            if(brownNoiseNode) toggleBrownNoise(); // Stop noise on close
+        }
         function setTimerDuration(m) { stopTimer(); initialTime = m * 60; timeLeft = initialTime; document.querySelectorAll('.timer-btn').forEach(b => { if(parseInt(b.dataset.time)===m) { b.classList.add('bg-brand-600','text-white'); b.classList.remove('text-slate-300'); } else { b.classList.remove('bg-brand-600','text-white'); b.classList.add('text-slate-300'); } }); updateTimerDisplay(); }
         function startTimerEdit() { if(isTimerRunning) stopTimer(); isEditingTimer = true; timerDigits = []; updateTimerEditUI(); const inp = document.getElementById('hidden-timer-input'); inp.value = ''; inp.focus(); document.getElementById('timer-status').innerText = "Digite..."; }
         function handleTimerInput(e) { if(!isEditingTimer) return; const c = e.target.value.slice(-1); if(/[0-9]/.test(c)) { if(timerDigits.length < 4) timerDigits.push(c); } e.target.value = ''; updateTimerEditUI(); if(timerDigits.length === 4) setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300); }
