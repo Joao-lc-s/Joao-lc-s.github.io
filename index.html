@@ -262,15 +262,18 @@
         </div>
 
         <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
-            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
+            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0 pr-4 md:pr-0">
+                
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
                     <div class="p-4 pb-2 border-b border-slate-200 dark:border-slate-700/50"><h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer</h2></div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
+
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-white dark:bg-slate-900 rounded-dynamic border border-brand-200 dark:border-brand-500/30 snap-center shadow-md relative">
                     <div class="p-4 pb-2 border-b border-brand-100 dark:border-brand-500/20"><h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Foco</h2></div>
                     <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
                 </div>
+
                 <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
                     <div class="p-4 pb-2 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50">
                         <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito</h2>
@@ -278,6 +281,7 @@
                     </div>
                     <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -597,12 +601,34 @@
             { id: 'cat_4', name: 'Saúde', color: '#10b981' }
         ];
 
+        // 1. Adicionamos a propriedade 'mode' para definir se é Claro ou Escuro
         const themes = {
-            cyberpunk: { bg: '#09090b', brand: '#d946ef' },
-            nature: { bg: '#f0fdf4', brand: '#16a34a' },
-            dracula: { bg: '#282a36', brand: '#bd93f9' },
-            minimal: { bg: '#ffffff', brand: '#171717' }
+            cyberpunk: { bg: '#09090b', brand: '#d946ef', mode: 'dark' },
+            nature: { bg: '#f0fdf4', brand: '#16a34a', mode: 'light' }, // Natureza força modo Claro (Branco)
+            dracula: { bg: '#282a36', brand: '#bd93f9', mode: 'dark' },
+            minimal: { bg: '#ffffff', brand: '#171717', mode: 'light' }
         };
+
+        // ... (código do audioCtx e playBeep continua igual) ...
+
+        // 2. Atualizamos a função para aplicar o modo correto
+        function applyTheme(name) {
+            const t = themes[name];
+            if(t) {
+                // Aplica as cores
+                setBackgroundColor(t.bg);
+                setBrandColor(t.brand);
+
+                // FORÇA O MODO CLARO OU ESCURO
+                if (t.mode === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+        }
 
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playBeep() {
@@ -953,8 +979,6 @@
             }; 
             r.readAsText(f); 
         }
-
-        function clearDoneTasks() { if(confirm("Arquivar tarefas concluídas?")) { tasks = tasks.filter(t => t.status !== 'done'); saveTasks(); } }
 
         function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
