@@ -12,17 +12,10 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiRmxvd1Rhc2sgdjEuMCIsIm\
-    NoYXJ0X25hbWUiOiJGbG93VGFzayIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bm\
-    RfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjNjM2NmYxIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3\
-    ZnK3htbDsuLi4iLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
-
-    <title>FlowTask v1.0</title>
+    <title>FlowTask v1.1</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <script>
@@ -47,14 +40,14 @@
                         'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                         'shimmer': 'shimmer 2s linear infinite',
                         'pop': 'popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'fall-in': 'fallIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
                     },
                     keyframes: {
                         slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                         slideIn: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
                         shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
                         popIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
-                        fallIn: { '0%': { opacity: '0', transform: 'translateY(-15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                        shake: { '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' }, '20%, 80%': { transform: 'translate3d(2px, 0, 0)' }, '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' }, '40%, 60%': { transform: 'translate3d(4px, 0, 0)' } }
                     }
                 }
             }
@@ -82,7 +75,6 @@
         }
 
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
-
         .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
         .dark .glass { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); }
 
@@ -94,37 +86,16 @@
         .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
         .appearance-none { -webkit-appearance: none; appearance: none; }
         .dark input[type="date"] { color-scheme: dark; }
-
         .task-overdue { border-left: 4px solid #f43f5e !important; background: linear-gradient(to right, rgba(244, 63, 94, 0.05), transparent); }
         .task-active { border: 2px solid transparent !important; box-shadow: none !important; background: transparent !important; }
-
         button, input, select { pointer-events: auto; }
-
+        
         .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
         .digit { display: inline-block; animation: fallIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
-        .timer-slot { display: inline-flex; justify-content: center; align-items: center; width: 0.6em; height: 1em; margin: 0 2px; border-bottom: 2px solid transparent; color: white; }
-        .timer-slot.active { border-bottom-color: rgb(var(--color-brand-500)); animation: blinkBorder 1s infinite; }
-        .timer-slot.empty { color: rgba(255,255,255,0.2); }
-        @keyframes blinkBorder { 0%, 100% { border-color: rgb(var(--color-brand-500)); } 50% { border-color: transparent; } }
-
         .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7, #ec4899); background-size: 200% 100%; animation: shimmer 3s infinite linear; }
-
         #settings-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         #settings-sidebar.closed { transform: translateX(100%); }
-
-        .color-picker-wrapper { position: relative; overflow: hidden; display: flex; align-items: center; gap: 8px; padding: 4px; border: 1px solid #e2e8f0; border-radius: 9999px; cursor: pointer; transition: all 0.2s; }
-        .dark .color-picker-wrapper { border-color: #334155; }
-        .color-picker-wrapper:hover { border-color: rgb(var(--color-brand-500)); box-shadow: 0 0 0 2px rgba(var(--color-brand-500), 0.2); }
-        .color-preview { width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
-        input[type="color"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-
-        .toggle-checkbox:checked { right: 0; border-color: rgb(var(--color-brand-500)); }
-        .toggle-checkbox:checked + .toggle-label { background-color: rgb(var(--color-brand-500)); }
-        
-        .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
-        .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
-
         .snap-x-mandatory { scroll-snap-type: x mandatory; }
         .snap-center { scroll-snap-align: center; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -132,32 +103,55 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
 
-        /* --- ESTILOS EXTRAS --- */
-        /* Modo Zen */
-        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode .glass, .zen-mode #mobile-search, .zen-mode #view-switcher-container { display: none !important; }
-        .zen-mode #col-doing { width: 100% !important; max-width: 600px; margin: 0 auto; min-width: auto; }
-        .zen-mode header h1, .zen-mode header p { opacity: 0.5; }
+        /* PIN KEYPAD STYLES */
+        .pin-btn { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; user-select: none; }
+        .pin-btn:active { background-color: rgba(255,255,255,0.2); }
+        .pin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid currentColor; transition: all 0.2s; }
+        .pin-dot.filled { background-color: currentColor; }
         
-        /* PIN Screen */
-        #pin-screen { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 9999; }
+        /* Layout Fixes */
+        .blob-1 { background-color: var(--bg-gradient-from); opacity: 0.3; }
+        .blob-2 { background-color: var(--bg-gradient-to); opacity: 0.3; }
+        .zen-mode #col-todo, .zen-mode #col-done, .zen-mode .glass, .zen-mode #view-switcher-container { display: none !important; }
+        .zen-mode #col-doing { width: 100% !important; max-width: 600px; margin: 0 auto; min-width: auto; }
+        
+        #pin-screen { backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); z-index: 9999; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
     
-    <div id="pin-screen" class="fixed inset-0 bg-slate-100/90 dark:bg-slate-900/90 flex flex-col items-center justify-center hidden">
-        <div class="mb-8 flex flex-col items-center">
-            <div class="p-4 bg-brand-600 rounded-2xl shadow-xl mb-4"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
-            <h2 class="text-2xl font-bold">Bloqueado</h2>
-            <p class="text-slate-500">Digite seu PIN para acessar</p>
-        </div>
-        <div class="flex gap-4 mb-8">
-            <input type="password" id="pin-input" class="text-center text-4xl tracking-widest w-48 bg-transparent border-b-2 border-slate-300 focus:border-brand-500 outline-none font-mono" maxlength="4" inputmode="numeric">
-        </div>
-        <button onclick="unlockApp()" class="px-8 py-3 bg-brand-600 text-white rounded-xl font-bold shadow-lg hover:bg-brand-500 transition-transform active:scale-95">Entrar</button>
-    </div>
+    <div id="pin-screen" class="fixed inset-0 bg-slate-200/90 dark:bg-slate-900/95 flex flex-col items-center justify-center hidden">
+        <div class="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
+            <div class="mb-8 flex flex-col items-center animate-slide-up">
+                <div class="p-4 bg-brand-600 rounded-2xl shadow-xl mb-4"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
+                <h2 class="text-xl font-bold tracking-wide">Bloqueado</h2>
+                <p class="text-slate-500 text-sm mt-1">Digite seu PIN para acessar</p>
+            </div>
 
-    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
-        Você está offline. A IA não funcionará, mas suas tarefas estão salvas.
+            <div class="flex gap-4 mb-10 h-4">
+                <div class="pin-dot text-slate-800 dark:text-white" id="dot-0"></div>
+                <div class="pin-dot text-slate-800 dark:text-white" id="dot-1"></div>
+                <div class="pin-dot text-slate-800 dark:text-white" id="dot-2"></div>
+                <div class="pin-dot text-slate-800 dark:text-white" id="dot-3"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-x-6 gap-y-4 mb-8">
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(1)">1</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(2)">2</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(3)">3</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(4)">4</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(5)">5</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(6)">6</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(7)">7</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(8)">8</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(9)">9</div>
+                <div class="pin-btn opacity-0 cursor-default"></div> <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(0)">0</div>
+                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center" onclick="pinDelete()">
+                    <i data-lucide="delete" class="w-6 h-6"></i>
+                </div>
+            </div>
+            <button onclick="localStorage.removeItem('flowtask_pin'); location.reload();" class="text-xs text-slate-400 mt-4 hover:text-brand-500">Esqueci meu PIN (Resetar)</button>
+        </div>
     </div>
 
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="bg-container">
@@ -165,101 +159,125 @@
         <div class="blob-2 absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
 
-    <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6">
+    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">
+        Você está offline. A IA não funcionará.
+    </div>
+
+    <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6 gap-4">
         
-        <header class="flex justify-between items-center mb-4 md:mb-6 shrink-0 pt-2 gap-4">
-            <div class="flex items-center gap-3 overflow-hidden">
-                <div class="p-2 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-xl shadow-lg shadow-brand-500/30 shrink-0">
-                    <i data-lucide="layers" class="text-white w-5 h-5 md:w-6 md:h-6"></i>
+        <header class="flex flex-col gap-4 shrink-0">
+            
+            <div class="glass rounded-dynamic px-5 py-3 flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="p-1.5 bg-gradient-to-tr from-brand-600 to-purple-600 rounded-lg shadow-lg shadow-brand-500/30 shrink-0">
+                        <i data-lucide="layers" class="text-white w-5 h-5"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-lg font-bold tracking-tight leading-none">FlowTask <span class="text-brand-500 text-xs align-top">Pro</span></h1>
+                        <p id="date-display" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium capitalize truncate leading-tight mt-0.5"></p>
+                    </div>
                 </div>
-                <div class="min-w-0">
-                    <h1 class="text-xl md:text-2xl font-bold tracking-tight truncate">FlowTask <span class="text-brand-500">v1.0</span></h1>
-                    <p id="date-display" class="text-xs text-slate-500 dark:text-slate-400 font-medium capitalize truncate"></p>
+                <div class="hidden sm:block text-xs font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-3 py-1 rounded-full border border-brand-100 dark:border-brand-900/50">
+                    Modo Produtivo
                 </div>
             </div>
 
-            <div class="flex-1 max-w-xs hidden sm:block relative">
-                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
-                <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Buscar ( / )..." class="w-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-9 pr-3 py-1.5 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all">
-            </div>
+            <div class="flex flex-col md:flex-row gap-3">
+                
+                <div class="relative flex-1 group">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-400 group-focus-within:text-brand-500 transition-colors"></i>
+                    </div>
+                    <input type="text" id="search-input" onkeyup="renderBoard()" 
+                           placeholder="O que você procura hoje?" 
+                           class="w-full h-11 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm hover:shadow-md hover:bg-white dark:hover:bg-slate-800">
+                </div>
 
-            <div class="flex items-center gap-2 md:gap-3 shrink-0">
-                <button onclick="toggleZenMode()" id="zen-btn" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Modo Zen">
-                    <i data-lucide="eye" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-                </button>
+                <div class="flex items-center justify-between md:justify-end gap-2 shrink-0">
+                    <div class="flex gap-2">
+                        <button onclick="toggleZenMode()" id="zen-btn" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Modo Zen">
+                            <i data-lucide="eye" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        </button>
+                        <button onclick="toggleStats()" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Estatísticas">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        </button>
+                        <button onclick="toggleSettings()" class="h-11 w-11 flex items-center justify-center rounded-dynamic bg-white/60 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95 shadow-sm" title="Ajustes">
+                            <i data-lucide="settings-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="w-px h-8 bg-slate-300 dark:bg-slate-700 mx-1 hidden md:block"></div>
 
-                <button onclick="toggleStats()" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Estatísticas">
-                    <i data-lucide="bar-chart-2" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-                </button>
-
-                <button onclick="document.getElementById('mobile-search').classList.toggle('hidden')" class="sm:hidden p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 active:scale-95">
-                    <i data-lucide="search" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-                </button>
-
-                <button onclick="toggleSettings()" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95" title="Personalizar">
-                    <i data-lucide="settings" class="w-5 h-5 text-slate-600 dark:text-slate-300"></i>
-                </button>
-                <button id="theme-toggle" class="p-2.5 rounded-dynamic bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 hover:bg-white dark:hover:bg-slate-700 transition-all active:scale-95">
-                    <i data-lucide="moon" class="w-5 h-5 text-slate-600 dark:text-slate-300 hidden dark:block"></i>
-                    <i data-lucide="sun" class="w-5 h-5 text-slate-600 dark:text-slate-300 block dark:hidden"></i>
-                </button>
-                <button onclick="openModal()" class="flex items-center gap-2 px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 transition-all transform hover:scale-105 active:scale-95">
-                    <i data-lucide="plus" class="w-5 h-5"></i>
-                    <span class="hidden md:inline">Nova Tarefa</span>
-                </button>
+                    <button onclick="openModal()" class="h-11 px-5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-lg shadow-brand-600/30 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                        <span>Nova</span>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <div id="mobile-search" class="hidden mb-4 sm:hidden">
-            <input type="text" id="mobile-search-input" onkeyup="renderBoard()" placeholder="Buscar tarefas..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
-        </div>
-
-        <div class="glass rounded-dynamic p-4 mb-4 md:mb-6 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
+        <div class="glass rounded-dynamic p-4 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
             <div class="flex flex-col w-full">
                 <div class="flex justify-between items-end mb-2">
-                    <span class="text-sm font-medium text-slate-600 dark:text-slate-300">Progresso Diário</span>
+                    <span class="text-sm font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+                        <i data-lucide="target" class="w-4 h-4 text-brand-500"></i> Progresso Diário
+                    </span>
                     <span id="progress-text" class="text-xl font-bold text-brand-600 dark:text-brand-500">0%</span>
                 </div>
-                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-purple-500 rounded-full transition-all duration-1000 w-0"></div>
+                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
+                    <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-500 to-purple-500 rounded-full transition-all duration-1000 w-0 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite]"></div>
+                    </div>
                 </div>
             </div>
-            <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-4 sm:gap-6 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
-                <div class="text-center flex-1 sm:flex-none">
-                    <p id="count-todo" class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">0</p>
-                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">A Fazer</p>
+            <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-2 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
+                 <div class="bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-2 text-center min-w-[70px]">
+                    <p id="count-todo" class="text-lg font-bold text-slate-700 dark:text-white leading-none">0</p>
+                    <p class="text-[9px] text-slate-400 uppercase tracking-wider mt-1">A Fazer</p>
                 </div>
-                <div class="text-center flex-1 sm:flex-none">
-                    <p id="count-doing" class="text-lg md:text-xl font-bold text-brand-500">0</p>
-                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">Fazendo</p>
+                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20">
+                    <p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p>
+                    <p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p>
                 </div>
-                <div class="text-center flex-1 sm:flex-none">
-                    <p id="count-done" class="text-lg md:text-xl font-bold text-emerald-500">0</p>
-                    <p class="text-[10px] text-slate-500 uppercase tracking-wider">Feito</p>
+                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20">
+                    <p id="count-done" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 leading-none">0</p>
+                    <p class="text-[9px] text-emerald-400/80 uppercase tracking-wider mt-1">Feito</p>
                 </div>
             </div>
         </div>
 
         <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
             <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0">
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
-                    <div class="p-4 pb-2">
-                        <h2 class="font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div> A Fazer</h2>
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
+                    <div class="p-4 pb-2 border-b border-black/5 dark:border-white/5">
+                        <h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide">
+                            <div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer
+                        </h2>
                     </div>
                     <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
-                    <div class="p-4 pb-2">
-                        <h2 class="font-semibold text-brand-600 dark:text-brand-500 flex items-center gap-2">
-                            <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Andamento
+
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-brand-50/50 dark:bg-slate-900/40 rounded-dynamic border border-brand-200/30 dark:border-brand-500/10 backdrop-blur-sm snap-center shadow-inner relative">
+                    <div class="p-4 pb-2 border-b border-brand-200/30 dark:border-white/5">
+                        <h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+                            </span> 
+                            Em Foco
                         </h2>
                     </div>
                     <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
                 </div>
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/50 dark:bg-slate-900/30 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center">
-                    <div class="p-4 pb-2 flex justify-between items-center">
-                        <h2 class="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div> Concluído</h2>
-                        <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors" title="Arquivar Concluídos"><i data-lucide="archive" class="w-3 h-3"></i> Limpar</button>
+
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-100/60 dark:bg-slate-900/40 rounded-dynamic border border-white/50 dark:border-white/5 backdrop-blur-sm snap-center shadow-inner">
+                    <div class="p-4 pb-2 flex justify-between items-center border-b border-black/5 dark:border-white/5">
+                        <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito
+                        </h2>
+                        <button onclick="clearDoneTasks()" class="text-[10px] text-slate-400 hover:text-rose-500 uppercase tracking-wider flex items-center gap-1 transition-colors hover:bg-rose-50 dark:hover:bg-rose-900/20 px-2 py-1 rounded" title="Limpar tarefas concluídas">
+                            <i data-lucide="archive" class="w-3 h-3"></i> Arquivar
+                        </button>
                     </div>
                     <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
                 </div>
@@ -274,6 +292,29 @@
         </div>
         
         <div class="space-y-8 flex-1">
+             <section>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
+                <div class="flex items-center justify-between mb-4 bg-slate-50 dark:bg-slate-800 p-2 rounded-xl">
+                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300 ml-2">Modo Escuro</span>
+                     <button id="theme-toggle" class="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm border border-slate-200 dark:border-slate-600">
+                        <i data-lucide="moon" class="w-4 h-4 text-slate-600 dark:text-slate-300 hidden dark:block"></i>
+                        <i data-lucide="sun" class="w-4 h-4 text-slate-600 dark:text-slate-300 block dark:hidden"></i>
+                     </button>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Destaque</label>
+                    <div class="flex gap-2 flex-wrap mb-3">
+                        <button onclick="setBrandColor('#6366f1')" class="w-8 h-8 rounded-full bg-[#6366f1] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                        <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-200 dark:border-slate-800">
+
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Segurança</h3>
                 <div class="flex items-center justify-between">
@@ -325,55 +366,8 @@
                     </label>
                 </div>
             </section>
-
-            <hr class="border-slate-200 dark:border-slate-800">
-
-            <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Aparência</h3>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor Principal</label>
-                        <div class="flex gap-2 flex-wrap mb-3">
-                            <button onclick="setBrandColor('#6366f1')" class="w-8 h-8 rounded-full bg-[#6366f1] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="relative group shrink-0">
-                                <div id="brand-preview" class="w-10 h-10 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 transition-colors" style="background-color: #6366f1;"></div>
-                                <input type="color" id="custom-brand-picker" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" oninput="setBrandColor(this.value)" value="#6366f1">
-                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none"><i data-lucide="palette" class="w-4 h-4 text-white drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity"></i></div>
-                            </div>
-                            <div class="relative flex-1">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><span class="text-slate-400 text-sm font-mono">#</span></div>
-                                <input type="text" id="brand-hex-input" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg pl-7 pr-3 py-2 text-sm font-mono text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 outline-none uppercase transition-all placeholder-slate-400" placeholder="HEX" value="6366F1" maxlength="6" oninput="setBrandColor('#' + this.value)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="mt-4">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sistema</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i> Sons</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-sound" class="sr-only peer" checked onchange="toggleSound(this.checked)">
-                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-                        </label>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"><i data-lucide="zap-off" class="w-4 h-4 text-slate-400"></i> Reduzir Animações</span>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="toggle-motion" class="sr-only peer" onchange="toggleMotion(this.checked)">
-                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-                        </label>
-                    </div>
-                </div>
-            </section>
         </div>
+        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v1.1</div>
     </div>
     <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
@@ -385,8 +379,7 @@
                     <h2 class="text-xl font-bold">Produtividade</h2>
                     <button onclick="toggleStats()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
                 </div>
-                <div id="stats-content" class="space-y-6">
-                    </div>
+                <div id="stats-content" class="space-y-6"></div>
             </div>
         </div>
     </div>
@@ -468,17 +461,9 @@
             </div>
             
             <div class="mt-10 flex items-center gap-6">
-                <button id="btn-brown-noise" onclick="toggleBrownNoise()" class="w-14 h-14 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5" title="Ruído Marrom">
-                    <i data-lucide="waves" class="w-6 h-6"></i>
-                </button>
-
-                <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group">
-                    <i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i>
-                </button>
-
-                <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500">
-                    <i data-lucide="rotate-ccw" class="w-6 h-6"></i>
-                </button>
+                <button id="btn-brown-noise" onclick="toggleBrownNoise()" class="w-14 h-14 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5" title="Ruído Marrom"><i data-lucide="waves" class="w-6 h-6"></i></button>
+                <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
+                <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
             </div>
         </div>
     </div>
@@ -489,7 +474,8 @@
         let tasks = [], tempSubtasks = [], currentEditingId = null, taskToDeleteId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let pwaPrompt;
         let brownNoiseNode = null, noiseContext = null;
-        
+        let pinInputBuffer = "";
+
         let categories = [
             { id: 'cat_1', name: 'Trabalho', color: '#6366f1' },
             { id: 'cat_2', name: 'Pessoal', color: '#ec4899' },
@@ -506,12 +492,8 @@
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden');
-        });
-        async function installPWA() {
-            if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; }
-        }
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden'); });
+        async function installPWA() { if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; } }
         if ('Notification' in window) Notification.requestPermission();
         window.addEventListener('offline', () => document.getElementById('offline-indicator').classList.remove('hidden'));
         window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
@@ -525,8 +507,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             checkPin();
             loadTasks(); loadCategories(); loadWallpaper(); setupTheme(); updateGreeting(); lucide.createIcons();
-            const pc = localStorage.getItem('pomo_count');
-            if(pc) { pomoCount = parseInt(pc); }
+            const pc = localStorage.getItem('pomo_count'); if(pc) { pomoCount = parseInt(pc); }
             const h = document.getElementById('hidden-timer-input'); h.addEventListener('input', handleTimerInput); h.addEventListener('blur', finishTimerEdit);
         });
 
@@ -538,17 +519,11 @@
         
         function updateGreeting() {
             const h = new Date().getHours();
-            let g = 'Bom dia';
-            if (h >= 12 && h < 18) g = 'Boa tarde';
-            else if (h >= 18) g = 'Boa noite';
-            document.getElementById('date-display').innerText = `${g}, ` + new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+            let g = 'Bom dia'; if (h >= 12 && h < 18) g = 'Boa tarde'; else if (h >= 18) g = 'Boa noite';
+            document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
         }
         
-        function loadCategories() {
-            const saved = localStorage.getItem('flowtask_categories');
-            if(saved) categories = JSON.parse(saved);
-            renderCategoriesSettings();
-        }
+        function loadCategories() { const saved = localStorage.getItem('flowtask_categories'); if(saved) categories = JSON.parse(saved); renderCategoriesSettings(); }
         function saveCategories() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderCategoriesSettings(); renderBoard(); }
         function persistCategoriesOnly() { localStorage.setItem('flowtask_categories', JSON.stringify(categories)); renderBoard(); }
 
@@ -566,37 +541,10 @@
             lucide.createIcons();
         }
 
-        function addCategory() {
-            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            categories.push({ id: generateId(), name: 'Nova Categoria', color: randomColor });
-            saveCategories();
-        }
-
-        function updateCategory(id, field, value) {
-            const cat = categories.find(c => c.id === id);
-            if(cat) {
-                if(field === 'name') {
-                    const oldName = cat.name; cat.name = value;
-                    tasks.forEach(t => { if(t.category === oldName) t.category = value; });
-                    saveTasks(); saveCategories(); 
-                } else if (field === 'color') {
-                    cat[field] = value;
-                    const colorBox = document.getElementById(`cat-color-box-${id}`);
-                    if(colorBox) colorBox.style.backgroundColor = value;
-                    persistCategoriesOnly();
-                }
-            }
-        }
-        function deleteCategory(id) {
-            if(categories.length <= 1) { alert("Você precisa de pelo menos uma categoria."); return; }
-            if(confirm("Excluir esta categoria?")) { categories = categories.filter(c => c.id !== id); saveCategories(); }
-        }
-        function renderTaskModalCategories() {
-            const select = document.getElementById('task-category');
-            if(!select) return;
-            select.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-        }
+        function addCategory() { const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6']; categories.push({ id: generateId(), name: 'Nova Categoria', color: colors[Math.floor(Math.random() * colors.length)] }); saveCategories(); }
+        function updateCategory(id, field, value) { const cat = categories.find(c => c.id === id); if(cat) { if(field === 'name') { const old = cat.name; cat.name = value; tasks.forEach(t => { if(t.category === old) t.category = value; }); saveTasks(); saveCategories(); } else if (field === 'color') { cat[field] = value; document.getElementById(`cat-color-box-${id}`).style.backgroundColor = value; persistCategoriesOnly(); } } }
+        function deleteCategory(id) { if(categories.length <= 1) { alert("Mínimo 1 categoria."); return; } if(confirm("Excluir?")) { categories = categories.filter(c => c.id !== id); saveCategories(); } }
+        function renderTaskModalCategories() { const s = document.getElementById('task-category'); if(!s) return; s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join(''); }
 
         function exportData() { const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({tasks, categories})); const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); }
         function importData(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = (e) => { try { const d = JSON.parse(e.target.result); if(d.tasks) { tasks = d.tasks; saveTasks(); } if(d.categories) { categories = d.categories; saveCategories(); } alert("Restaurado!"); } catch (err) { alert("Erro."); } }; r.readAsText(f); }
@@ -604,19 +552,51 @@
 
         function toggleSettings() { document.getElementById('settings-sidebar').classList.toggle('closed'); document.getElementById('settings-overlay').classList.toggle('hidden'); }
         function hexToRgb(hex) { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)} ${parseInt(r[2], 16)} ${parseInt(r[3], 16)}` : null; }
-        function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; document.getElementById('brand-preview').style.backgroundColor = hex; const p = document.getElementById('custom-brand-picker'); if(p.value.toUpperCase()!==hex.toUpperCase()) p.value=hex; const t = document.getElementById('brand-hex-input'); if(document.activeElement!==t) t.value=hex.replace('#','').toUpperCase(); } }
-        function setRadius(s) { document.documentElement.style.setProperty('--ui-radius', s); }
-        function toggleSound(c) { soundEnabled = c; }
-        function toggleMotion(c) { if(c) { const s = document.createElement('style'); s.id = 'reduced-motion-style'; s.innerHTML = `*, *::before, *::after { animation: none !important; transition: none !important; }`; document.head.appendChild(s); } else { const s = document.getElementById('reduced-motion-style'); if(s) s.remove(); } }
-
+        function setBrandColor(hex) { if(!hex.startsWith('#')) hex = '#'+hex; if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; const rgb = hexToRgb(hex); if(rgb) { document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); document.documentElement.style.setProperty('--color-brand-50', rgb); document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; } }
+        
         async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
         async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) tempSubtasks.push({title: cl, completed: false}); }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
         async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
 
-        // PIN Lock
-        function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); document.getElementById('pin-input').value = ''; document.getElementById('pin-input').focus(); } updatePinButton(); }
+        // --- PIN LOGIC (CELULAR) ---
+        function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); pinInputBuffer = ""; updatePinDots(); } updatePinButton(); }
+        function pinPress(num) {
+            if(pinInputBuffer.length < 4) {
+                pinInputBuffer += num;
+                updatePinDots();
+                if(pinInputBuffer.length === 4) { setTimeout(verifyPin, 200); }
+            }
+        }
+        function pinDelete() {
+            if(pinInputBuffer.length > 0) {
+                pinInputBuffer = pinInputBuffer.slice(0, -1);
+                updatePinDots();
+            }
+        }
+        function updatePinDots() {
+            for(let i=0; i<4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if(i < pinInputBuffer.length) dot.classList.add('filled');
+                else dot.classList.remove('filled');
+            }
+        }
+        function verifyPin() {
+            const correct = localStorage.getItem('flowtask_pin');
+            if(pinInputBuffer === correct) {
+                document.getElementById('pin-screen').classList.add('hidden');
+                pinInputBuffer = "";
+            } else {
+                // Shake effect
+                const dots = document.getElementById('pin-dots'); // usando container parente
+                document.querySelector('.pin-dot').parentElement.classList.add('animate-shake');
+                setTimeout(() => {
+                    document.querySelector('.pin-dot').parentElement.classList.remove('animate-shake');
+                    pinInputBuffer = "";
+                    updatePinDots();
+                }, 500);
+            }
+        }
         function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido. Use 4 números."); } } }
-        function unlockApp() { const pin = document.getElementById('pin-input').value; if(pin === localStorage.getItem('flowtask_pin')) { document.getElementById('pin-screen').classList.add('hidden'); } else { document.getElementById('pin-input').classList.add('animate-pulse'); setTimeout(()=>document.getElementById('pin-input').classList.remove('animate-pulse'), 500); } }
         function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; btn.className = localStorage.getItem('flowtask_pin') ? 'px-3 py-1.5 bg-rose-100 dark:bg-rose-900/30 rounded-lg text-xs font-bold text-rose-600 dark:text-rose-400' : 'px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400'; }
 
         // Zen Mode
@@ -629,77 +609,25 @@
 
         // Brown Noise
         function toggleBrownNoise() {
-            if (brownNoiseNode) {
-                brownNoiseNode.disconnect(); brownNoiseNode = null;
-                document.getElementById('btn-brown-noise').classList.remove('bg-white/20', 'text-white');
-                document.getElementById('btn-brown-noise').classList.add('text-slate-400');
-            } else {
-                if (!noiseContext) noiseContext = new (window.AudioContext || window.webkitAudioContext)();
-                const bufferSize = 4096;
-                brownNoiseNode = noiseContext.createScriptProcessor(bufferSize, 1, 1);
-                brownNoiseNode.onaudioprocess = function(e) {
-                    const output = e.outputBuffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) {
-                        const white = Math.random() * 2 - 1;
-                        output[i] = (lastOut + (0.02 * white)) / 1.02;
-                        lastOut = output[i];
-                        output[i] *= 3.5; 
-                    }
-                };
-                let lastOut = 0;
-                brownNoiseNode.connect(noiseContext.destination);
-                document.getElementById('btn-brown-noise').classList.add('bg-white/20', 'text-white');
-                document.getElementById('btn-brown-noise').classList.remove('text-slate-400');
-            }
+            if (brownNoiseNode) { brownNoiseNode.disconnect(); brownNoiseNode = null; document.getElementById('btn-brown-noise').classList.remove('bg-white/20', 'text-white'); document.getElementById('btn-brown-noise').classList.add('text-slate-400'); } 
+            else { if (!noiseContext) noiseContext = new (window.AudioContext || window.webkitAudioContext)(); const bufferSize = 4096; brownNoiseNode = noiseContext.createScriptProcessor(bufferSize, 1, 1); brownNoiseNode.onaudioprocess = function(e) { const output = e.outputBuffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) { const white = Math.random() * 2 - 1; output[i] = (lastOut + (0.02 * white)) / 1.02; lastOut = output[i]; output[i] *= 3.5; } }; let lastOut = 0; brownNoiseNode.connect(noiseContext.destination); document.getElementById('btn-brown-noise').classList.add('bg-white/20', 'text-white'); document.getElementById('btn-brown-noise').classList.remove('text-slate-400'); }
         }
 
         // Stats Logic
-        function toggleStats() {
-            const m = document.getElementById('stats-modal');
-            if(m.classList.contains('hidden')) {
-                m.classList.remove('hidden'); renderStats();
-            } else { m.classList.add('hidden'); }
-        }
+        function toggleStats() { const m = document.getElementById('stats-modal'); if(m.classList.contains('hidden')) { m.classList.remove('hidden'); renderStats(); } else { m.classList.add('hidden'); } }
         function renderStats() {
-            const total = tasks.length;
-            const done = tasks.filter(t => t.status === 'done').length;
-            const rate = total ? Math.round((done/total)*100) : 0;
-            const byCat = {}; categories.forEach(c => byCat[c.name] = 0);
-            tasks.forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
-
+            const total = tasks.length; const done = tasks.filter(t => t.status === 'done').length; const rate = total ? Math.round((done/total)*100) : 0;
+            const byCat = {}; categories.forEach(c => byCat[c.name] = 0); tasks.forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
             document.getElementById('stats-content').innerHTML = `
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center">
-                        <span class="block text-2xl font-bold text-brand-600">${rate}%</span>
-                        <span class="text-xs text-slate-500 uppercase">Conclusão</span>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center">
-                        <span class="block text-2xl font-bold text-emerald-600">${pomoCount}</span>
-                        <span class="text-xs text-slate-500 uppercase">Focos (Pomo)</span>
-                    </div>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center"><span class="block text-2xl font-bold text-brand-600">${rate}%</span><span class="text-xs text-slate-500 uppercase">Conclusão</span></div>
+                    <div class="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl text-center"><span class="block text-2xl font-bold text-emerald-600">${pomoCount}</span><span class="text-xs text-slate-500 uppercase">Focos (Pomo)</span></div>
                 </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Por Categoria</h4>
-                    <div class="space-y-2">
-                        ${Object.entries(byCat).map(([name, count]) => {
-                            const cat = categories.find(c => c.name === name);
-                            const w = total ? (count/total)*100 : 0;
-                            return `
-                            <div class="flex items-center gap-2 text-sm">
-                                <span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span>
-                                <div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                    <div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div>
-                                </div>
-                                <span class="w-6 text-right text-slate-500 text-xs">${count}</span>
-                            </div>`;
-                        }).join('')}
-                    </div>
-                </div>
-            `;
+                <div><h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Por Categoria</h4><div class="space-y-2">${Object.entries(byCat).map(([name, count]) => { const cat = categories.find(c => c.name === name); const w = total ? (count/total)*100 : 0; return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`; }).join('')}</div></div>`;
         }
 
         function renderBoard() {
-            const filter = (document.getElementById('search-input').value || document.getElementById('mobile-search-input').value).toLowerCase();
+            const filter = document.getElementById('search-input').value.toLowerCase();
             const cols = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
             Object.values(cols).forEach(c => c.innerHTML = '');
             const today = new Date().toISOString().split('T')[0];
@@ -708,8 +636,7 @@
             const sorted = [...tasks].filter(t => t.title.toLowerCase().includes(filter)).sort((a, b) => (w[b.priority] || 0) - (w[a.priority] || 0) || a.title.localeCompare(b.title));
             
             sorted.forEach(t => {
-                counts[t.status]++;
-                const od = t.dueDate && t.dueDate < today && t.status !== 'done';
+                counts[t.status]++; const od = t.dueDate && t.dueDate < today && t.status !== 'done';
                 cols[t.status].appendChild(createCard(t, od));
             });
             document.getElementById('count-todo').innerText = counts.todo; document.getElementById('count-doing').innerText = counts.doing; document.getElementById('count-done').innerText = counts.done;
@@ -719,28 +646,15 @@
         }
 
         function createCard(t, od) {
-            const d = document.createElement('div');
-            const act = t.status === 'doing';
-            const exp = expandedTasks.has(t.id);
-            const catObj = categories.find(c => c.name === t.category);
-            const catColor = catObj ? catObj.color : '#64748b';
-
+            const d = document.createElement('div'); const act = t.status === 'doing'; const exp = expandedTasks.has(t.id);
+            const catObj = categories.find(c => c.name === t.category); const catColor = catObj ? catObj.color : '#64748b';
             d.className = `glass-card p-0 rounded-dynamic cursor-grab active:cursor-grabbing relative overflow-hidden group animate-slide-up mb-4 border border-white/40 dark:border-white/5 shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
             d.draggable = true;
             d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); };
             d.ondragend = (e) => { e.target.classList.remove('dragging'); };
             const pc = { low: 'bg-emerald-500', medium: 'bg-amber-500', high: 'bg-rose-500' };
-            const done = t.subtasks ? t.subtasks.filter(s => s.completed).length : 0;
-            const total = t.subtasks ? t.subtasks.length : 0;
-            const prog = total === 0 ? 0 : Math.round((done/total)*100);
-            
-            let dh = '';
-            if(t.dueDate) {
-                const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-                const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
-                dh = `<div class="flex items-center gap-1.5 text-[11px] font-medium mt-2 w-fit ${od ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${od ? 'Atrasado: ' : ''}${s}</span></div>`;
-            }
-
+            const done = t.subtasks ? t.subtasks.filter(s => s.completed).length : 0; const total = t.subtasks ? t.subtasks.length : 0; const prog = total === 0 ? 0 : Math.round((done/total)*100);
+            let dh = ''; if(t.dueDate) { const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); dh = `<div class="flex items-center gap-1.5 text-[11px] font-medium mt-2 w-fit ${od ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${od ? 'Atrasado: ' : ''}${s}</span></div>`; }
             let acts = act ? `
                 <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="openPomodoro('${t.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-xs font-bold uppercase tracking-wide shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar</button>
@@ -751,33 +665,12 @@
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="editTask('${t.id}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400 transition-colors"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
                     <button ontouchstart="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
-
             d.innerHTML = `
                 <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
                 <div class="pl-5 pr-4 py-4" onclick="toggleSubtaskList(event, '${t.id}')">
-                    <div class="flex justify-between items-start">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border text-slate-600 dark:text-slate-300" style="border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">
-                            ${t.category}
-                        </span>
-                        ${!act ? acts : ''}
-                    </div>
-                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6">${t.title}</h3>
-                    ${dh}
-                    ${total > 0 ? `
-                    <div class="mt-4" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
-                        <div class="flex items-center justify-between mb-1.5"><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${prog}% Concluído</span><span class="text-[10px] text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 rounded">${done}/${total}</span></div>
-                        <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500 transition-all duration-700 ease-out" style="width: ${prog}%"></div></div>
-                        <button onclick="toggleSubtaskList(event, '${t.id}')" class="w-full group/btn flex items-center justify-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-1.5 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"><span>${exp ? 'Ocultar Checklist' : 'Ver Checklist'}</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300 ${exp ? 'rotate-180' : ''}"></i></button>
-                        <div class="${exp ? 'block' : 'hidden'} mt-2 space-y-1 animate-slide-in">
-                            ${t.subtasks.map((st, i) => `
-                                <div class="group/item flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer select-none" onclick="toggleSubtaskCheck('${t.id}', ${i})">
-                                    <div class="relative flex items-center justify-center mt-0.5 shrink-0"><input type="checkbox" ${st.completed ? 'checked' : ''} class="peer appearance-none w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded checked:bg-brand-500 checked:border-brand-500 transition-all cursor-pointer pointer-events-none"><i data-lucide="check" class="absolute w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i></div>
-                                    <span class="text-xs ${st.completed ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-700 dark:text-slate-200'} transition-colors leading-relaxed">${st.title}</span>
-                                </div>`).join('')}
-                        </div>
-                    </div>` : ''}
-                    ${act ? acts : ''}
-                </div>`;
+                    <div class="flex justify-between items-start"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border text-slate-600 dark:text-slate-300" style="border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">${t.category}</span>${!act ? acts : ''}</div>
+                    <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6">${t.title}</h3>${dh}
+                    ${total > 0 ? `<div class="mt-4" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()"><div class="flex items-center justify-between mb-1.5"><span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${prog}% Concluído</span><span class="text-[10px] text-slate-400 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 rounded">${done}/${total}</span></div><div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500 transition-all duration-700 ease-out" style="width: ${prog}%"></div></div><button onclick="toggleSubtaskList(event, '${t.id}')" class="w-full group/btn flex items-center justify-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 py-1.5 rounded-lg border border-transparent hover:border-slate-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all"><span>${exp ? 'Ocultar Checklist' : 'Ver Checklist'}</span><i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-300 ${exp ? 'rotate-180' : ''}"></i></button><div class="${exp ? 'block' : 'hidden'} mt-2 space-y-1 animate-slide-in">${t.subtasks.map((st, i) => `<div class="group/item flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer select-none" onclick="toggleSubtaskCheck('${t.id}', ${i})"><div class="relative flex items-center justify-center mt-0.5 shrink-0"><input type="checkbox" ${st.completed ? 'checked' : ''} class="peer appearance-none w-4 h-4 border-2 border-slate-300 dark:border-slate-600 rounded checked:bg-brand-500 checked:border-brand-500 transition-all cursor-pointer pointer-events-none"><i data-lucide="check" class="absolute w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i></div><span class="text-xs ${st.completed ? 'line-through text-slate-400 decoration-slate-300' : 'text-slate-700 dark:text-slate-200'} transition-colors leading-relaxed">${st.title}</span></div>`).join('')}</div></div>` : ''}${act ? acts : ''}</div>`;
             return d;
         }
 
@@ -811,28 +704,12 @@
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
         function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
         
-        function saveTask(e) { 
-            e.preventDefault(); 
-            const data = { 
-                title: document.getElementById('task-title').value, 
-                category: document.getElementById('task-category').value, 
-                dueDate: document.getElementById('task-due-date').value, 
-                priority: document.querySelector('input[name="priority"]:checked').value,
-                subtasks: tempSubtasks 
-            }; 
-            if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } 
-            else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } 
-            saveTasks(); closeModal(); 
-        }
+        function saveTask(e) { e.preventDefault(); const data = { title: document.getElementById('task-title').value, category: document.getElementById('task-category').value, dueDate: document.getElementById('task-due-date').value, priority: document.querySelector('input[name="priority"]:checked').value, subtasks: tempSubtasks }; if(currentEditingId) { const idx = tasks.findIndex(t => t.id === currentEditingId); tasks[idx] = { ...tasks[idx], ...data }; } else { tasks.push({ id: generateId(), status: 'todo', createdAt: new Date().toISOString(), ...data }); } saveTasks(); closeModal(); }
         function allowDrop(e) { e.preventDefault(); }
         function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { if(t.subtasks) t.subtasks.forEach(s => s.completed = true); fireConfetti(); } saveTasks(); } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
-        function closePomodoro() { 
-            document.getElementById('pomodoro-modal').classList.add('hidden'); 
-            stopTimer(); isEditingTimer = false; 
-            if(brownNoiseNode) toggleBrownNoise(); 
-        }
+        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; if(brownNoiseNode) toggleBrownNoise(); }
         function setTimerDuration(m) { stopTimer(); initialTime = m * 60; timeLeft = initialTime; document.querySelectorAll('.timer-btn').forEach(b => { if(parseInt(b.dataset.time)===m) { b.classList.add('bg-brand-600','text-white'); b.classList.remove('text-slate-300'); } else { b.classList.remove('bg-brand-600','text-white'); b.classList.add('text-slate-300'); } }); updateTimerDisplay(); }
         function startTimerEdit() { if(isTimerRunning) stopTimer(); isEditingTimer = true; timerDigits = []; updateTimerEditUI(); const inp = document.getElementById('hidden-timer-input'); inp.value = ''; inp.focus(); document.getElementById('timer-status').innerText = "Digite..."; }
         function handleTimerInput(e) { if(!isEditingTimer) return; const c = e.target.value.slice(-1); if(/[0-9]/.test(c)) { if(timerDigits.length < 4) timerDigits.push(c); } e.target.value = ''; updateTimerEditUI(); if(timerDigits.length === 4) setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300); }
@@ -840,38 +717,8 @@
         function updateTimerEditUI() { const d = timerDigits; let html = ''; for(let i=0; i<4; i++) { if(i===2) html += '<span class="mx-1 text-white/50 pb-2">:</span>'; html += `<span class="timer-slot ${d.length===i ? 'active' : ''} ${!d[i] ? 'empty' : ''}">${d[i]||'0'}</span>`; } document.getElementById('timer-display').innerHTML = html; }
         function toggleTimer() { isTimerRunning ? stopTimer() : startTimer(); }
         
-        function startTimer() { 
-            isTimerRunning = true; 
-            document.getElementById('timer-status').innerText = "Foco total!"; 
-            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; 
-            lucide.createIcons(); 
-            // INTELIGÊNCIA: MODO IMERSIVO AUTOMÁTICO
-            if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(e=>{}); }
-            
-            timerInterval = setInterval(() => { 
-                if(timeLeft > 0) { 
-                    timeLeft--; updateTimerDisplay(); 
-                } else { 
-                    stopTimer(); playBeep(); fireConfetti(); 
-                    if(navigator.vibrate) navigator.vibrate([100, 50, 100]); 
-                    if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); 
-                    pomoCount++; localStorage.setItem('pomo_count', pomoCount); 
-                    document.getElementById('pomo-count').innerText = pomoCount; 
-                    document.getElementById('timer-status').innerText = "Ciclo Concluído!"; 
-                    document.getElementById('timer-display').classList.add('animate-pulse'); 
-                } 
-            }, 1000); 
-        }
-        
-        function stopTimer() { 
-            isTimerRunning = false; clearInterval(timerInterval); 
-            document.getElementById('timer-status').innerText = "Pausado"; 
-            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; 
-            lucide.createIcons(); 
-            document.getElementById('timer-display').classList.remove('animate-pulse'); 
-            if (document.exitFullscreen && document.fullscreenElement) { document.exitFullscreen().catch(e=>{}); }
-        }
-        
+        function startTimer() { isTimerRunning = true; document.getElementById('timer-status').innerText = "Foco total!"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(e=>{}); } timerInterval = setInterval(() => { if(timeLeft > 0) { timeLeft--; updateTimerDisplay(); } else { stopTimer(); playBeep(); fireConfetti(); if(navigator.vibrate) navigator.vibrate([100, 50, 100]); if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); pomoCount++; localStorage.setItem('pomo_count', pomoCount); document.getElementById('timer-status').innerText = "Ciclo Concluído!"; document.getElementById('timer-display').classList.add('animate-pulse'); } }, 1000); }
+        function stopTimer() { isTimerRunning = false; clearInterval(timerInterval); document.getElementById('timer-status').innerText = "Pausado"; document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; lucide.createIcons(); document.getElementById('timer-display').classList.remove('animate-pulse'); if (document.exitFullscreen && document.fullscreenElement) { document.exitFullscreen().catch(e=>{}); } }
         function resetTimer() { stopTimer(); timeLeft = initialTime; updateTimerDisplay(); }
         function updateTimerDisplay() { if(isEditingTimer) return; const m = Math.floor(timeLeft/60).toString().padStart(2,'0'); const s = (timeLeft%60).toString().padStart(2,'0'); const str = m + ":" + s; let html = ''; for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`; document.getElementById('timer-display').innerHTML = html; const circle = document.getElementById('timer-circle'); const dash = circle.r.baseVal.value * 2 * Math.PI; const offset = dash - (timeLeft/initialTime) * dash; circle.style.strokeDashoffset = offset; }
         function fireConfetti() { const c = document.getElementById('confetti'); const ctx = c.getContext('2d'); c.width = window.innerWidth; c.height = window.innerHeight; const p = Array.from({length:100}, () => ({ x: Math.random()*c.width, y: Math.random()*c.height - c.height, color: `hsl(${Math.random()*360},70%,50%)`, size: Math.random()*10+5, speed: Math.random()*5+2 })); function step() { ctx.clearRect(0,0,c.width,c.height); let a = false; p.forEach(i => { i.y += i.speed; i.x += Math.sin(i.y/50); if(i.y < c.height) a = true; ctx.fillStyle = i.color; ctx.fillRect(i.x, i.y, i.size, i.size); }); if(a) requestAnimationFrame(step); } step(); }
