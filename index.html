@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="FlowTask">
-    <meta name="theme-color" content="#4f46e5">
+    <meta name="theme-color" content="#ffffff">
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%234f46e5' rx='40'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3Cpath d='M45 130L90 152.5L135 130' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%236366f1' rx='60'/%3E%3Cpath d='M45 90L90 112.5L135 90L90 67.5L45 90Z' fill='white' stroke='white' stroke-width='4'/%3E%3Cpath d='M45 110L90 132.5L135 110' stroke='white' stroke-width='8' fill='none'/%3E%3C/svg%3E">
     
-    <title>FlowTask v2.4 Pro</title>
+    <title>FlowTask Fluid UI</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -23,7 +23,7 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     colors: {
                         brand: {
                             50: 'rgb(var(--color-brand-50) / <alpha-value>)',
@@ -32,24 +32,25 @@
                             600: 'rgb(var(--color-brand-600) / <alpha-value>)',
                             700: 'rgb(var(--color-brand-700) / <alpha-value>)',
                         },
-                        dark: { 800: '#1e293b', 900: '#0f172a' }
+                        dark: { 
+                            800: '#1e293b', 
+                            900: '#0f172a'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'glow': '0 0 20px rgb(var(--color-brand-500) / 0.3)',
+                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.3)',
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'pop': 'popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
-                        'toast-in': 'toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                        'toast-out': 'toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        'scale-in': 'scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
                     },
                     keyframes: {
-                        slideUp: { '0%': { transform: 'translateY(10px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
-                        slideIn: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
-                        popIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
-                        shake: { '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' }, '20%, 80%': { transform: 'translate3d(2px, 0, 0)' }, '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' }, '40%, 60%': { transform: 'translate3d(4px, 0, 0)' } },
-                        toastIn: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
-                        toastOut: { '0%': { transform: 'translateY(0)', opacity: '1' }, '100%': { transform: 'translateY(20px)', opacity: '0' } }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        scaleIn: { '0%': { opacity: '0', transform: 'scale(0.9)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
                     }
                 }
             }
@@ -60,515 +61,560 @@
         :root {
             --color-brand-50: 238 242 255;
             --color-brand-100: 224 231 255;
-            --color-brand-500: 79 70 229;
-            --color-brand-600: 67 56 202;
-            --color-brand-700: 55 48 163;
+            --color-brand-500: 99 102 241;
+            --color-brand-600: 79 70 229;
+            --color-brand-700: 67 56 202;
             --bg-solid: #f8fafc;
-            --ui-radius: 0.5rem;
-            --ui-font-scale: 1;
+            --ui-radius: 1.5rem; /* Super rounded */
         }
 
         .dark :root { --bg-solid: #0f172a; }
 
         body { 
-            transition: background-color 0.3s ease; 
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
             -webkit-tap-highlight-color: transparent; 
-            font-size: calc(16px * var(--ui-font-scale));
             overscroll-behavior-y: none;
-            background-color: var(--bg-solid); 
+            background-color: var(--bg-solid);
+            background-image: radial-gradient(at 0% 0%, rgba(var(--color-brand-500), 0.15) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
         }
         
-        #bg-container { display: none !important; }
         .rounded-dynamic { border-radius: var(--ui-radius) !important; }
         
-        .glass { background: #ffffff !important; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); }
-        .dark .glass { background: #05070d !important; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); }
+        /* Modern Glass Effect */
+        .glass { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        .dark .glass { 
+            background: rgba(15, 23, 42, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
 
-        .glass-btn { background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s ease; }
-        .dark .glass-btn { background: #1e293b; border-color: #334155; color: #e2e8f0; }
-        .glass-btn:hover { transform: translateY(-1px); border-color: rgb(var(--color-brand-500)); }
-        .glass-btn:active { transform: scale(0.98); }
+        /* Interactive Elements */
+        .btn-hover { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .btn-hover:hover { transform: translateY(-2px) scale(1.02); }
+        .btn-hover:active { transform: translateY(0) scale(0.96); }
 
-        .glass-card { background: #ffffff !important; border: 1px solid #e2e8f0; transition: all 0.2s ease-out; border-radius: var(--ui-radius); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .dark .glass-card { background: #05070d !important; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
-        .glass-card:active { transform: scale(0.98); }
-        @media (min-width: 768px) { .glass-card:hover { transform: translateY(-4px); z-index: 10; border-color: rgb(var(--color-brand-500)); } }
+        /* Modern Card */
+        .modern-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+        .dark .modern-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(255,255,255,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .modern-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1);
+        }
 
-        .form-input-fixed { height: 42px !important; min-height: 42px; max-height: 42px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
-        .appearance-none { -webkit-appearance: none; appearance: none; }
-        .dark input[type="date"] { color-scheme: dark; }
-        .task-overdue { border-left: 4px solid #f43f5e !important; background: #fff1f2 !important; }
-        .dark .task-overdue { background: #4c0519 !important; } 
-        .task-active { border: 2px solid rgb(var(--color-brand-500)) !important; }
-        
-        button, input, select { pointer-events: auto; }
-        
-        .digit-wrapper { display: inline-block; overflow: hidden; vertical-align: bottom; height: 1.1em; }
-        .digit { display: inline-block; animation: fallIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
-        .btn-ai { background: linear-gradient(90deg, rgb(var(--color-brand-500)), #a855f7); background-size: 200% 100%; }
-        #settings-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        #settings-sidebar.closed { transform: translateX(100%); }
-        #scratchpad-sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        #scratchpad-sidebar.closed { transform: translateX(-100%); }
-        .snap-x-mandatory { scroll-snap-type: x mandatory; }
-        .snap-center { scroll-snap-align: center; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        /* Inputs */
+        .form-input-modern {
+            height: 48px;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid transparent;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-input-modern:focus {
+            background: #fff;
+            border-color: rgb(var(--color-brand-500));
+            box-shadow: 0 0 0 4px rgba(var(--color-brand-500), 0.1);
+        }
+        .dark .form-input-modern {
+            background: rgba(30, 41, 59, 0.5);
+            color: white;
+        }
+        .dark .form-input-modern:focus {
+            background: rgba(30, 41, 59, 1);
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.8); }
 
-        .pin-btn { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 500; cursor: pointer; transition: background-color 0.2s; user-select: none; border: 1px solid transparent; }
-        .pin-btn:active { background-color: rgba(0,0,0,0.05); }
-        .dark .pin-btn:active { background-color: rgba(255,255,255,0.1); }
-        .pin-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid currentColor; transition: all 0.2s; }
-        .pin-dot.filled { background-color: currentColor; }
+        /* Timer */
+        .progress-ring__circle { transition: stroke-dashoffset 0.5s ease-in-out; transform: rotate(-90deg); transform-origin: 50% 50%; }
         
-        .subtask-dragging { opacity: 0.5; background-color: rgba(var(--color-brand-500), 0.1); }
+        /* Sidebars */
+        #settings-sidebar, #scratchpad-sidebar { 
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 2rem 0 0 2rem;
+        }
+        #scratchpad-sidebar { border-radius: 0 2rem 2rem 0; }
+        .closed { transform: translateX(120%); }
+        #scratchpad-sidebar.closed { transform: translateX(-120%); }
 
-        #pin-screen { z-index: 9999; background: var(--bg-solid); }
+        /* Pin Dots */
+        .pin-dot { width: 16px; height: 16px; background: #e2e8f0; border-radius: 50%; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .dark .pin-dot { background: #334155; }
+        .pin-dot.filled { background: rgb(var(--color-brand-500)); transform: scale(1.2); box-shadow: 0 0 15px rgba(var(--color-brand-500), 0.4); }
+        
+        /* Priority Gradients */
+        .bg-gradient-low { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .bg-gradient-med { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .bg-gradient-high { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
+        
+        /* Smooth Text Rendering */
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     </style>
 </head>
-<body class="text-slate-900 dark:text-slate-100 min-h-screen selection:bg-brand-500 selection:text-white overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top)]">
+<body class="text-slate-800 dark:text-slate-100 min-h-screen selection:bg-brand-500/30 selection:text-brand-600 overflow-hidden pt-[env(safe-area-inset-top)]">
     
-    <div id="pin-screen" class="fixed inset-0 flex flex-col items-center justify-center hidden">
-        <div class="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
-            <div class="mb-8 flex flex-col items-center animate-slide-up">
-                <div class="p-4 bg-brand-600 rounded-2xl shadow-xl mb-4"><i data-lucide="lock" class="w-8 h-8 text-white"></i></div>
-                <h2 class="text-xl font-bold tracking-wide">Bloqueado</h2>
-                <p class="text-slate-500 text-sm mt-1">Digite seu PIN para acessar</p>
+    <!-- PIN Screen -->
+    <div id="pin-screen" class="fixed inset-0 flex flex-col items-center justify-center hidden bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-[100]">
+        <div class="flex-1 flex flex-col items-center justify-center w-full max-w-xs animate-scale-in">
+            <div class="mb-10 flex flex-col items-center">
+                <div class="w-20 h-20 bg-gradient-to-tr from-brand-500 to-purple-500 rounded-[2rem] shadow-glow flex items-center justify-center mb-6 text-white transform rotate-3">
+                    <i data-lucide="lock" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight">Bem-vindo de volta</h2>
+                <p class="text-slate-500 text-sm mt-2">Digite seu PIN de acesso</p>
             </div>
-            <div class="flex gap-4 mb-10 h-4" id="pin-dots">
-                <div class="pin-dot text-slate-800 dark:text-white" id="dot-0"></div>
-                <div class="pin-dot text-slate-800 dark:text-white" id="dot-1"></div>
-                <div class="pin-dot text-slate-800 dark:text-white" id="dot-2"></div>
-                <div class="pin-dot text-slate-800 dark:text-white" id="dot-3"></div>
+            <div class="flex gap-6 mb-12" id="pin-dots">
+                <div class="pin-dot" id="dot-0"></div>
+                <div class="pin-dot" id="dot-1"></div>
+                <div class="pin-dot" id="dot-2"></div>
+                <div class="pin-dot" id="dot-3"></div>
             </div>
-            <div class="grid grid-cols-3 gap-x-6 gap-y-4 mb-8">
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(1)">1</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(2)">2</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(3)">3</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(4)">4</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(5)">5</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(6)">6</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(7)">7</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(8)">8</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(9)">9</div>
-                <div class="pin-btn opacity-0 cursor-default"></div> <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10" onclick="pinPress(0)">0</div>
-                <div class="pin-btn hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center" onclick="pinDelete()"><i data-lucide="delete" class="w-6 h-6"></i></div>
+            <div class="grid grid-cols-3 gap-x-8 gap-y-6 w-full px-4">
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(1)">1</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(2)">2</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(3)">3</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(4)">4</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(5)">5</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(6)">6</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(7)">7</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(8)">8</div>
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(9)">9</div>
+                <div class="h-16 opacity-0"></div> 
+                <div class="h-16 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 flex items-center justify-center text-2xl font-medium transition-all cursor-pointer select-none active:scale-90" onclick="pinPress(0)">0</div>
+                <div class="h-16 rounded-full hover:bg-rose-50 dark:hover:bg-rose-900/20 flex items-center justify-center text-rose-500 transition-all cursor-pointer select-none active:scale-90" onclick="pinDelete()"><i data-lucide="delete" class="w-6 h-6"></i></div>
             </div>
         </div>
     </div>
 
-    <div id="offline-indicator" class="fixed top-0 left-0 w-full bg-rose-500 text-white text-xs font-bold text-center py-1 z-[100] hidden">Você está offline. A IA não funcionará.</div>
+    <div id="offline-indicator" class="fixed top-6 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg z-[100] hidden flex items-center gap-2"><i data-lucide="wifi-off" class="w-3 h-3"></i> Sem conexão</div>
 
-    <div id="undo-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] bg-slate-900 text-white px-4 py-3 rounded-lg shadow-2xl flex items-center gap-4 hidden">
-        <span class="text-sm font-medium">Ação realizada</span>
-        <button onclick="performUndo()" class="text-xs font-bold text-brand-400 hover:text-brand-300 uppercase tracking-wider">Desfazer</button>
+    <!-- Modern Toast -->
+    <div id="undo-toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] glass px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 hidden transform transition-all duration-500 translate-y-10 opacity-0" style="background: rgba(15, 23, 42, 0.95); border: none; color: white;">
+        <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+        <span class="text-sm font-medium">Ação realizada com sucesso</span>
+        <button onclick="performUndo()" class="ml-2 text-xs font-bold text-brand-400 hover:text-white transition-colors bg-white/10 px-3 py-1.5 rounded-lg hover:bg-white/20">Desfazer</button>
     </div>
 
-    <div class="relative z-10 flex flex-col h-screen max-w-7xl mx-auto p-4 md:p-6 gap-4">
+    <!-- MAIN APP LAYOUT -->
+    <div class="relative z-10 flex flex-col h-screen max-w-[1600px] mx-auto p-4 md:p-8 gap-6">
         
-        <header class="flex flex-col gap-4 shrink-0">
-            <div class="glass rounded-dynamic px-5 py-3 flex justify-between items-center shadow-sm">
-                <div class="flex items-center gap-4 overflow-hidden">
+        <!-- HEADER -->
+        <header class="flex flex-col gap-6 shrink-0">
+            <div class="glass rounded-[2rem] p-3 pl-6 flex justify-between items-center shadow-soft">
+                <!-- Profile -->
+                <div class="flex items-center gap-5">
                     <div class="relative group cursor-pointer" onclick="document.getElementById('avatar-input').click()">
-                        <div id="user-avatar" class="w-10 h-10 rounded-full flex items-center justify-center shadow-md overflow-hidden border-2 border-white dark:border-slate-700 cursor-pointer group">
-                            <div class="w-full h-full bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white drop-shadow-md">
-                                    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/>
-                                    <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>
-                                    <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
-                                </svg>
-                            </div>
+                        <div id="user-avatar" class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg border-2 border-white dark:border-slate-700 transition-transform group-hover:scale-105 group-hover:rotate-3">
+                            <!-- Avatar populated by JS -->
                         </div>
                         <input type="file" id="avatar-input" class="hidden" accept="image/*" onchange="handleAvatarUpload(this)">
-                        <div class="absolute inset-0 bg-black/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-bold">Mudar</div>
+                        <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-slate-800"></div>
                     </div>
 
                     <div class="flex flex-col">
-                        <h1 class="text-lg font-bold tracking-tight leading-none flex items-center gap-2">
-                             <span id="greeting-text">Olá</span>
-                             <span class="text-brand-500 text-xs align-top px-1.5 py-0.5 bg-brand-500/10 dark:bg-brand-900/30 rounded-full">Pro</span>
+                        <h1 class="text-xl font-bold tracking-tight text-slate-800 dark:text-white flex items-center gap-2">
+                            <span id="greeting-text">Olá</span>
+                            <span class="text-[10px] font-bold text-white bg-gradient-to-r from-brand-500 to-purple-500 px-2 py-0.5 rounded-full shadow-lg shadow-brand-500/20">PRO</span>
                         </h1>
-                        <p id="date-display" class="text-[10px] text-slate-500 dark:text-slate-400 font-medium capitalize truncate leading-tight mt-0.5"></p>
+                        <p id="date-display" class="text-xs text-slate-500 font-medium capitalize mt-0.5"></p>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-4">
-                    <div class="flex gap-2">
-                        <button onclick="toggleScratchpad()" class="p-2 text-slate-400 hover:text-brand-500 transition-colors" title="Bloco de Notas Rápido">
-                            <i data-lucide="notebook-pen" class="w-4 h-4"></i>
-                        </button>
-                        <button onclick="openTrashModal()" class="p-2 text-slate-400 hover:text-rose-500 transition-colors" title="Lixeira">
-                            <i data-lucide="trash" class="w-4 h-4"></i>
-                        </button>
-                    </div>
+                <!-- Actions -->
+                <div class="flex items-center gap-2 pr-2">
+                    <button onclick="toggleScratchpad()" class="w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-brand-500 transition-all btn-hover" title="Notas">
+                        <i data-lucide="notebook-pen" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="openTrashModal()" class="w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-rose-500 transition-all btn-hover" title="Lixeira">
+                        <i data-lucide="trash" class="w-5 h-5"></i>
+                    </button>
+                     <button onclick="toggleSettings()" class="w-12 h-12 flex items-center justify-center rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-brand-500 transition-all btn-hover" title="Ajustes">
+                        <i data-lucide="settings-2" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="glass rounded-dynamic px-4 py-3 shadow-sm flex flex-col md:flex-row gap-3 items-center">
-    <div class="relative flex-1 group w-full">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 group-focus-within:text-brand-500 transition-colors"></i>
-        </div>
-        <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Pesquisar por título ou tag..." class="w-full h-11 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-dynamic pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-inner">
-    </div>
+            <!-- Stats & Search Bar -->
+            <div class="flex flex-col lg:flex-row gap-4">
+                <!-- Search -->
+                <div class="glass flex-1 rounded-[1.5rem] px-5 py-3 flex items-center gap-4 focus-within:ring-2 ring-brand-500/20 transition-all shadow-sm">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400"></i>
+                    <input type="text" id="search-input" onkeyup="renderBoard()" placeholder="Pesquisar tarefas..." class="bg-transparent border-none text-base font-medium text-slate-700 dark:text-white placeholder-slate-400 w-full focus:ring-0 p-0">
+                </div>
 
-                <div class="flex items-center justify-between md:justify-end gap-2 shrink-0 w-full md:w-auto">
-                    <div class="flex gap-2 w-full md:w-auto">
-                        <button onclick="toggleStats()" class="glass-btn h-11 flex-1 md:flex-none px-3 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300 gap-2" title="Histórico e Stats">
-                            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> <span class="text-xs font-bold md:text-sm md:font-medium">Stats</span>
-                        </button>
-                        <button onclick="toggleSettings()" class="glass-btn h-11 flex-1 md:flex-none px-3 flex items-center justify-center rounded-dynamic text-slate-600 dark:text-slate-300 gap-2" title="Ajustes">
-                            <i data-lucide="settings-2" class="w-4 h-4"></i> <span class="text-xs font-bold md:text-sm md:font-medium">Ajustes</span>
-                        </button>
+                <!-- Stats Pills -->
+                <div class="flex gap-4 overflow-x-auto pb-1 lg:pb-0">
+                    <div class="glass rounded-[1.5rem] px-6 py-2 flex items-center gap-4 min-w-fit shadow-sm" onclick="toggleStats()">
+                        <div class="flex gap-1 items-end">
+                            <span id="count-todo" class="text-2xl font-bold text-slate-700 dark:text-white">0</span>
+                            <span class="text-xs font-semibold text-slate-400 mb-1.5 uppercase">A Fazer</span>
+                        </div>
+                        <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+                        <div class="flex gap-1 items-end">
+                            <span id="count-doing" class="text-2xl font-bold text-brand-500">0</span>
+                            <span class="text-xs font-semibold text-slate-400 mb-1.5 uppercase">Focando</span>
+                        </div>
+                        <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+                        <div class="flex gap-1 items-end">
+                            <span id="count-done" class="text-2xl font-bold text-emerald-500">0</span>
+                            <span class="text-xs font-semibold text-slate-400 mb-1.5 uppercase">Feito</span>
+                        </div>
+                        
+                        <!-- Progress Donut -->
+                        <div class="relative w-10 h-10 ml-2">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-slate-200 dark:text-slate-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                                <path id="progress-bar" class="text-brand-500 transition-all duration-1000 ease-out" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-brand-600 dark:text-brand-400" id="progress-text">0%</div>
+                        </div>
                     </div>
-                    
-                    <div class="w-px h-8 bg-slate-200 dark:bg-slate-700 mx-1 hidden md:block"></div>
 
-                    <button onclick="openModal()" class="glass-btn h-11 px-5 bg-brand-600 hover:bg-brand-500 text-white rounded-dynamic font-medium shadow-sm flex items-center gap-2 border-0 w-full md:w-auto justify-center">
-                        <i data-lucide="plus" class="w-5 h-5"></i>
-                        <span>Nova</span>
+                    <button onclick="openModal()" class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[1.5rem] px-8 font-bold text-sm shadow-xl hover:shadow-2xl hover:-translate-x-1 transition-all flex items-center gap-2 whitespace-nowrap btn-hover">
+                        <i data-lucide="plus" class="w-5 h-5"></i> Nova Tarefa
                     </button>
                 </div>
             </div>
         </header>
 
-        <div id="stats-bar" class="glass rounded-dynamic p-4 shrink-0 flex flex-col sm:flex-row items-center justify-between gap-4 animate-slide-up">
-            <div class="flex flex-col w-full">
-                <div class="flex justify-between items-end mb-2">
-                    <span class="text-sm font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2"><i data-lucide="target" class="w-4 h-4 text-brand-500"></i> Progresso Diário</span>
-                    <span id="progress-text" class="text-xl font-bold text-brand-600 dark:text-brand-500">0%</span>
-                </div>
-                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
-                    <div id="progress-bar" class="h-full bg-brand-500 rounded-full transition-all duration-1000 w-0 relative overflow-hidden">
-                    </div>
-                </div>
-            </div>
-            <div class="flex w-full sm:w-auto justify-between sm:justify-start gap-2 text-sm font-medium sm:border-l border-slate-200 dark:border-slate-700 sm:pl-6">
-                 <div class="bg-slate-100 dark:bg-slate-800/50 rounded-lg px-3 py-2 text-center min-w-[70px]"><p id="count-todo" class="text-lg font-bold text-slate-700 dark:text-white leading-none">0</p><p class="text-[9px] text-slate-400 uppercase tracking-wider mt-1">A Fazer</p></div>
-                <div class="bg-indigo-50 dark:bg-indigo-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-indigo-100 dark:border-indigo-900/20"><p id="count-doing" class="text-lg font-bold text-brand-600 dark:text-brand-400 leading-none">0</p><p class="text-[9px] text-brand-400/80 uppercase tracking-wider mt-1">Focando</p></div>
-                <div class="bg-emerald-50 dark:bg-emerald-900/10 rounded-lg px-3 py-2 text-center min-w-[70px] border border-emerald-100 dark:border-emerald-900/20"><p id="count-done" class="text-lg font-bold text-emerald-600 dark:text-emerald-400 leading-none">0</p><p class="text-[9px] text-emerald-400/80 uppercase tracking-wider mt-1">Feito</p></div>
-            </div>
-        </div>
-
-        <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar transition-opacity duration-300">
-            <div class="flex gap-4 md:gap-6 h-full w-max md:w-full md:min-w-0 pr-4 md:pr-0">
+        <!-- KANBAN BOARD -->
+        <div id="view-kanban" class="flex-1 overflow-x-auto overflow-y-hidden pb-4 -mx-4 px-4 md:mx-0 md:px-0 snap-x-mandatory custom-scrollbar">
+            <div class="flex gap-6 h-full w-max md:w-full md:min-w-0">
                 
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
-                    <div class="p-4 pb-2 border-b border-slate-200 dark:border-slate-700/50"><h2 class="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-slate-400 ring-2 ring-slate-200 dark:ring-slate-700"></div> A Fazer</h2></div>
-                    <div id="col-todo" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
-                </div>
-
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-white dark:bg-slate-900 rounded-dynamic border border-brand-200 dark:border-brand-500/30 snap-center shadow-md relative">
-                    <div class="p-4 pb-2 border-b border-brand-100 dark:border-brand-500/20"><h2 class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2 text-sm uppercase tracking-wide"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span> Em Foco</h2></div>
-                    <div id="col-doing" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
-                </div>
-
-                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[300px] bg-slate-50 dark:bg-slate-900/50 rounded-dynamic border border-slate-200 dark:border-slate-700/50 snap-center">
-                    <div class="p-4 pb-2 flex justify-between items-center border-b border-slate-200 dark:border-slate-700/50">
-                        <h2 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2 text-sm uppercase tracking-wide"><div class="w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 dark:ring-emerald-900"></div> Feito</h2>
+                <!-- Column: To Do -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[320px] bg-white/40 dark:bg-slate-800/40 rounded-[2rem] border border-white/50 dark:border-slate-700/50 backdrop-blur-sm snap-center pb-2">
+                    <div class="p-5 flex items-center gap-3">
+                        <div class="w-3 h-3 rounded-full bg-slate-400 ring-4 ring-slate-400/20"></div>
+                        <h2 class="font-bold text-slate-600 dark:text-slate-300 text-sm uppercase tracking-wide">Para Fazer</h2>
                     </div>
-                    <div id="col-done" class="p-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
+                    <div id="col-todo" class="px-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'todo')" ondragover="allowDrop(event)"></div>
+                </div>
+
+                <!-- Column: Doing -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[320px] bg-white/60 dark:bg-slate-800/60 rounded-[2rem] border border-brand-500/20 dark:border-brand-500/10 backdrop-blur-md snap-center shadow-lg pb-2 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-400 to-purple-500"></div>
+                    <div class="p-5 flex items-center gap-3">
+                        <div class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                        </div>
+                        <h2 class="font-bold text-brand-600 dark:text-brand-400 text-sm uppercase tracking-wide">Em Foco</h2>
+                    </div>
+                    <div id="col-doing" class="px-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'doing')" ondragover="allowDrop(event)"></div>
+                </div>
+
+                <!-- Column: Done -->
+                <div class="flex flex-col w-[85vw] md:w-auto md:flex-1 min-w-[320px] bg-white/40 dark:bg-slate-800/40 rounded-[2rem] border border-white/50 dark:border-slate-700/50 backdrop-blur-sm snap-center pb-2">
+                    <div class="p-5 flex items-center gap-3">
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></div>
+                        <h2 class="font-bold text-emerald-600 dark:text-emerald-400 text-sm uppercase tracking-wide">Concluído</h2>
+                    </div>
+                    <div id="col-done" class="px-3 flex-1 overflow-y-auto space-y-3 custom-scrollbar" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"></div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <div id="scratchpad-sidebar" class="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col pt-[calc(env(safe-area-inset-top)+20px)]">
-        <div class="flex justify-between items-center mb-6">
-            <div class="flex items-center gap-2"><i data-lucide="notebook-pen" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Notas Rápidas</h2></div>
-            <button onclick="toggleScratchpad()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
+    <!-- SIDEBARS -->
+    <div id="scratchpad-sidebar" class="fixed top-0 left-0 h-full w-96 glass border-r border-white/20 shadow-2xl z-[80] closed flex flex-col pt-[calc(env(safe-area-inset-top)+20px)] backdrop-blur-2xl">
+        <div class="px-8 pb-6 pt-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 text-brand-600 dark:text-brand-400">
+                <div class="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-xl"><i data-lucide="notebook-pen" class="w-5 h-5"></i></div>
+                <span class="font-bold text-lg">Bloco de Notas</span>
+            </div>
+            <button onclick="toggleScratchpad()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 transition-colors"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
         </div>
-        <textarea id="scratchpad-area" class="flex-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 resize-none outline-none focus:border-brand-500 text-sm leading-relaxed" placeholder="Digite suas ideias aqui..."></textarea>
+        <textarea id="scratchpad-area" class="flex-1 w-full bg-transparent px-8 py-4 resize-none text-base text-slate-600 dark:text-slate-300 placeholder-slate-400 outline-none leading-relaxed" placeholder="Digite suas ideias rápidas aqui..."></textarea>
     </div>
 
-    <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl z-[80] closed p-6 flex flex-col overflow-y-auto custom-scrollbar pt-[calc(env(safe-area-inset-top)+20px)]">
-        <div class="flex justify-between items-center mb-8">
-            <div class="flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-600 dark:text-brand-400"></i><h2 class="text-xl font-bold text-slate-800 dark:text-white">Ajustes</h2></div>
-            <button onclick="toggleSettings()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"><i data-lucide="x"></i></button>
+    <div id="settings-sidebar" class="fixed top-0 right-0 h-full w-96 glass border-l border-white/20 shadow-2xl z-[80] closed flex flex-col pt-[calc(env(safe-area-inset-top)+20px)] backdrop-blur-2xl">
+        <div class="px-8 pb-6 pt-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 text-slate-800 dark:text-white">
+                <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded-xl"><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></div>
+                <span class="font-bold text-lg">Ajustes</span>
+            </div>
+            <button onclick="toggleSettings()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
         
-        <div class="space-y-8 flex-1">
+        <div class="flex-1 overflow-y-auto custom-scrollbar px-8 py-4 space-y-8">
              <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Temas Prontos</h3>
-                <div class="grid grid-cols-2 gap-2 mb-6">
-                    <button onclick="applyTheme('cyberpunk')" class="p-3 rounded-lg bg-black border border-purple-500 text-purple-400 text-xs font-bold hover:scale-105 transition-transform">Cyberpunk</button>
-                    <button onclick="applyTheme('nature')" class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold hover:scale-105 transition-transform">Natureza</button>
-                    <button onclick="applyTheme('dracula')" class="p-3 rounded-lg bg-[#282a36] border border-[#bd93f9] text-[#bd93f9] text-xs font-bold hover:scale-105 transition-transform">Dracula</button>
-                    <button onclick="applyTheme('minimal')" class="p-3 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:scale-105 transition-transform">Minimalista</button>
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Temas</h3>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <button onclick="applyTheme('cyberpunk')" class="p-4 rounded-2xl bg-slate-900 border border-slate-700 text-purple-400 text-xs font-bold hover:scale-105 transition-all shadow-lg">Cyberpunk</button>
+                    <button onclick="applyTheme('nature')" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold hover:scale-105 transition-all shadow-lg">Natureza</button>
+                    <button onclick="applyTheme('dracula')" class="p-4 rounded-2xl bg-[#282a36] border border-[#44475a] text-[#bd93f9] text-xs font-bold hover:scale-105 transition-all shadow-lg">Dracula</button>
+                    <button onclick="applyTheme('minimal')" class="p-4 rounded-2xl bg-white border border-slate-100 text-slate-600 text-xs font-bold hover:scale-105 transition-all shadow-lg">Minimalista</button>
                 </div>
 
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Personalizar</h3>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Destaque</label>
-                    <div class="flex flex-col gap-3">
-                        <div class="flex gap-2 flex-wrap">
-                            <button onclick="setBrandColor('#4f46e5')" class="w-8 h-8 rounded-full bg-[#4f46e5] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#ec4899')" class="w-8 h-8 rounded-full bg-[#ec4899] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#10b981')" class="w-8 h-8 rounded-full bg-[#10b981] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                            <button onclick="setBrandColor('#f59e0b')" class="w-8 h-8 rounded-full bg-[#f59e0b] ring-2 ring-offset-2 ring-transparent focus:ring-slate-400 hover:scale-110 transition-transform shadow-sm"></button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                             <div class="relative w-8 h-8 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
-                                <input type="color" id="brand-color-picker" oninput="setBrandColor(this.value)" class="absolute inset-0 w-full h-full cursor-pointer p-0 border-0 opacity-0">
-                                <div id="brand-color-preview" class="w-full h-full bg-brand-500"></div>
-                             </div>
-                             <input type="text" id="brand-hex-input" placeholder="#000000" maxlength="7" oninput="handleHexInput(this.value, 'brand')" class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm uppercase font-mono text-slate-600 dark:text-slate-300 outline-none focus:border-brand-500">
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Cor de Fundo</label>
-                    <div class="flex flex-col gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div class="space-y-4 bg-white/50 dark:bg-slate-800/50 p-4 rounded-2xl">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-3">Cor de Destaque</label>
                         <div class="flex items-center gap-3">
-                             <div class="relative w-9 h-9 rounded-full overflow-hidden border border-slate-300 dark:border-slate-600 shadow-sm shrink-0 hover:scale-105 transition-transform">
-                                <input type="color" 
-                                    id="bg-color-picker" 
-                                    class="absolute inset-0 w-full h-full cursor-pointer p-0 border-0 opacity-0" 
-                                    oninput="setBackgroundColor(this.value); document.getElementById('bg-color-preview').style.backgroundColor = this.value; document.getElementById('bg-hex-input').value = this.value">
-                                <div id="bg-color-preview" class="w-full h-full" style="background-color: var(--bg-solid)"></div>
+                             <div class="relative w-10 h-10 rounded-full bg-white dark:bg-slate-700 shadow-md flex items-center justify-center overflow-hidden">
+                                <input type="color" id="brand-color-picker" oninput="setBrandColor(this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer scale-150">
+                                <div id="brand-color-preview" class="w-6 h-6 rounded-full bg-brand-500"></div>
                              </div>
-
-                             <input type="text" 
-                                id="bg-hex-input" 
-                                placeholder="#000000" 
-                                maxlength="7" 
-                                oninput="handleHexInput(this.value, 'bg')" 
-                                class="w-44 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 text-sm uppercase font-mono text-slate-600 dark:text-slate-300 outline-none focus:border-brand-500 text-center shadow-sm flex-1">
-                        </div>
-
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] text-slate-400 uppercase tracking-wide">Personalizado</span>
-                            <button onclick="resetBackground()" class="text-xs text-rose-500 font-bold hover:underline">Resetar Padrão</button>
+                             <input type="text" id="brand-hex-input" oninput="handleHexInput(this.value, 'brand')" class="flex-1 form-input-modern px-4 text-sm font-medium uppercase" placeholder="#HEX">
                         </div>
                     </div>
                 </div>
             </section>
-
-            <hr class="border-slate-200 dark:border-slate-800">
 
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Segurança</h3>
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Bloqueio por PIN</span>
-                    <button id="btn-set-pin" onclick="setupPin()" class="glass-btn px-3 py-1.5 rounded-lg text-xs font-bold text-brand-600 dark:text-brand-400 transition-colors">Configurar</button>
+                <div class="flex items-center justify-between p-4 bg-white/50 dark:bg-slate-800/50 rounded-2xl">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-200">Bloqueio por PIN</span>
+                    <button id="btn-set-pin" onclick="setupPin()" class="bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-300 transition-colors">Configurar</button>
                 </div>
             </section>
-
-             <section>
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Papel de Parede</h3>
-                <label class="block w-full cursor-pointer">
-                    <div class="flex items-center justify-center gap-2 w-full py-2 bg-slate-100 dark:bg-slate-800 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 transition-colors">
-                        <i data-lucide="image" class="w-4 h-4 text-slate-500"></i>
-                        <span class="text-xs font-medium text-slate-600 dark:text-slate-400">Carregar Imagem</span>
-                    </div>
-                    <input type="file" class="hidden" accept="image/*" onchange="handleWallpaperUpload(this)">
-                </label>
-                <button onclick="clearWallpaper()" class="mt-2 text-[10px] text-rose-500 hover:underline w-full text-center">Remover Wallpaper</button>
-            </section>
-
-            <hr class="border-slate-200 dark:border-slate-800">
-
-            <section>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
-                    <button onclick="addCategory()" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">+ Nova</button>
-                </div>
-                <div id="categories-list" class="space-y-3"></div>
-            </section>
-
-            <hr class="border-slate-200 dark:border-slate-800">
-
-            <div id="pwa-install-area" class="hidden">
-                <button onclick="installPWA()" class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 rounded-dynamic font-bold flex items-center justify-center gap-2 shadow-lg hover:opacity-90 transition-opacity">
-                    <i data-lucide="download" class="w-4 h-4"></i> Instalar App
-                </button>
-                <hr class="border-slate-200 dark:border-slate-800 mt-6">
-            </div>
 
             <section>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Dados</h3>
                 <div class="grid grid-cols-2 gap-3">
-                    <button onclick="exportData()" class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                        <i data-lucide="upload" class="w-3 h-3"></i> Backup
+                    <button onclick="exportData()" class="flex flex-col items-center justify-center gap-2 py-4 bg-white/50 dark:bg-slate-800/50 rounded-2xl hover:bg-white transition-colors text-sm font-medium text-slate-600 dark:text-slate-300">
+                        <i data-lucide="upload" class="w-5 h-5 text-brand-500"></i> Backup
                     </button>
-                    <label class="flex items-center justify-center gap-2 py-2 px-4 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer">
-                        <i data-lucide="download" class="w-3 h-3"></i> Restaurar
+                    <label class="flex flex-col items-center justify-center gap-2 py-4 bg-white/50 dark:bg-slate-800/50 rounded-2xl hover:bg-white transition-colors text-sm font-medium text-slate-600 dark:text-slate-300 cursor-pointer">
+                        <i data-lucide="download" class="w-5 h-5 text-brand-500"></i> Restaurar
                         <input type="file" class="hidden" onchange="importData(this)">
                     </label>
                 </div>
             </section>
+            
+            <section class="pt-2">
+                 <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Categorias</h3>
+                    <button onclick="addCategory()" class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center hover:bg-brand-200 transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                </div>
+                <div id="categories-list" class="space-y-3"></div>
+            </section>
         </div>
-        <div class="text-center text-[10px] text-slate-400 mt-auto pt-6">FlowTask Pro v2.4</div>
+        <div class="p-6 text-center">
+            <p class="text-[10px] text-slate-400 font-medium">FLOWTASK v2.5 Fluid • Design by AI</p>
+        </div>
     </div>
-    <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
-    <div id="scratchpad-overlay" onclick="toggleScratchpad()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
+    <div id="settings-overlay" onclick="toggleSettings()" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
+    <div id="scratchpad-overlay" onclick="toggleScratchpad()" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[75] hidden transition-opacity"></div>
 
+    <!-- STATS MODAL -->
     <div id="stats-modal" class="fixed inset-0 z-[65] hidden">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="toggleStats()"></div>
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity" onclick="toggleStats()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop max-h-[90vh] overflow-y-auto custom-scrollbar">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold flex items-center gap-2"><i data-lucide="activity" class="text-brand-500"></i> Histórico & Stats</h2>
-                    <button onclick="toggleStats()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i data-lucide="x"></i></button>
+            <div class="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-[2.5rem] shadow-2xl p-8 transform transition-all animate-scale-in max-h-[90vh] overflow-y-auto custom-scrollbar relative">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <div class="p-2 bg-brand-100 rounded-xl text-brand-600"><i data-lucide="activity" class="w-6 h-6"></i></div>
+                        Relatório de Foco
+                    </h2>
+                    <button onclick="toggleStats()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
                 </div>
                 
-                <div id="stats-content" class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl text-center border border-slate-100 dark:border-slate-700">
-                             <span class="block text-3xl font-bold text-brand-600" id="stat-completion-rate">0%</span>
-                             <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Taxa Conclusão</span>
+                <div id="stats-content" class="grid md:grid-cols-2 gap-8">
+                    <!-- Key Metrics -->
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-[1.5rem] text-center">
+                                 <span class="block text-4xl font-extrabold text-slate-800 dark:text-white mb-1" id="stat-completion-rate">0%</span>
+                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Eficiência</span>
+                            </div>
+                            <div class="bg-brand-50 dark:bg-brand-900/20 p-6 rounded-[1.5rem] text-center border border-brand-100 dark:border-brand-500/20">
+                                 <span class="block text-4xl font-extrabold text-brand-600 dark:text-brand-400 mb-1" id="stat-pomodoros">0</span>
+                                 <span class="text-xs font-bold text-brand-400/80 uppercase tracking-wider">Ciclos Foco</span>
+                            </div>
                         </div>
-                        <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl text-center border border-slate-100 dark:border-slate-700">
-                             <span class="block text-3xl font-bold text-emerald-600" id="stat-pomodoros">0</span>
-                             <span class="text-xs text-slate-500 uppercase font-bold tracking-wider">Ciclos Foco</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Distribuição (Categorias)</h4>
-                        <div class="h-40 w-full flex justify-center">
-                            <canvas id="categoryChart"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Últimos 7 Dias (Concluídas)</h4>
-                        <div class="h-40 w-full">
-                            <canvas id="historyChart"></canvas>
+                        <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-6 rounded-[1.5rem] shadow-sm">
+                             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Progresso Semanal</h4>
+                             <div class="h-32 w-full"><canvas id="historyChart"></canvas></div>
                         </div>
                     </div>
 
-                    <div id="stats-categories-list"></div>
+                    <!-- Category Breakdown -->
+                    <div class="space-y-6">
+                        <div class="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-6 rounded-[1.5rem] shadow-sm h-full flex flex-col">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Distribuição</h4>
+                            <div class="h-48 flex justify-center mb-6"><canvas id="categoryChart"></canvas></div>
+                            <div id="stats-categories-list" class="space-y-2 flex-1"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- TRASH MODAL -->
     <div id="trash-modal" class="fixed inset-0 z-[70] hidden">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeTrashModal()"></div>
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity" onclick="closeTrashModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="glass bg-white dark:bg-slate-900 w-full max-w-md rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop h-[500px] flex flex-col">
-                <div class="flex justify-between items-center mb-4 shrink-0">
-                    <h2 class="text-xl font-bold text-rose-500 flex items-center gap-2"><i data-lucide="trash-2"></i> Lixeira (24h)</h2>
-                    <button onclick="closeTrashModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x"></i></button>
+            <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-[2rem] shadow-2xl p-6 animate-scale-in h-[500px] flex flex-col relative overflow-hidden">
+                <div class="flex justify-between items-center mb-6 shrink-0">
+                    <h2 class="text-xl font-bold text-rose-500 flex items-center gap-2"><i data-lucide="trash-2"></i> Lixeira</h2>
+                    <button onclick="closeTrashModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
-                <div class="text-xs text-slate-400 mb-4 shrink-0">Tarefas nesta lista serão excluídas permanentemente após 24 horas.</div>
+                <div class="bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-300 text-xs font-medium px-4 py-3 rounded-xl mb-4 shrink-0 flex items-center gap-2">
+                    <i data-lucide="info" class="w-4 h-4"></i> Itens excluídos por mais de 24h somem.
+                </div>
                 <div id="trash-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-1"></div>
             </div>
         </div>
     </div>
 
+    <!-- TASK MODAL -->
     <div id="task-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="glass bg-white dark:bg-slate-900 w-full max-w-lg rounded-dynamic shadow-2xl p-6 transform transition-all animate-pop max-h-[90vh] overflow-y-auto custom-scrollbar">
-                <div class="flex justify-between items-center mb-6"><h2 id="modal-title" class="text-xl font-bold">Nova Tarefa</h2><button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-2"><i data-lucide="x"></i></button></div>
-                <form id="task-form" onsubmit="saveTask(event)">
-                    <div class="space-y-4">
+            <div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-[2.5rem] shadow-2xl p-8 transform transition-all animate-scale-in max-h-[90vh] overflow-y-auto custom-scrollbar">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 id="modal-title" class="text-2xl font-bold text-slate-800 dark:text-white">Nova Tarefa</h2>
+                    <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-200 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <form id="task-form" onsubmit="saveTask(event)" class="space-y-6">
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">O que precisa ser feito?</label>
+                            <button type="button" onclick="startDictation('task-title')" class="text-brand-500 hover:bg-brand-50 rounded-full p-1 transition-colors"><i data-lucide="mic" class="w-4 h-4"></i></button>
+                        </div>
+                        <input type="text" id="task-title" required class="w-full form-input-modern px-5 text-lg font-medium outline-none text-slate-800 dark:text-white transition-all placeholder:text-slate-400" placeholder="Ex: Terminar projeto..." onblur="attemptNLP(this.value)">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-5">
                         <div>
-                            <div class="flex justify-between items-end mb-1.5">
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Título da Tarefa</label>
-                                <button type="button" onclick="startDictation('task-title')" class="text-slate-400 hover:text-brand-500 transition-colors"><i data-lucide="mic" class="w-4 h-4"></i></button>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider pl-1">Prazo</label>
+                            <div class="relative">
+                                <i data-lucide="calendar" class="absolute left-4 top-3.5 w-5 h-5 text-slate-400"></i>
+                                <input type="date" id="task-due-date" class="w-full form-input-modern pl-12 pr-4 outline-none text-slate-700 dark:text-white font-medium cursor-pointer">
                             </div>
-                            <input type="text" id="task-title" required class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 focus:ring-2 focus:ring-brand-500 outline-none dark:text-white transition-all placeholder:text-slate-400" placeholder="Ex: Pagar conta hoje" onblur="attemptNLP(this.value)">
                         </div>
-                        
-                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prazo Final</label><input type="date" id="task-due-date" class="w-full form-input-fixed appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white transition-all cursor-pointer text-sm font-medium" style="min-height: 42px;"></div>
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Categoria</label><select id="task-category" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium"></select></div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider pl-1">Categoria</label>
+                            <div class="relative">
+                                <i data-lucide="tag" class="absolute left-4 top-3.5 w-5 h-5 text-slate-400"></i>
+                                <select id="task-category" class="w-full form-input-modern pl-12 pr-4 outline-none text-slate-700 dark:text-white cursor-pointer font-medium appearance-none bg-transparent"></select>
+                            </div>
                         </div>
+                    </div>
 
-                        <div>
-                            <div class="flex justify-between items-end mb-1.5">
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Tags</label>
-                                <button type="button" onclick="generateTags()" id="btn-magic-tags" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Sugerir</button>
-                            </div>
-                            <input type="text" id="task-tags" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 text-sm outline-none dark:text-white focus:border-brand-500 transition-all placeholder:text-slate-400" placeholder="Ex: trabalho, urgente, design">
+                    <div>
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Tags & Metadata</label>
+                            <button type="button" onclick="generateTags()" id="btn-magic-tags" class="text-xs bg-gradient-to-r from-purple-500 to-brand-500 text-white px-3 py-1 rounded-full flex items-center gap-1 shadow-lg hover:shadow-xl hover:scale-105 transition-all"><i data-lucide="sparkles" class="w-3 h-3"></i> IA Sugerir</button>
                         </div>
-                        
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider flex items-center gap-1"><i data-lucide="repeat" class="w-3 h-3"></i> Recorrência</label>
-                            <select id="task-repeat" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 outline-none dark:text-white cursor-pointer transition-all text-sm font-medium">
-                                <option value="none">Não repetir</option>
-                                <option value="daily">Diariamente</option>
-                                <option value="weekly">Semanalmente</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Prioridade</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="low" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-emerald-500 peer-checked:text-white peer-checked:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Baixa</div></label>
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="medium" class="peer sr-only" checked><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-amber-500 peer-checked:text-white peer-checked:border-amber-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Média</div></label>
-                                <label class="cursor-pointer group"><input type="radio" name="priority" value="high" class="peer sr-only"><div class="rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-center text-sm font-medium peer-checked:bg-rose-500 peer-checked:text-white peer-checked:border-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Alta</div></label>
+                        <input type="text" id="task-tags" class="w-full form-input-modern px-5 text-sm font-medium outline-none text-slate-700 dark:text-white placeholder:text-slate-400" placeholder="trabalho, urgente...">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-5">
+                         <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider pl-1">Recorrência</label>
+                            <div class="relative">
+                                <i data-lucide="repeat" class="absolute left-4 top-3.5 w-5 h-5 text-slate-400"></i>
+                                <select id="task-repeat" class="w-full form-input-modern pl-12 pr-4 outline-none text-slate-700 dark:text-white cursor-pointer font-medium appearance-none bg-transparent">
+                                    <option value="none">Não repetir</option>
+                                    <option value="daily">Diariamente</option>
+                                    <option value="weekly">Semanalmente</option>
+                                </select>
                             </div>
                         </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider pl-1">Prioridade</label>
+                            <div class="flex gap-2">
+                                <label class="cursor-pointer flex-1 group"><input type="radio" name="priority" value="low" class="peer sr-only"><div class="h-[48px] rounded-2xl border-2 border-transparent bg-slate-100 dark:bg-slate-800 peer-checked:bg-emerald-100 peer-checked:border-emerald-500 peer-checked:text-emerald-700 flex items-center justify-center font-bold text-sm text-slate-500 transition-all hover:scale-105">Baixa</div></label>
+                                <label class="cursor-pointer flex-1 group"><input type="radio" name="priority" value="medium" class="peer sr-only" checked><div class="h-[48px] rounded-2xl border-2 border-transparent bg-slate-100 dark:bg-slate-800 peer-checked:bg-amber-100 peer-checked:border-amber-500 peer-checked:text-amber-700 flex items-center justify-center font-bold text-sm text-slate-500 transition-all hover:scale-105">Média</div></label>
+                                <label class="cursor-pointer flex-1 group"><input type="radio" name="priority" value="high" class="peer sr-only"><div class="h-[48px] rounded-2xl border-2 border-transparent bg-slate-100 dark:bg-slate-800 peer-checked:bg-rose-100 peer-checked:border-rose-500 peer-checked:text-rose-700 flex items-center justify-center font-bold text-sm text-slate-500 transition-all hover:scale-105">Alta</div></label>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div>
-                            <div class="flex justify-between items-end mb-1.5"><label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Checklist</label><button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-[10px] btn-ai text-white px-2 py-1 rounded flex items-center gap-1 hover:shadow-lg transition-all transform hover:scale-105 active:scale-95"><i data-lucide="sparkles" class="w-3 h-3"></i> Gerar</button></div>
-                            <div class="flex gap-2 mb-2">
-                                <div class="relative flex-1">
-                                    <input type="text" id="new-subtask-input" class="w-full form-input-fixed bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 pr-8 text-sm outline-none dark:text-white focus:border-brand-500 transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}">
-                                    <button type="button" onclick="startDictation('new-subtask-input')" class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brand-500"><i data-lucide="mic" class="w-4 h-4"></i></button>
-                                </div>
-                                <button type="button" onclick="addSubtaskToForm()" class="h-[42px] w-[42px] flex items-center justify-center bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button>
+                    <div>
+                        <div class="flex justify-between items-end mb-2"><label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Checklist</label><button type="button" onclick="generateSubtasks()" id="btn-magic-subtasks" class="text-xs bg-gradient-to-r from-purple-500 to-brand-500 text-white px-3 py-1 rounded-full flex items-center gap-1 shadow-lg hover:shadow-xl hover:scale-105 transition-all"><i data-lucide="sparkles" class="w-3 h-3"></i> IA Gerar</button></div>
+                        <div class="flex gap-3 mb-3">
+                            <div class="relative flex-1">
+                                <input type="text" id="new-subtask-input" class="w-full form-input-modern px-5 pr-10 text-sm font-medium outline-none text-slate-700 dark:text-white transition-all" placeholder="Adicionar etapa..." onkeypress="if(event.key === 'Enter'){event.preventDefault(); addSubtaskToForm();}">
                             </div>
-                            <ul id="subtask-list-form" class="space-y-1 max-h-32 overflow-y-auto custom-scrollbar"></ul>
-                            </div>
+                            <button type="button" onclick="addSubtaskToForm()" class="w-[48px] h-[48px] flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-2xl hover:bg-brand-500 hover:text-white transition-colors"><i data-lucide="plus" class="w-5 h-5"></i></button>
                         </div>
-                    <div class="mt-8 flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800"><button type="button" class="px-6 py-2.5 bg-brand-600 hover:bg-red-600 text-white rounded-xl font-medium shadow-lg shadow-red-600/30 transition-all transform active:scale-95 glass-btn border-0" onclick="closeModal()">Cancelar</button><button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl font-medium shadow-lg shadow-brand-600/30 transition-all transform active:scale-95 glass-btn border-0">Salvar</button></div>
+                        <ul id="subtask-list-form" class="space-y-2 max-h-32 overflow-y-auto custom-scrollbar"></ul>
+                    </div>
+
+                    <div class="flex justify-end gap-4 pt-6 mt-4">
+                        <button type="button" class="px-6 py-3 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="px-8 py-3 bg-slate-900 dark:bg-white hover:bg-brand-600 dark:hover:bg-brand-200 text-white dark:text-slate-900 rounded-2xl font-bold text-sm shadow-xl hover:shadow-2xl hover:translate-y-1 transition-all">Salvar Tarefa</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- POMODORO MODAL -->
     <div id="pomodoro-modal" class="fixed inset-0 z-[60] hidden">
-        <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center text-white p-4">
-            <button onclick="closePomodoro()" class="absolute top-6 right-6 p-2 hover:bg-white/10 rounded-full transition-colors"><i data-lucide="x" class="w-8 h-8"></i></button>
-            <div class="mb-4 text-center animate-pop w-full max-w-lg flex flex-col items-center">
-                <span class="text-brand-400 font-bold tracking-widest uppercase text-xs border border-brand-500/30 px-3 py-1 rounded-full bg-brand-500/10">Modo Foco</span>
-                <h2 id="pomo-task-title" class="text-2xl md:text-3xl font-bold mt-4 mx-auto truncate px-4 w-full"></h2>
-                <div class="w-full px-6 mt-4 min-h-[3.5rem] flex items-center justify-center gap-2">
-                    <button id="btn-motivate" onclick="generateMotivation()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 bg-white/5 px-4 py-2 rounded-full transition-all hover:bg-white/10 active:scale-95 border border-white/5 hover:border-brand-500/30"><i data-lucide="zap" class="w-3 h-3 text-yellow-400"></i> Motivação</button>
-                    <div id="motivation-text" class="hidden text-sm text-brand-100 font-medium italic animate-slide-up w-full text-center bg-brand-500/10 border border-brand-500/20 p-3 rounded-xl shadow-inner relative"><span class="absolute top-1 left-2 text-brand-500/20 text-2xl font-serif">“</span><span id="motivation-content"></span><span class="absolute bottom-[-0.5rem] right-2 text-brand-500/20 text-2xl font-serif">”</span></div>
+        <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-xl flex flex-col items-center justify-center text-white p-4">
+            
+            <button onclick="closePomodoro()" class="absolute top-8 right-8 p-4 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-20"><i data-lucide="x" class="w-6 h-6"></i></button>
+            
+            <div class="mb-10 text-center animate-scale-in w-full max-w-lg flex flex-col items-center relative z-10">
+                <span class="text-brand-300 font-bold tracking-widest uppercase text-xs bg-white/10 px-4 py-1.5 rounded-full mb-6">Modo Foco</span>
+                <h2 id="pomo-task-title" class="text-2xl md:text-4xl font-bold mx-auto truncate px-4 w-full"></h2>
+                
+                <div class="w-full px-6 mt-8 min-h-[4rem] flex items-center justify-center gap-2">
+                    <button id="btn-motivate" onclick="generateMotivation()" class="text-sm font-medium text-white/80 hover:text-white flex items-center gap-2 bg-gradient-to-r from-brand-500 to-purple-600 px-6 py-3 rounded-full shadow-lg hover:shadow-glow hover:translate-y-1 transition-all"><i data-lucide="zap" class="w-4 h-4 text-yellow-300"></i> Motivação IA</button>
+                    <div id="motivation-text" class="hidden text-lg text-white font-medium italic animate-slide-up w-full text-center relative"><span class="text-4xl opacity-30 absolute -top-4 left-0">"</span><span id="motivation-content"></span><span class="text-4xl opacity-30 absolute -bottom-6 right-0">"</span></div>
                 </div>
             </div>
             
-            <div class="flex gap-2 mb-4 bg-white/5 p-1 rounded-xl overflow-x-auto max-w-full shrink-0">
-                <button onclick="setTimerDuration(5)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="05">05m</button>
-                <button onclick="setTimerDuration(15)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="15">15m</button>
-                <button onclick="setTimerDuration(25)" class="timer-btn px-4 py-1.5 rounded-lg text-sm bg-brand-600 text-white font-medium shadow-lg whitespace-nowrap" data-time="25">25m</button>
-                <button onclick="setTimerDuration(45)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="45">45m</button>
-                <button onclick="setTimerDuration(60)" class="timer-btn px-4 py-1.5 rounded-lg text-sm transition-colors text-slate-300 whitespace-nowrap" data-time="60">60m</button>
+            <div class="flex gap-3 mb-12 bg-white/10 p-2 rounded-2xl overflow-x-auto max-w-full shrink-0 z-10">
+                <button onclick="setTimerDuration(5)" class="timer-btn px-5 py-2.5 rounded-xl text-sm font-bold text-white/60 hover:bg-white/10 hover:text-white transition-all" data-time="05">05</button>
+                <button onclick="setTimerDuration(15)" class="timer-btn px-5 py-2.5 rounded-xl text-sm font-bold text-white/60 hover:bg-white/10 hover:text-white transition-all" data-time="15">15</button>
+                <button onclick="setTimerDuration(25)" class="timer-btn px-5 py-2.5 rounded-xl bg-white text-brand-600 font-bold shadow-lg" data-time="25">25</button>
+                <button onclick="setTimerDuration(45)" class="timer-btn px-5 py-2.5 rounded-xl text-sm font-bold text-white/60 hover:bg-white/10 hover:text-white transition-all" data-time="45">45</button>
+                <button onclick="setTimerDuration(60)" class="timer-btn px-5 py-2.5 rounded-xl text-sm font-bold text-white/60 hover:bg-white/10 hover:text-white transition-all" data-time="60">60</button>
             </div>
 
-            <div class="relative w-72 h-72 shrink-0 flex items-center justify-center group/timer">
-                <svg class="w-full h-full" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="#1e293b" stroke-width="4" /><circle id="timer-circle" class="progress-ring__circle" cx="50" cy="50" r="45" fill="none" stroke="rgb(var(--color-brand-500))" stroke-width="4" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0" /></svg>
+            <div class="relative w-80 h-80 shrink-0 flex items-center justify-center group/timer z-10">
+                <svg class="w-full h-full transform -rotate-90 drop-shadow-2xl" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4" stroke-linecap="round" />
+                    <circle id="timer-circle" class="progress-ring__circle" cx="50" cy="50" r="45" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="0" />
+                </svg>
                 
-                <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
                     <input type="tel" id="hidden-timer-input" class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer" inputmode="numeric" maxlength="4" autocomplete="off">
-                    
-                    <div id="timer-display" class="text-6xl font-bold tracking-tighter font-mono flex items-center justify-center relative select-none text-white drop-shadow-lg pointer-events-none"></div>
-                    <span id="timer-status" class="text-slate-400 mt-4 text-sm font-medium relative pointer-events-none">Pausado</span>
+                    <div id="timer-display" class="text-7xl font-bold tracking-tighter flex items-center justify-center text-white select-none">25:00</div>
+                    <span id="timer-status" class="text-white/50 mt-2 text-sm uppercase tracking-widest font-bold">Toque para iniciar</span>
                 </div>
             </div>
             
-            <div class="mt-8 flex flex-col items-center gap-4 w-full max-w-xs">
-                <div class="flex items-center gap-6">
-                    <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
-                    <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
-                </div>
+            <div class="mt-12 flex items-center gap-8 z-10">
+                <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-24 h-24 rounded-full bg-white text-brand-600 hover:scale-110 flex items-center justify-center shadow-2xl transition-all active:scale-95 group">
+                    <i data-lucide="play" class="w-10 h-10 fill-current ml-1"></i>
+                </button>
+                <button onclick="resetTimer()" class="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all text-white hover:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
             </div>
         </div>
     </div>
 
     <canvas id="confetti" class="fixed inset-0 pointer-events-none z-[70]"></canvas>
 
+    <!-- LOGIC -->
     <script>
         let tasks = [], tempSubtasks = [], currentEditingId = null, timerInterval = null, initialTime = 25*60, timeLeft = 25*60, isTimerRunning = false, isEditingTimer = false, timerDigits = [], expandedTasks = new Set(), soundEnabled = true, pomoCount = 0;
         let completionLog = []; 
@@ -585,14 +631,14 @@
             { id: 'cat_4', name: 'Saúde', color: '#10b981' }
         ];
 
+        // Temas Modernos e Limpos
         const themes = {
-            cyberpunk: { bg: '#09090b', brand: '#d946ef', mode: 'dark' },
-            nature: { bg: '#f0fdf4', brand: '#16a34a', mode: 'light' },
+            cyberpunk: { bg: '#0f172a', brand: '#8b5cf6', mode: 'dark' }, 
+            nature: { bg: '#f0fdfa', brand: '#0d9488', mode: 'light' },
             dracula: { bg: '#282a36', brand: '#bd93f9', mode: 'dark' },
             minimal: { bg: '#ffffff', brand: '#171717', mode: 'light' }
         };
         
-        // Função auxiliar para pegar a data local (AAAA-MM-DD) sem erro de fuso horário
         function getLocalDate() {
             const d = new Date();
             const year = d.getFullYear();
@@ -625,78 +671,39 @@
             o.start(); o.stop(audioCtx.currentTime + 0.5);
         }
 
-        function loadAvatar() {
-            const av = localStorage.getItem('user_avatar');
-            const el = document.getElementById('user-avatar');
-            el.className = "w-10 h-10 rounded-full flex items-center justify-center shadow-md overflow-hidden border-2 border-white dark:border-slate-700 cursor-pointer group";
-
-            if(av) {
-                el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`;
-            } else {
-                el.innerHTML = `
-                    <div class="w-full h-full bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-white drop-shadow-md">
-                            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/>
-                            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>
-                            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
-                        </svg>
-                    </div>
-                `;
-            }
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); pwaPrompt = e; document.getElementById('pwa-install-area').classList.remove('hidden'); });
-        async function installPWA() { if (pwaPrompt) { pwaPrompt.prompt(); const { outcome } = await pwaPrompt.userChoice; if (outcome === 'accepted') document.getElementById('pwa-install-area').classList.add('hidden'); pwaPrompt = null; } }
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); });
         if ('Notification' in window) Notification.requestPermission();
         window.addEventListener('offline', () => document.getElementById('offline-indicator').classList.remove('hidden'));
         window.addEventListener('online', () => document.getElementById('offline-indicator').classList.add('hidden'));
         document.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             if (e.key === 'n' || e.key === 'N') openModal();
-            if (e.key === 'Escape') { closeModal(); closeTrashModal(); toggleStats(); toggleSettings(); toggleScratchpad(); }
+            if (e.key === 'Escape') {toggleSettings();}
+            if (e.key === 'Tab') {toggleScratchpad();}
+            if (e.key === 's') {toggleStats();}
+            if (e.key === 'choose') {closeModal();}
+            if (e.key === 'choose') {closeTrashModal();}
             if (e.key === '/') { e.preventDefault(); document.getElementById('search-input').focus(); }
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             checkPin();
             loadSettings(); 
-            loadTasks(); loadCategories(); loadWallpaper(); loadAvatar(); updateGreeting(); cleanupTrash();
+            loadTasks(); loadCategories(); loadAvatar(); updateGreeting(); cleanupTrash();
             loadScratchpad(); 
             const pc = localStorage.getItem('pomo_count'); if(pc) { pomoCount = parseInt(pc); }
             try {
                 const cl = localStorage.getItem('flowtask_log'); if(cl) { completionLog = JSON.parse(cl); }
             } catch(e) { console.error("Erro log", e); }
-            calculateStreak();
             lucide.createIcons();
             const h = document.getElementById('hidden-timer-input'); 
             h.addEventListener('input', handleTimerInput); 
             h.addEventListener('blur', finishTimerEdit);
             h.addEventListener('focus', startTimerEdit);
-            const savedStreak = localStorage.getItem('flowtask_streak');
-        if (savedStreak) {
-            document.getElementById('streak-count').innerText = savedStreak;
-        }
         });
         
-        function askCustomTime() {
-            // Pergunta ao usuário
-            const input = prompt("Digite quantos minutos deseja focar:");
-            
-            // Verifica se a pessoa digitou algo
-            if (input !== null && input.trim() !== "") {
-                const minutes = parseInt(input);
-                
-                // Verifica se é um número válido maior que 0
-                if (!isNaN(minutes) && minutes > 0) {
-                    setTimerDuration(minutes);
-                } else {
-                    alert("Por favor, digite apenas números válidos.");
-                }
-            }
-        }
-        
         function loadSettings() {
-            if(localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if(localStorage.getItem('theme') === 'dark') {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark');
@@ -704,12 +711,8 @@
             const savedBg = localStorage.getItem('flowtask_bg_color');
             if(savedBg) {
                 document.documentElement.style.setProperty('--bg-solid', savedBg);
-                document.getElementById('bg-color-picker').value = savedBg;
-                document.getElementById('bg-hex-input').value = savedBg;
-                document.getElementById('bg-color-preview').style.backgroundColor = savedBg;
-                const c = document.getElementById('bg-container');
-                if(c) c.style.display = 'none';
-            } else { document.documentElement.style.removeProperty('--bg-solid'); }
+                const p = document.getElementById('brand-color-picker'); if(p) p.value = savedBg;
+            }
             const savedBrand = localStorage.getItem('flowtask_brand_color');
             if(savedBrand) setBrandColor(savedBrand, false);
         }
@@ -769,15 +772,17 @@
             const toast = document.getElementById('undo-toast');
             lastDeletedTask = task; 
             
-            toast.querySelector('span').innerText = actionType === 'delete' ? 'Tarefa excluída' : 'Tarefa concluída';
+            toast.querySelector('span').innerText = actionType === 'delete' ? 'Tarefa removida' : 'Tarefa concluída';
             toast.classList.remove('hidden');
-            toast.classList.remove('animate-toast-out');
-            toast.classList.add('animate-toast-in');
+            // Animação de entrada
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
 
             clearTimeout(undoTimeout);
             undoTimeout = setTimeout(() => {
-                toast.classList.add('animate-toast-out');
-                setTimeout(() => toast.classList.add('hidden'), 300);
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 500);
                 lastDeletedTask = null; 
             }, 3000); 
         }
@@ -792,7 +797,6 @@
                     t.status = 'todo'; 
                     completionLog.pop(); 
                     localStorage.setItem('flowtask_log', JSON.stringify(completionLog));
-                    calculateStreak();
                 }
                 
                 if(!tasks.find(x => x.id === t.id)) {
@@ -802,7 +806,8 @@
                 saveTasks();
                 
                 const toast = document.getElementById('undo-toast');
-                toast.classList.add('hidden');
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 500);
                 clearTimeout(undoTimeout);
                 lastDeletedTask = null;
             }
@@ -812,10 +817,8 @@
             if(e) e.stopPropagation(); 
             const t = tasks.find(t => t.id === id); 
             if(t) { 
-                // AQUI ESTÁ A CORREÇÃO: Usa getLocalDate() em vez de new Date()...
                 completionLog.push({ date: getLocalDate(), taskId: t.id });
                 localStorage.setItem('flowtask_log', JSON.stringify(completionLog));
-                calculateStreak();
 
                 if (t.repeat && t.repeat !== 'none') {
                     if(t.subtasks) t.subtasks.forEach(s => s.completed = false);
@@ -824,7 +827,6 @@
                     if (t.repeat === 'weekly') nextDate.setDate(nextDate.getDate() + 7);
                     t.dueDate = nextDate.toISOString().split('T')[0];
                     t.status = 'todo'; 
-                    alert(`Tarefa recorrente reagendada para ${t.dueDate.split('-').reverse().join('/')}`);
                 } else {
                     t.status = 'done'; 
                     if(t.subtasks) t.subtasks.forEach(s => s.completed = true); 
@@ -843,73 +845,6 @@
             } 
         }
 
-        function calculateStreak() {
-            if(!completionLog.length) { 
-                document.getElementById('streak-count').innerText = "0"; 
-                localStorage.setItem('flowtask_streak', "0");
-                return; 
-            }
-            
-            const dates = [...new Set(completionLog.map(l => l.date))].sort().reverse();
-            const today = getLocalDate();
-            
-            const yDate = new Date(); 
-            yDate.setDate(yDate.getDate() - 1);
-            const yYear = yDate.getFullYear();
-            const yMonth = String(yDate.getMonth() + 1).padStart(2, '0');
-            const yDay = String(yDate.getDate()).padStart(2, '0');
-            const yesterdayStr = `${yYear}-${yMonth}-${yDay}`;
-
-            let streak = 0;
-            
-            if (dates[0] === today || dates[0] === yesterdayStr) {
-                streak = 1;
-                let currentDate = new Date(dates[0] + "T00:00:00"); 
-                
-                for (let i = 1; i < dates.length; i++) {
-                    currentDate.setDate(currentDate.getDate() - 1);
-                    const cYear = currentDate.getFullYear();
-                    const cMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
-                    const cDay = String(currentDate.getDate()).padStart(2, '0');
-                    const expectedStr = `${cYear}-${cMonth}-${cDay}`;
-                    
-                    if (dates[i] === expectedStr) streak++; 
-                    else break; 
-                }
-            }
-            
-            document.getElementById('streak-count').innerText = streak;
-            localStorage.setItem('flowtask_streak', streak);
-        }
-
-        function createNoiseBuffer(ctx, type) {
-            const bufferSize = 2 * ctx.sampleRate;
-            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-            const output = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                const white = Math.random() * 2 - 1;
-                if(type === 'white') {
-                    output[i] = white;
-                } else if(type === 'pink') {
-                    let b0, b1, b2, b3, b4, b5, b6; b0=b1=b2=b3=b4=b5=b6=0;
-                    b0 = 0.99886 * b0 + white * 0.0555179;
-                    b1 = 0.99332 * b1 + white * 0.0750759;
-                    b2 = 0.96900 * b2 + white * 0.1538520;
-                    b3 = 0.86650 * b3 + white * 0.3104856;
-                    b4 = 0.55000 * b4 + white * 0.5329522;
-                    b5 = -0.7616 * b5 - white * 0.0168980;
-                    output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-                    output[i] *= 0.11; b6 = white * 0.115926;
-                } else { 
-                    let lastOut = 0;
-                    output[i] = (lastOut + (0.02 * white)) / 1.02;
-                    lastOut = output[i];
-                    output[i] *= 3.5;
-                }
-            }
-            return buffer;
-        }
-
         function startDictation(targetId) {
             if ('webkitSpeechRecognition' in window) {
                 const recognition = new webkitSpeechRecognition();
@@ -919,8 +854,7 @@
                     document.getElementById(targetId).value = event.results[0][0].transcript;
                     if(targetId === 'task-title') attemptNLP(event.results[0][0].transcript);
                 };
-                recognition.onerror = function(e) { alert("Erro no reconhecimento de voz."); };
-            } else { alert("Seu navegador não suporta ditado."); }
+            } else { alert("Reconhecimento de voz não suportado."); }
         }
 
         function generateId() { return Math.random().toString(36).substr(2, 9); }
@@ -940,17 +874,11 @@
         }
         function saveTasks() { localStorage.setItem('flowtask_tasks', JSON.stringify(tasks)); renderBoard(); }
         
-        document.getElementById('theme-toggle').addEventListener('click', () => { 
-            document.documentElement.classList.toggle('dark'); 
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
-        });
-        
         function updateGreeting() {
             const h = new Date().getHours();
             let g = 'Bom dia'; if (h >= 12 && h < 18) g = 'Boa tarde'; else if (h >= 18) g = 'Boa noite';
-            const name = localStorage.getItem('user_name') || '';
-            document.getElementById('greeting-text').innerText = `${g}${name ? ', ' + name : ''}`;
-            document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+            document.getElementById('greeting-text').innerText = g;
+            document.getElementById('date-display').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' });
         }
         
         function loadCategories() { 
@@ -962,12 +890,12 @@
         function renderCategoriesSettings() {
             const list = document.getElementById('categories-list');
             list.innerHTML = categories.map(cat => `
-                <div class="flex items-center gap-2 group">
-                    <div id="cat-color-box-${cat.id}" class="relative w-6 h-6 shrink-0 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer shadow-sm transition-transform hover:scale-110" style="background-color: ${cat.color}">
-                        <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" onclick="event.stopPropagation()" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer p-0 border-0 z-10">
+                <div class="flex items-center gap-3 group p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-transform hover:scale-105">
+                    <div id="cat-color-box-${cat.id}" class="relative w-8 h-8 shrink-0 rounded-full overflow-hidden cursor-pointer shadow-md" style="background-color: ${cat.color}">
+                        <input type="color" value="${cat.color}" onchange="updateCategory('${cat.id}', 'color', this.value)" class="absolute inset-0 opacity-0 cursor-pointer">
                     </div>
-                    <input type="text" value="${cat.name}" onchange="updateCategory('${cat.id}', 'name', this.value)" class="flex-1 bg-transparent text-sm text-slate-700 dark:text-slate-200 border-b border-transparent focus:border-brand-500 outline-none px-1 py-0.5 transition-colors" placeholder="Nome">
-                    <button onclick="deleteCategory('${cat.id}')" class="text-slate-400 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                    <input type="text" value="${cat.name}" onchange="updateCategory('${cat.id}', 'name', this.value)" class="flex-1 bg-transparent text-sm font-bold text-slate-700 dark:text-slate-200 outline-none" placeholder="Nome">
+                    <button onclick="deleteCategory('${cat.id}')" class="text-slate-400 hover:text-rose-500 transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                 </div>
             `).join('');
             lucide.createIcons();
@@ -975,13 +903,13 @@
 
         function addCategory() { const colors = ['#4f46e5', '#ec4899', '#10b981', '#f59e0b', '#3b82f6']; categories.push({ id: generateId(), name: 'Nova Categoria', color: colors[Math.floor(Math.random() * colors.length)] }); saveCategories(); }
         function updateCategory(id, field, value) { const cat = categories.find(c => c.id === id); if(cat) { if(field === 'name') { const old = cat.name; cat.name = value; tasks.forEach(t => { if(t.category === old) t.category = value; }); saveTasks(); saveCategories(); } else if (field === 'color') { cat[field] = value; document.getElementById(`cat-color-box-${id}`).style.backgroundColor = value; } } }
-        function deleteCategory(id) { if(categories.length <= 1) { alert("Mínimo 1 categoria."); return; } if(confirm("Excluir?")) { categories = categories.filter(c => c.id !== id); saveCategories(); } }
+        function deleteCategory(id) { if(categories.length <= 1) return; if(confirm("Excluir categoria?")) { categories = categories.filter(c => c.id !== id); saveCategories(); } }
         function renderTaskModalCategories() { const s = document.getElementById('task-category'); if(!s) return; s.innerHTML = categories.map(c => `<option value="${c.name}">${c.name}</option>`).join(''); }
 
         function exportData() { 
             const data = { tasks, categories, completionLog, pomoCount, preferences: { brandColor: localStorage.getItem('flowtask_brand_color'), bgColor: localStorage.getItem('flowtask_bg_color'), theme: localStorage.getItem('theme') } };
             const d = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data)); 
-            const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_backup.json"); document.body.appendChild(a); a.click(); a.remove(); 
+            const a = document.createElement('a'); a.setAttribute("href", d); a.setAttribute("download", "flowtask_data.json"); document.body.appendChild(a); a.click(); a.remove(); 
         }
 
         function importData(input) { 
@@ -999,8 +927,8 @@
                         if(d.preferences.bgColor) localStorage.setItem('flowtask_bg_color', d.preferences.bgColor);
                         if(d.preferences.theme) localStorage.setItem('theme', d.preferences.theme);
                     }
-                    alert("Restaurado!"); location.reload(); 
-                } catch (err) { alert("Erro ao importar."); } 
+                    location.reload(); 
+                } catch (err) { alert("Arquivo corrompido."); } 
             }; 
             r.readAsText(f); 
         }
@@ -1010,47 +938,49 @@
         
         function setBrandColor(hex, save = true) { 
             if(!hex.startsWith('#')) hex = '#'+hex; 
-            document.getElementById('brand-color-picker').value = hex; document.getElementById('brand-hex-input').value = hex; document.getElementById('brand-color-preview').style.backgroundColor = hex;
+            const el1 = document.getElementById('brand-color-picker'); if(el1) el1.value = hex; 
+            const el2 = document.getElementById('brand-hex-input'); if(el2) el2.value = hex; 
+            const el3 = document.getElementById('brand-color-preview'); if(el3) el3.style.backgroundColor = hex;
+            
             if(!/^#([0-9A-F]{3}){1,2}$/i.test(hex)) return; 
             const rgb = hexToRgb(hex); 
             if(rgb) { 
-                document.documentElement.style.setProperty('--color-brand-500', rgb); document.documentElement.style.setProperty('--color-brand-600', rgb); 
-                document.getElementById('timer-circle').style.stroke = `rgb(${rgb})`; 
+                document.documentElement.style.setProperty('--color-brand-500', rgb); 
+                document.documentElement.style.setProperty('--color-brand-600', rgb); 
+                const tc = document.getElementById('timer-circle'); if(tc) tc.style.stroke = `rgb(${rgb})`; 
                 if(save) localStorage.setItem('flowtask_brand_color', hex);
             } 
         }
 
         function setBackgroundColor(hex) { 
             document.documentElement.style.setProperty('--bg-solid', hex); 
-            document.getElementById('bg-color-picker').value = hex; document.getElementById('bg-hex-input').value = hex; document.getElementById('bg-color-preview').style.backgroundColor = hex;
-            localStorage.setItem('flowtask_bg_color', hex); document.getElementById('bg-container').style.display = 'none'; 
+            localStorage.setItem('flowtask_bg_color', hex); 
         }
         
-        function handleHexInput(val, type) { if(!val.startsWith('#')) val = '#' + val; if(val.length === 7) { if(type === 'brand') setBrandColor(val); if(type === 'bg') setBackgroundColor(val); } }
+        function handleHexInput(val, type) { if(!val.startsWith('#')) val = '#' + val; if(val.length === 7) { if(type === 'brand') setBrandColor(val); } }
 
-        function resetBackground() { 
-            document.documentElement.style.removeProperty('--bg-solid'); localStorage.removeItem('flowtask_bg_color');
-            document.getElementById('bg-hex-input').value = ''; document.getElementById('bg-color-picker').value = '#f8fafc'; document.getElementById('bg-color-preview').style.backgroundColor = ''; document.getElementById('bg-container').style.display = 'none'; 
-        }
-        
-        async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Erro na IA."); return null; } }
-        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) { alert("Digite o título!"); return; } const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Criando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas para: "${t}". Apenas texto.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) { tempSubtasks.push({title: cl, completed: false}); } }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
-        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Gerando..."; const p = `Frase curta motivacional (max 20 palavras) para: "${t}". Sem markdown. Sem asteriscos.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Foque no agora."; }
+        async function callGemini(p) { let k = localStorage.getItem('gemini_api_key'); if (!k) { k = prompt("API Key Gemini necessária:"); if (k) localStorage.setItem('gemini_api_key', k); else return null; } try { const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${k}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: [{ parts: [{ text: p }] }] }) }); if (!r.ok) throw new Error('API Error'); const d = await r.json(); return d.candidates?.[0]?.content?.parts?.[0]?.text; } catch (e) { console.error(e); alert("Falha na conexão IA."); return null; } }
+        async function generateSubtasks() { const t = document.getElementById('task-title').value; if(!t) return; const b = document.getElementById('btn-magic-subtasks'); const old = b.innerHTML; b.innerHTML = `Gerando...`; b.disabled = true; lucide.createIcons(); const r = await callGemini(`Lista de 3-5 sub-tarefas curtas para: "${t}". Texto puro.`); if(r) { r.split('\n').filter(l => l.trim().length > 0).forEach(l => { const cl = l.replace(/^[\*\-\d\.]+\s*/, '').trim(); if(cl) { tempSubtasks.push({title: cl, completed: false}); } }); renderSubtasks(); } b.disabled = false; b.innerHTML = old; lucide.createIcons(); }
+        async function generateMotivation() { const t = document.getElementById('pomo-task-title').innerText; const b = document.getElementById('btn-motivate'); const txt = document.getElementById('motivation-text'); const c = document.getElementById('motivation-content'); b.classList.add('hidden'); txt.classList.remove('hidden'); c.innerText = "Pensando..."; const p = `Frase motivacional curta (max 15 palavras) para: "${t}". Sem formatação.`; const r = await callGemini(p); if(r) c.innerText = r.replace(/\*\*/g, '').trim(); else c.innerText = "Mantenha o foco. Você consegue."; }
 
         function handleAvatarUpload(input) { const f = input.files[0]; if(f) { const r = new FileReader(); r.onload = (e) => { localStorage.setItem('user_avatar', e.target.result); loadAvatar(); }; r.readAsDataURL(f); } }
-        function loadAvatar() { const av = localStorage.getItem('user_avatar'); const el = document.getElementById('user-avatar'); el.classList.remove('bg-brand-100'); el.style.padding = '0'; el.style.overflow = 'hidden'; if(av) { el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`; } else { el.innerHTML = `<div class="w-full h-full bg-gradient-to-tr from-brand-600 to-purple-600 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers text-white w-1/2 h-1/2"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg></div>`; } }
+        function loadAvatar() { 
+            const av = localStorage.getItem('user_avatar'); 
+            const el = document.getElementById('user-avatar'); 
+            if(av) { 
+                el.innerHTML = `<img src="${av}" class="w-full h-full object-cover">`; 
+            } else { 
+                el.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-brand-500 to-purple-600 flex items-center justify-center text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`; 
+            } 
+        }
 
         function checkPin() { const pin = localStorage.getItem('flowtask_pin'); if(pin) { document.getElementById('pin-screen').classList.remove('hidden'); pinInputBuffer = ""; updatePinDots(); } updatePinButton(); }
         function pinPress(num) { if(pinInputBuffer.length < 4) { pinInputBuffer += num; updatePinDots(); if(pinInputBuffer.length === 4) { setTimeout(verifyPin, 200); } } }
         function pinDelete() { if(pinInputBuffer.length > 0) { pinInputBuffer = pinInputBuffer.slice(0, -1); updatePinDots(); } }
         function updatePinDots() { for(let i=0; i<4; i++) { const dot = document.getElementById(`dot-${i}`); if(i < pinInputBuffer.length) dot.classList.add('filled'); else dot.classList.remove('filled'); } }
         function verifyPin() { const correct = localStorage.getItem('flowtask_pin'); if(pinInputBuffer === correct) { document.getElementById('pin-screen').classList.add('hidden'); pinInputBuffer = ""; } else { document.getElementById('pin-dots').classList.add('animate-shake'); setTimeout(() => { document.getElementById('pin-dots').classList.remove('animate-shake'); pinInputBuffer = ""; updatePinDots(); }, 500); } }
-        function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Remover PIN de segurança?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Digite um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); alert("PIN Configurado!"); updatePinButton(); } else if(newPin) { alert("PIN inválido."); } } }
+        function setupPin() { const current = localStorage.getItem('flowtask_pin'); if(current) { if(confirm("Desativar PIN?")) { localStorage.removeItem('flowtask_pin'); updatePinButton(); } } else { const newPin = prompt("Defina um PIN de 4 números:"); if(newPin && newPin.length === 4 && !isNaN(newPin)) { localStorage.setItem('flowtask_pin', newPin); updatePinButton(); } } }
         function updatePinButton() { const btn = document.getElementById('btn-set-pin'); btn.innerText = localStorage.getItem('flowtask_pin') ? 'Remover' : 'Configurar'; }
-
-        function handleWallpaperUpload(input) { const f = input.files[0]; if(f) { const r = new FileReader(); r.onload = (e) => { const url = e.target.result; localStorage.setItem('flowtask_wallpaper', url); loadWallpaper(); }; r.readAsDataURL(f); } }
-        function loadWallpaper() { const w = localStorage.getItem('flowtask_wallpaper'); const c = document.getElementById('bg-container'); if(w) { c.style.display = 'block'; c.innerHTML = `<div class="absolute inset-0 bg-cover bg-center opacity-30 dark:opacity-20" style="background-image: url('${w}')"></div>`; } else { c.style.display = 'none'; } }
-        function clearWallpaper() { localStorage.removeItem('flowtask_wallpaper'); loadWallpaper(); }
 
         function toggleStats() { 
             const m = document.getElementById('stats-modal'); 
@@ -1066,19 +996,17 @@
             const byCat = {}; categories.forEach(c => byCat[c.name] = 0);
             tasks.filter(t => t.status !== 'trash').forEach(t => { if(byCat[t.category] !== undefined) byCat[t.category]++; });
             
-            document.getElementById('stats-categories-list').innerHTML = `<h4 class="text-xs font-bold text-slate-500 uppercase mb-3">Tarefas por Categoria</h4><div class="space-y-2">${Object.entries(byCat).map(([name, count]) => { const cat = categories.find(c => c.name === name); const w = total ? (count/total)*100 : 0; return `<div class="flex items-center gap-2 text-sm"><span class="w-20 truncate text-slate-600 dark:text-slate-300">${name}</span><div class="flex-1 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-6 text-right text-slate-500 text-xs">${count}</span></div>`; }).join('')}</div>`;
+            document.getElementById('stats-categories-list').innerHTML = `<div class="space-y-3">${Object.entries(byCat).map(([name, count]) => { const cat = categories.find(c => c.name === name); const w = total ? (count/total)*100 : 0; return `<div class="flex items-center gap-3"><span class="w-20 truncate text-slate-500 dark:text-slate-400 font-bold text-xs">${name}</span><div class="flex-1 h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden"><div class="h-full rounded-full transition-all duration-1000" style="width: ${w}%; background-color: ${cat.color}"></div></div><span class="w-8 text-right text-slate-600 font-bold text-xs">${count}</span></div>`; }).join('')}</div>`;
 
-            // Charts
             const ctxHistory = document.getElementById('historyChart').getContext('2d');
             if(historyChartInstance) historyChartInstance.destroy();
             const labelsH = []; const dataH = [];
             for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(d.getDate() - i); labelsH.push(d.toLocaleDateString('pt-BR', {weekday: 'short'})); dataH.push(completionLog.filter(l => l.date === d.toISOString().split('T')[0]).length); }
-            historyChartInstance = new Chart(ctxHistory, { type: 'bar', data: { labels: labelsH, datasets: [{ label: 'Concluídas', data: dataH, backgroundColor: 'rgba(99, 102, 241, 0.5)', borderColor: '#4f46e5', borderWidth: 1, borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }, plugins: { legend: { display: false } } } });
+            historyChartInstance = new Chart(ctxHistory, { type: 'bar', data: { labels: labelsH, datasets: [{ label: 'Feito', data: dataH, backgroundColor: '#6366f1', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { display: false }, ticks: { display: false } }, x: { grid: { display: false } } }, plugins: { legend: { display: false } } } });
 
-            // Pie Chart
             const ctxPie = document.getElementById('categoryChart').getContext('2d');
             if(pieChartInstance) pieChartInstance.destroy();
-            pieChartInstance = new Chart(ctxPie, { type: 'doughnut', data: { labels: Object.keys(byCat), datasets: [{ data: Object.values(byCat), backgroundColor: categories.map(c => c.color), borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } } } });
+            pieChartInstance = new Chart(ctxPie, { type: 'doughnut', data: { labels: Object.keys(byCat), datasets: [{ data: Object.values(byCat), backgroundColor: categories.map(c => c.color), borderWidth: 0, borderRadius: 5 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '75%' } });
         }
 
         function cleanupTrash() { const now = Date.now(); const oneDay = 24 * 60 * 60 * 1000; const initialLen = tasks.length; tasks = tasks.filter(t => { if(t.status === 'trash' && t.deletedAt) { return (now - t.deletedAt) < oneDay; } return true; }); if(tasks.length !== initialLen) saveTasks(); }
@@ -1088,15 +1016,12 @@
             if(t) {
                 t.status = 'trash'; t.deletedAt = Date.now();
                 saveTasks();
-                setTimeout(() => {
-                    renderBoard(); // Delay rendering slightly to allow animation if needed, but mainly correct order
-                    showUndoToast('delete', t);
-                }, 0);
+                setTimeout(() => { renderBoard(); showUndoToast('delete', t); }, 0);
             }
         }
         function restoreTask(id) { const t = tasks.find(x => x.id === id); if(t) { t.status = 'todo'; delete t.deletedAt; saveTasks(); openTrashModal(); } }
         function deletePermanently(id) { tasks = tasks.filter(t => t.id !== id); saveTasks(); openTrashModal(); }
-        function openTrashModal() { document.getElementById('trash-modal').classList.remove('hidden'); const trashList = document.getElementById('trash-list'); const deleted = tasks.filter(t => t.status === 'trash'); if(deleted.length === 0) { trashList.innerHTML = '<div class="text-center text-slate-400 py-10">Lixeira vazia</div>'; } else { trashList.innerHTML = deleted.map(t => `<div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"><span class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate flex-1 pr-2">${t.title}</span><div class="flex gap-2"><button onclick="restoreTask('${t.id}')" class="text-emerald-500 hover:bg-emerald-50 p-1.5 rounded"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button><button onclick="deletePermanently('${t.id}')" class="text-rose-500 hover:bg-rose-50 p-1.5 rounded"><i data-lucide="x" class="w-4 h-4"></i></button></div></div>`).join(''); lucide.createIcons(); } }
+        function openTrashModal() { document.getElementById('trash-modal').classList.remove('hidden'); const trashList = document.getElementById('trash-list'); const deleted = tasks.filter(t => t.status === 'trash'); if(deleted.length === 0) { trashList.innerHTML = '<div class="text-center text-slate-400 font-bold py-10 text-sm">Lixeira Vazia</div>'; } else { trashList.innerHTML = deleted.map(t => `<div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"><span class="text-sm font-bold text-slate-600 dark:text-slate-300 truncate flex-1 pr-2">${t.title}</span><div class="flex gap-2"><button onclick="restoreTask('${t.id}')" class="text-emerald-500 hover:bg-emerald-100 p-2 rounded-xl transition-colors"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button><button onclick="deletePermanently('${t.id}')" class="text-rose-500 hover:bg-rose-100 p-2 rounded-xl transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button></div></div>`).join(''); lucide.createIcons(); } }
         function closeTrashModal() { document.getElementById('trash-modal').classList.add('hidden'); }
 
         function renderBoard() {
@@ -1120,7 +1045,8 @@
             });
             document.getElementById('count-todo').innerText = counts.todo; document.getElementById('count-doing').innerText = counts.doing; document.getElementById('count-done').innerText = counts.done;
             const total = activeTasks.length; const p = total === 0 ? 0 : Math.round((counts.done / total) * 100);
-            document.getElementById('progress-text').innerText = `${p}%`; document.getElementById('progress-bar').style.width = `${p}%`;
+            document.getElementById('progress-text').innerText = `${p}%`; 
+            document.getElementById('progress-bar').style.strokeDashoffset = 100 - p;
             lucide.createIcons();
         }
 
@@ -1129,46 +1055,51 @@
             const catObj = categories.find(c => c.name === t.category); const catColor = catObj ? catObj.color : '#64748b';
             const recurIcon = t.repeat && t.repeat !== 'none' ? `<i data-lucide="repeat" class="w-3 h-3 text-slate-400 ml-1 inline-block"></i>` : '';
             
-            const tagHtml = t.tags && t.tags.length ? `<div class="flex flex-wrap gap-1 mt-2">${t.tags.map(tag => `<span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 border border-slate-200 dark:border-slate-600">#${tag}</span>`).join('')}</div>` : '';
+            const tagHtml = t.tags && t.tags.length ? `<div class="flex flex-wrap gap-2 mt-3">${t.tags.map(tag => `<span class="px-2 py-1 rounded-lg text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 font-bold uppercase tracking-wide">#${tag}</span>`).join('')}</div>` : '';
 
-            d.className = `glass-card p-0 rounded-dynamic relative overflow-hidden group animate-slide-up mb-4 border shadow-sm hover:shadow-md transition-all ${od ? 'task-overdue' : ''} ${act ? 'task-active' : ''}`;
-            d.draggable = true; d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('dragging'); }; d.ondragend = (e) => { e.target.classList.remove('dragging'); };
-            const pc = { low: 'bg-emerald-500', medium: 'bg-amber-500', high: 'bg-rose-500' };
-            const done = t.subtasks ? t.subtasks.filter(s => s.completed).length : 0; const total = t.subtasks ? t.subtasks.length : 0; const prog = total === 0 ? 0 : Math.round((done/total)*100);
-            let dh = ''; if(t.dueDate) { const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}); dh = `<div class="flex items-center gap-1.5 text-[11px] font-medium mt-1 w-fit ${od ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${od ? 'Atrasado: ' : ''}${s}</span></div>`; }
+            d.className = `modern-card p-5 relative group animate-slide-up mb-4 ${od ? 'border-l-4 border-l-rose-500' : ''} ${act ? 'ring-2 ring-brand-500/50' : ''}`;
+            d.draggable = true; d.ondragstart = (e) => { e.dataTransfer.setData("text", t.id); e.target.classList.add('opacity-50'); }; d.ondragend = (e) => { e.target.classList.remove('opacity-50'); };
             
-            // CORREÇÃO: Estrutura HTML reescrita para separar áreas de clique
+            const done = t.subtasks ? t.subtasks.filter(s => s.completed).length : 0; const total = t.subtasks ? t.subtasks.length : 0; const prog = total === 0 ? 0 : Math.round((done/total)*100);
+            let dh = ''; if(t.dueDate) { const date = new Date(t.dueDate); date.setMinutes(date.getMinutes() + date.getTimezoneOffset()); const s = date.toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}); dh = `<div class="flex items-center gap-1.5 text-xs font-bold mt-2 w-fit ${od ? 'text-rose-500 bg-rose-50 px-2 py-1 rounded-lg' : 'text-slate-400'}"><i data-lucide="${od ? 'alert-circle' : 'calendar'}" class="w-3.5 h-3.5"></i> <span>${s}</span></div>`; }
+            
+            const prioBadge = {
+                low: '<span class="w-2 h-2 rounded-full bg-emerald-500"></span>',
+                medium: '<span class="w-2 h-2 rounded-full bg-amber-500"></span>',
+                high: '<span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>'
+            };
+
             let acts = act ? `
-                <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
-                    <button onclick="openPomodoro('${t.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg text-xs font-bold uppercase tracking-wide shadow-md flex items-center justify-center gap-2"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar</button>
-                    <button onclick="completeTask(event, '${t.id}')" class="bg-emerald-100 text-emerald-600 w-9 h-9 flex items-center justify-center rounded-lg"><i data-lucide="check" class="w-4 h-4"></i></button>
-                    <button onclick="requestDelete(event, '${t.id}')" class="bg-slate-100 text-slate-400 hover:text-rose-500 w-9 h-9 flex items-center justify-center rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700/50 flex gap-2">
+                    <button onclick="openPomodoro('${t.id}')" class="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"><i data-lucide="play" class="w-3 h-3 fill-current"></i> Focar</button>
+                    <button onclick="completeTask(event, '${t.id}')" class="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 w-10 h-10 flex items-center justify-center rounded-xl hover:bg-emerald-200 transition-colors"><i data-lucide="check" class="w-5 h-5"></i></button>
                 </div>` : `
-                <div class="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onclick="editTask('${t.id}')" class="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
-                    <button onclick="requestDelete(event, '${t.id}')" class="p-1.5 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-md text-slate-400 hover:text-rose-500"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                <div class="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+                    <button onclick="editTask('${t.id}')" class="p-2 bg-slate-100 dark:bg-slate-700 hover:bg-white dark:hover:bg-slate-600 rounded-xl text-slate-400 shadow-sm transition-colors"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                    <button onclick="requestDelete(event, '${t.id}')" class="p-2 bg-slate-100 dark:bg-slate-700 hover:bg-rose-50 dark:hover:bg-rose-900/30 text-slate-400 hover:text-rose-500 rounded-xl shadow-sm transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>`;
 
-            // Construção do HTML: Área clicável (Header+Body) separada dos botões de ação (Footer)
             d.innerHTML = `
-                <div class="absolute left-0 top-0 bottom-0 w-1 ${pc[t.priority]}"></div>
-                <div class="pl-5 pr-4 py-4 flex flex-col h-full">
-                    
+                <div class="flex flex-col h-full">
                     <div onclick="toggleSubtaskList(event, '${t.id}')" class="cursor-pointer flex-1">
-                        <div class="flex justify-between items-start"><span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-800 border text-slate-600 dark:text-slate-300" style="border-color: ${catColor}; box-shadow: 0 0 5px ${catColor}20;">${t.category}</span></div>
-                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 text-[15px] mt-2.5 leading-snug pr-6 flex items-start gap-1">${t.title} ${recurIcon}</h3>${dh}${tagHtml}
-                        ${total > 0 ? `<div class="mt-4"><div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3"><div class="h-full bg-brand-500" style="width: ${prog}%"></div></div><button class="w-full text-xs text-slate-400 flex items-center justify-center gap-1 py-1"><span>${exp?'Ocultar':'Ver'} Checklist (${done}/${total})</span><i data-lucide="chevron-down" class="w-3 h-3 ${exp?'rotate-180':''}"></i></button><div class="${exp?'block':'hidden'} mt-2 space-y-1">${t.subtasks.map((st,i) => `<div class="flex gap-2 items-center p-1"><input type="checkbox" ${st.completed?'checked':''} onclick="toggleSubtaskCheck('${t.id}',${i})" class="accent-brand-500"><span class="text-xs ${st.completed?'line-through text-slate-400':''}">${st.title}</span></div>`).join('')}</div></div>` : ''}
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 dark:bg-slate-800 dark:text-slate-400">
+                                ${prioBadge[t.priority]} ${t.category}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 dark:text-white text-base leading-snug pr-8 mb-1">${t.title} ${recurIcon}</h3>
+                        ${dh}
+                        ${tagHtml}
+                        ${total > 0 ? `<div class="mt-4 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl"><div class="flex justify-between text-[10px] font-bold text-slate-400 mb-1.5 uppercase"><span>Progresso</span><span>${prog}%</span></div><div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-2"><div class="h-full bg-brand-500 rounded-full transition-all duration-500" style="width: ${prog}%"></div></div><button class="w-full text-xs font-bold text-slate-500 flex items-center justify-center gap-1 hover:text-brand-500 transition-colors py-1"><span>${exp?'Ocultar':'Ver'} Etapas (${done}/${total})</span><i data-lucide="chevron-down" class="w-3 h-3 ${exp?'rotate-180':''}"></i></button><div class="${exp?'block':'hidden'} mt-2 space-y-1">${t.subtasks.map((st,i) => `<div class="flex gap-3 items-center p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer" onclick="event.stopPropagation(); toggleSubtaskCheck('${t.id}',${i})"><div class="w-4 h-4 rounded border-2 ${st.completed ? 'bg-brand-500 border-brand-500' : 'border-slate-300 dark:border-slate-600'} flex items-center justify-center transition-colors"><i data-lucide="check" class="w-3 h-3 text-white ${st.completed ? 'block' : 'hidden'}"></i></div><span class="text-xs font-medium ${st.completed?'line-through text-slate-400':'text-slate-600 dark:text-slate-300'}">${st.title}</span></div>`).join('')}</div></div>` : ''}
                     </div>
-                    
-                    ${!act ? acts : ''} ${act ? acts : ''}  </div>`;
+                    ${!act ? acts : ''} ${act ? acts : ''}
+                </div>`;
             return d;
         }
 
         function toggleSubtaskList(e, id) { e.stopPropagation(); expandedTasks.has(id) ? expandedTasks.delete(id) : expandedTasks.add(id); renderBoard(); }
         function toggleSubtaskCheck(id, idx) { const t = tasks.find(x => x.id === id); if(t && t.subtasks) { t.subtasks[idx].completed = !t.subtasks[idx].completed; saveTasks(); } }
         
-        completionLog.push({ date: getLocalDate(), taskId: t.id });
-
         function openModal(id = null) {
             const m = document.getElementById('task-modal'); m.classList.remove('hidden'); currentEditingId = id; tempSubtasks = [];
             const form = document.getElementById('task-form');
@@ -1178,7 +1109,7 @@
                 document.getElementById('modal-title').innerText = "Editar Tarefa";
                 document.getElementById('task-title').value = t.title; document.getElementById('task-category').value = t.category;
                 document.getElementById('task-due-date').value = t.dueDate || '';
-                document.getElementById('task-tags').value = t.tags ? t.tags.join(', ') : ''; // Tags
+                document.getElementById('task-tags').value = t.tags ? t.tags.join(', ') : '';
                 document.getElementById('task-repeat').value = t.repeat || 'none';
                 document.getElementsByName('priority').forEach(r => r.checked = r.value === t.priority);
                 tempSubtasks = t.subtasks ? [...t.subtasks] : [];
@@ -1194,7 +1125,7 @@
         function editTask(id) { openModal(id); }
         function addSubtaskToForm() { const v = document.getElementById('new-subtask-input').value.trim(); if(v) { tempSubtasks.push({title:v, completed:false}); document.getElementById('new-subtask-input').value=''; renderSubtasks(); } }
         function removeSubtask(idx) { tempSubtasks.splice(idx,1); renderSubtasks(); }
-        function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded mb-1"><span class="dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
+        function renderSubtasks() { document.getElementById('subtask-list-form').innerHTML = tempSubtasks.map((s,i) => `<li class="flex justify-between items-center text-sm font-medium bg-slate-50 dark:bg-slate-800 px-4 py-3 rounded-xl border border-slate-100 dark:border-slate-700"><span class="text-slate-600 dark:text-slate-300">${s.title}</span><button type="button" onclick="removeSubtask(${i})" class="text-rose-400 hover:text-rose-500"><i data-lucide="x" class="w-4 h-4"></i></button></li>`).join(''); lucide.createIcons(); }
         
         function saveTask(e) { 
             e.preventDefault(); 
@@ -1206,7 +1137,7 @@
                 category: document.getElementById('task-category').value, 
                 dueDate: document.getElementById('task-due-date').value, 
                 priority: document.querySelector('input[name="priority"]:checked').value, 
-                subtasks: tempSubtasks,
+                subtasks: tempSubtasks, 
                 repeat: document.getElementById('task-repeat').value,
                 tags: tags 
             }; 
@@ -1224,157 +1155,86 @@
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
         function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false;}
         
+        function setTimerDuration(minutes) {
+            if(isTimerRunning) stopTimer();
+            initialTime = minutes * 60;
+            timeLeft = initialTime;
+            updateTimerDisplay();
+            
+            // Visual feedback for buttons
+            document.querySelectorAll('.timer-btn').forEach(b => {
+                const isSelected = parseInt(b.dataset.time) === minutes;
+                if(isSelected) {
+                    b.classList.remove('text-white/60', 'hover:bg-white/10', 'hover:text-white');
+                    b.classList.add('bg-white', 'text-brand-600', 'shadow-lg');
+                } else {
+                    b.classList.add('text-white/60', 'hover:bg-white/10', 'hover:text-white');
+                    b.classList.remove('bg-white', 'text-brand-600', 'shadow-lg');
+                }
+            });
+        }
+
         function startTimerEdit() { 
             if(isTimerRunning) stopTimer(); 
             isEditingTimer = true; 
-            
-            // Limpa tudo para começar do zero
             timerDigits = []; 
             const inp = document.getElementById('hidden-timer-input');
-            inp.value = ''; 
-            inp.focus(); 
-            
+            inp.value = ''; inp.focus(); 
             updateTimerEditUI(); 
-            document.getElementById('timer-status').innerText = "Digite..."; 
+            document.getElementById('timer-status').innerText = "Digite o tempo"; 
         }
 
         function handleTimerInput(e) { 
             if(!isEditingTimer) return; 
-            
-            // 1. Pega apenas os números do que foi digitado
-            // 2. Garante que não tenha mais de 4 dígitos
-            const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
-            
-            // 3. Atualiza o valor do input para o usuário não digitar lixo
-            e.target.value = val; 
-            
-            // 4. Sincroniza nossa lista interna com o input real
-            timerDigits = val.split(''); 
-            
-            updateTimerEditUI(); 
-            
-            // Se completou 4 números, finaliza automaticamente
-            if(timerDigits.length === 4) {
-                setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300);
-            }
-        }
-        function setTimerDuration(m) { 
-            stopTimer(); 
-            isEditingTimer = false; // <--- ADICIONADO: Força sair do modo edição
-            initialTime = m * 60; 
-            timeLeft = initialTime; 
-            
-            // Atualiza visual dos botões
-            document.querySelectorAll('.timer-btn').forEach(b => { 
-                if(parseInt(b.dataset.time)===m) { 
-                    b.classList.add('bg-brand-600','text-white'); 
-                    b.classList.remove('text-slate-300'); 
-                } else { 
-                    b.classList.remove('bg-brand-600','text-white'); 
-                    b.classList.add('text-slate-300'); 
-                } 
-            }); 
-            
-            updateTimerDisplay(); 
-        }
-        // Função nova para detectar o botão de apagar (Backspace)
-        function handleTimerKeydown(e) {
-            if(!isEditingTimer) return;
-            if(e.key === 'Backspace') {
-                timerDigits.pop(); // Remove o último número
-                updateTimerEditUI();
-            }
-        }
-
-        // Função de digitação melhorada (funciona melhor em celulares)
-        function handleTimerInput(e) { 
-            if(!isEditingTimer) return; 
-            
-            // Pega o caractere digitado de forma segura
             let char = e.data;
-            
-            // Se e.data falhar (alguns Androids antigos), tenta pegar do valor
-            if (!char && e.target.value) {
-                char = e.target.value.slice(-1);
-            }
-
-            // Se for número, adiciona na lista
-            if(char && /[0-9]/.test(char)) { 
-                if(timerDigits.length < 4) timerDigits.push(char); 
-            } 
-            
-            e.target.value = ''; // Limpa para o próximo número
-            updateTimerEditUI(); 
-            
-            // Se já digitou 4 números, sai do modo edição automaticamente
+            if (!char && e.target.value) char = e.target.value.slice(-1);
+            if(char && /[0-9]/.test(char)) { if(timerDigits.length < 4) timerDigits.push(char); } 
+            e.target.value = ''; updateTimerEditUI(); 
             if(timerDigits.length === 4) setTimeout(() => document.getElementById('hidden-timer-input').blur(), 300); 
         }
 
-        function updateTimerEditUI() { const d = timerDigits; let html = ''; for(let i=0; i<4; i++) { if(i===2) html += '<span class="mx-1 text-white/50 pb-2">:</span>'; html += `<span class="timer-slot ${d.length===i ? 'active' : ''} ${!d[i] ? 'empty' : ''}">${d[i]||'0'}</span>`; } document.getElementById('timer-display').innerHTML = html; }
+        function updateTimerEditUI() { const d = timerDigits; const str = (d[0]||'0')+(d[1]||'0')+":"+(d[2]||'0')+(d[3]||'0'); document.getElementById('timer-display').innerText = str; }
         function toggleTimer() { isTimerRunning ? stopTimer() : startTimer(); }
         function finishTimerEdit() { 
             if(!isEditingTimer) return; 
-            
-            // Pega os números digitados ou assume 0 se vazio
             const m = parseInt((timerDigits[0]||'0') + (timerDigits[1]||'0')); 
             const s = parseInt((timerDigits[2]||'0') + (timerDigits[3]||'0')); 
             const t = m*60 + s; 
-            
-            // Se o tempo for válido (>0), usa ele. Se for 0, volta para 25min padrão.
-            if(t > 0) { 
-                initialTime = t; 
-                timeLeft = t; 
-            } else { 
-                initialTime = 25*60; 
-                timeLeft = initialTime; 
-            } 
-            
-            isEditingTimer = false; // Encerra modo edição
-            timerDigits = []; // Limpa memória de dígitos
-            updateTimerDisplay(); // Atualiza a tela
-            document.getElementById('timer-status').innerText = "Pronto"; 
+            if(t > 0) { initialTime = t; timeLeft = t; } else { initialTime = 25*60; timeLeft = initialTime; } 
+            isEditingTimer = false; timerDigits = []; updateTimerDisplay(); document.getElementById('timer-status').innerText = "Pronto"; 
         }
 
         function startTimer() { 
             isTimerRunning = true; 
-            document.getElementById('timer-status').innerText = "Foco total!"; 
-            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-8 h-8 fill-current"></i>`; 
+            document.getElementById('timer-status').innerText = "Foco total"; 
+            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="pause" class="w-10 h-10 fill-current ml-0.5"></i>`; 
             lucide.createIcons(); 
             timerInterval = setInterval(() => { 
                 if(timeLeft > 0) { 
                     timeLeft--; 
                     updateTimerDisplay(); 
                 } else { 
-                    stopTimer(); 
-                    playBeep(); 
-                    fireConfetti(); 
+                    stopTimer(); playBeep(); fireConfetti(); 
                     if(navigator.vibrate) navigator.vibrate([100, 50, 100]); 
-                    if(Notification.permission === "granted") new Notification("Pomodoro Concluído!", {body: "Hora de descansar."}); 
-                    pomoCount++; 
-                    localStorage.setItem('pomo_count', pomoCount); 
+                    pomoCount++; localStorage.setItem('pomo_count', pomoCount); 
                     document.getElementById('timer-status').innerText = "Ciclo Concluído!"; 
                     document.getElementById('timer-display').classList.add('animate-pulse'); 
                 } 
             }, 1000); 
         }
         function stopTimer() { 
-            isTimerRunning = false; 
-            clearInterval(timerInterval); 
+            isTimerRunning = false; clearInterval(timerInterval); 
             document.getElementById('timer-status').innerText = "Pausado"; 
-            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-8 h-8 fill-current"></i>`; 
+            document.getElementById('btn-toggle-timer').innerHTML = `<i data-lucide="play" class="w-10 h-10 fill-current ml-1"></i>`; 
             lucide.createIcons(); 
             document.getElementById('timer-display').classList.remove('animate-pulse'); 
-            document.title = "FlowTask v2.3 Pro";
         }
         function resetTimer() { stopTimer(); timeLeft = initialTime; updateTimerDisplay(); }
         function updateTimerDisplay() { 
             if(isEditingTimer) return; 
             const m = Math.floor(timeLeft/60).toString().padStart(2,'0'); 
             const s = (timeLeft%60).toString().padStart(2,'0'); 
-            const str = m + ":" + s; 
-            document.title = isTimerRunning ? `${str} - Focando...` : "FlowTask v2.3 Pro";
-            let html = ''; for(let char of str) html += `<span class="digit-wrapper"><span class="digit">${char}</span></span>`; 
-            document.getElementById('timer-display').innerHTML = html; 
+            document.getElementById('timer-display').innerText = m + ":" + s; 
             const circle = document.getElementById('timer-circle'); 
             const dash = circle.r.baseVal.value * 2 * Math.PI; 
             const offset = dash - (timeLeft/initialTime) * dash; 
