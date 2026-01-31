@@ -567,15 +567,6 @@
             </div>
             
             <div class="mt-8 flex flex-col items-center gap-4 w-full max-w-xs">
-                <div class="flex items-center justify-center gap-3 w-full">
-                    <button id="btn-toggle-noise" onclick="toggleNoise()" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all transform active:scale-95 border border-white/5"><i data-lucide="waves" class="w-5 h-5"></i></button>
-                    <select id="noise-type" class="bg-white/5 border border-white/10 text-white text-xs rounded-lg px-3 py-3 outline-none focus:border-brand-500 cursor-pointer" onchange="changeNoiseType(this.value)">
-                        <option value="brown">Ruído Marrom</option>
-                        <option value="pink">Ruído Rosa</option>
-                        <option value="white">Ruído Branco</option>
-                    </select>
-                </div>
-
                 <div class="flex items-center gap-6">
                     <button id="btn-toggle-timer" onclick="toggleTimer()" class="w-20 h-20 rounded-full bg-brand-500 hover:bg-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/50 transition-all transform hover:scale-110 active:scale-95 group"><i data-lucide="play" class="w-8 h-8 fill-current group-hover:fill-white transition-colors"></i></button>
                     <button onclick="resetTimer()" class="w-14 h-14 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center border border-white/10 transition-colors text-slate-300 hover:text-white transform active:rotate-180 duration-500"><i data-lucide="rotate-ccw" class="w-6 h-6"></i></button>
@@ -927,30 +918,6 @@
             return buffer;
         }
 
-        function toggleNoise() {
-            if(noiseNode) {
-                noiseNode.stop(); noiseNode = null;
-                document.getElementById('btn-toggle-noise').classList.remove('bg-white/20', 'text-white');
-                document.getElementById('btn-toggle-noise').classList.add('text-slate-400');
-            } else {
-                if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const type = document.getElementById('noise-type').value;
-                const buffer = createNoiseBuffer(audioContext, type);
-                noiseNode = audioContext.createBufferSource();
-                noiseNode.buffer = buffer;
-                noiseNode.loop = true;
-                const gainNode = audioContext.createGain();
-                gainNode.gain.value = 0.1;
-                noiseNode.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                noiseNode.start();
-                document.getElementById('btn-toggle-noise').classList.add('bg-white/20', 'text-white');
-                document.getElementById('btn-toggle-noise').classList.remove('text-slate-400');
-            }
-        }
-
-        function changeNoiseType(val) { if(noiseNode) { toggleNoise(); toggleNoise(); } }
-
         function startDictation(targetId) {
             if ('webkitSpeechRecognition' in window) {
                 const recognition = new webkitSpeechRecognition();
@@ -1263,7 +1230,7 @@
         function drop(e, status) { e.preventDefault(); const id = e.dataTransfer.getData("text"); const t = tasks.find(x => x.id === id); if(t && t.status !== status) { t.status = status; if(status === 'done') { completeTask(null, id); } else { saveTasks(); } } }
 
         function openPomodoro(id) { const t = tasks.find(x => x.id === id); document.getElementById('pomo-task-title').innerText = t.title; document.getElementById('btn-motivate').classList.remove('hidden'); document.getElementById('motivation-text').classList.add('hidden'); document.getElementById('pomodoro-modal').classList.remove('hidden'); setTimerDuration(25); isEditingTimer = false; }
-        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false; if(noiseNode) toggleNoise(); }
+        function closePomodoro() { document.getElementById('pomodoro-modal').classList.add('hidden'); stopTimer(); isEditingTimer = false;}
         
         function startTimerEdit() { 
             if(isTimerRunning) stopTimer(); 
